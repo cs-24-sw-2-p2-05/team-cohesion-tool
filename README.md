@@ -19,4 +19,4 @@ This time the challanges are even harder and the stakes... there are some stakes
 
 This has been your anouncer, now to the show.
 
-* showing some guys sitting in a room, not talking, looking into their screens *
+(showing some guys sitting in a room, not talking, looking into their screens)
