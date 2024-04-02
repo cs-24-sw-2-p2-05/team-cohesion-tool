@@ -1,7 +1,19 @@
 # team-cohesion-tool
 AAU Software 2nd semester project
 
-# Introduction
+## Running
+
+Running the project:
+```bash
+node .
+```
+
+Running the tests:
+```bash
+npm test
+```
+
+## Introduction
 Welcome, welcome, welcoooooome!
 This is the first bi-anual project that happens a whole two times a year.
 Yes you heard right a whopping two times!
