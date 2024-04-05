@@ -2,7 +2,7 @@
   "name": "team-cohesion-tool",
   "version": "0.1.0",
   "description": "AAU Software 2nd semester project",
-  "main": "server/main.js",
+  "main": "src/main.js",
   "scripts": {
     "test": "node --test"
   },
