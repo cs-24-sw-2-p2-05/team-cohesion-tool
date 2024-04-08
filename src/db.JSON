@@ -1,3 +1,94 @@
-[
-    "profiles":
-]
+{
+    "profiles": {
+        "profile_id1": {
+            "name": "Sille Smilefjæs",
+            "interests": ["skiing", "paint-ball", "hardcore roller-skating"],
+            "time_availability": ["1","2","3","4"]
+        },
+        "profile_id2": {
+            "name": "Sebbie Søvnig",
+            "interests": ["skiing", "paint-ball", "hardcore roller-skating"],
+            "time_availability": ["2","3","4"]
+        },
+        "profile_id3": {
+            "name": "Sofie The Coder",
+            "interests": ["skiing", "paint-ball", "hardcore roller-skating"],
+            "time_availability": ["3","4","5"]
+        },
+        "profile_id4": {
+            "name": "Daaaan Dandan",
+            "interests": ["skiing", "paint-ball", "hardcore roller-skating"],
+            "time_availability": ["1","2","4","5"]
+        },
+        "profile_id5": {
+            "name": "Tilede Symbolet",
+            "interests": ["skiing", "paint-ball", "hardcore roller-skating"],
+            "time_availability": ["1","2","3"]
+        },
+        "profile_id6": {
+            "name": "Astrid Astronaut",
+            "interests": ["skiing", "paint-ball", "hardcore roller-skating"],
+            "time_availability": ["2","3","4"]
+        }
+    },
+    "teams": {
+        "team_id1": {
+            "name": "Bakkeskolen",
+            "profile_ids": ["profile_id1", "profile_id2", "profile_id3", "profile_id4"],
+            "time_frame": ["1","2","3","4","5"]
+        },
+        "team_id2": {
+            "name": "Nordre Skole",
+            "profile_ids": ["profile_id5", "profile_id6"],
+            "time_frame": ["1","2","4"]
+        }
+    },
+    "activities": {
+        "activity_id1": {
+            "name": "Rollespil i den mørke skov",
+            "interests": ["interest_id1", "interest_id5"],
+            "time_interval": "1"
+        },
+        "activity_id2": {
+            "name": "pilates",
+            "interests": ["interest_id2", "interest_id6"],
+            "time_interval": "1"
+        },
+        "activity_id3": {
+            "name": "Skydiving",
+            "interests": ["interest_id2", "interest_id3"],
+            "time_interval": "1"
+        },
+        "activity_id4": {
+            "name": "LAN-party",
+            "interests": ["interest_id4", "interest_id5"],
+            "time_interval": "1"
+        },
+        "activity_id5": {
+            "name": "Paddelboarding",
+            "interests": ["interest_id6"],
+            "time_interval": "1"
+        }
+        
+    },
+    "interests": {
+        "interest_id1": {
+            "name": "Roleplay"
+        },
+        "interest_id2": {
+            "name": "Serenity"
+        },
+        "interest_id3": {
+            "name": "Getting High"
+        },
+        "interest_id4": {
+            "name": "Gaming"
+        },
+        "interest_id5": {
+            "name": "Chastity"
+        },
+        "interest_id6": {
+            "name": "Sports"
+        }
+    }
+}
