@@ -2,9 +2,7 @@
 'use strict'
 
 
-//****************************************************************
-// HTML elements show/hide function
-//****************************************************************
+/* HTML elements show/hide function */
 
 /* function showElementByID(elementID) {
     let element = document.getElementById(elementID);
@@ -36,12 +34,11 @@ function enableElementByID(elementID) {
     }
 }
 
-//****************************************************************
-// HTML Events
-//****************************************************************
+
+/* HTML DOM functions */
 
 // navMenu buttons mapping to selection
-// returns a string with selection id name, from the navMenu button id
+// Returns a string with selection id name, from the navMenu button id
 function navMenuBtnToSelection(navBtnID) {
     let selectionID = navBtnID.replace("btn", "section");
     //console.log("navMenuBtnToSelection: " + selectionID);
@@ -69,6 +66,10 @@ function navButtonHandler(event) {
     showSelection(navBtnID);
 }
 
+
+/* HTML Event listeners */
+
+// Add eventlisteners to nav buttons
 function addNavButtonEventlisteners() {
     let menuBtns = document.querySelectorAll("nav button"); // Get all nav buttons
     menuBtns.forEach(element => {
