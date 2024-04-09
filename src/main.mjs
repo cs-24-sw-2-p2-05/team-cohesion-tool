@@ -1,7 +1,11 @@
-// This is the example "Hello World" from:
-// https://expressjs.com/en/starter/hello-world.html
-const express = require('express');
-const morgan = require('morgan');
+// INFO:
+// This file contains the main logic and routing for the server
+
+// Import and exports (ES6 style)
+
+import express from 'express';
+import morgan from 'morgan';
+
 
 const logger = morgan('common');
 const app = express();
@@ -9,8 +13,11 @@ const app = express();
 app.use(logger); // Enable logging of requests.
 app.set('trust proxy', 'loopback'); // Trust locally hosted proxies for IP data.
 
+// The __dirname  = current/root directory
+const __dirname = import.meta.dirname;
+
 // Serve static files from the public directory. 
-// So that a get does not have to be create for the public directory.
+// So that a GET does not have to be create for every file in the public directory.
 app.use(express.static('src/public')); 
 
 // To see the relevant ports we can use, you can run the following command in an `ssh` session on the server:

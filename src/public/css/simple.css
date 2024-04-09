@@ -1,4 +1,58 @@
 
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+  }
+
+header {
+    color: white;
+    background-color: #009CD6;
+    font-size: 3em;
+    font-weight: bold;
+    padding: 0.5em;
+    height: 50px;
+}
+
+nav {
+    background-color: #009CD6;/* #EF5732; */
+    padding: 0.5em;
+}
+nav button {
+    background-color: #FABE29;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0.5em;
+    border: none;
+    cursor: pointer;
+}
+
+section {
+    display: none;
+    padding: 0.5em;
+}
+
 h1 {
-    color: red;
+    color: white;
+    background-color: #FABE29;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+
+footer {
+    color: white; 
+    background-color: #009CD6; 
+    padding: 0.5em; 
+}
+
+a {
+    font-weight: bold; 
+    color: #b00b1e;  
+}
+
+/* Enable Aboud section by default */
+#about_section_id {
+    display: block;
 }
