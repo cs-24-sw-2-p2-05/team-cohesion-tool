@@ -3,7 +3,7 @@
 
 /* Import and exports */
 
-//export {validateUsername, renderHMTLTeamPage, renderHTMLCalendarPage, renderHTMLHomePage, renderHTMLInterestPage, renderHTMLNav, renderHTMLProfilePage, renderHTMLResutlsPage, renderHTMLTeamCalendarPage, renderHTMLHead};
+//export {validateUsername};
 
 /* Constants */
 
@@ -23,6 +23,7 @@ function sanitizeString(str) {
     return str;
 }
 
+
 /* Valudation functions */
 
 function validateUsername(userName) {
@@ -34,14 +35,15 @@ function validateUsername(userName) {
 }
 
 
-/* Record forms functions */
-
-
 /* Database access functions */
-
 
 /* let testDBFile = fs.readFileSync("testDB.json");
 let testDB = JSON.parse(testDBFile); */
+
+
+/* Record forms functions */
+
+
 
 
 /* Conversion functions */
