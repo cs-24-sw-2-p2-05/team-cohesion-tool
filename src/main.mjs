@@ -29,10 +29,15 @@ app.use(express.static('src/public'));
 
 /* Routing */
 
+/* Basic GET routing */
+
 // GET request to the root directory, which is the index.html file
 app.get('/', (req, res) => {
     res.sendFile('./public/html/index.html', { root: __dirname });
 });
+
+
+/* Database GET routing */
 
 // Following routing mainly using route parameters to get specific data from the database
 // Routeing parametre like "/something/:parameter"
@@ -160,7 +165,34 @@ app.get("/profiles/teams/:teamId", (req, res) => {
     }
 });
 
+/* Database POST routing */
 
+// POST request to add a new profile to the database
+// - Deny if profile already exists
+
+// POST request to add activity to profile
+// -maybe cull old interested activities then
+
+// POST request to add available time to profile
+// - maybe cull old times then
+
+// POST for profile changing team
+// - Remove profile from old team
+
+// POST request to add a new team to the database, w/ attached profile
+// - Remove profile from old team
+
+// POST request to add timeframe to team
+
+// POST to calculate team compatibility based on interests in activities and available time, in the specifiec period
+
+// POST request to add a new activity to the database, w/ attached interest
+
+// POST request to add a new interest to the database
+
+
+
+// Start the server
 app.listen(port, () => {
     console.log(`Web-app listening on: http://localhost:${port}/`);
 });
