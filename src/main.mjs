@@ -165,7 +165,10 @@ app.get("/profiles/teams/:teamId", (req, res) => {
     }
 });
 
+
 /* Database POST routing */
+
+// Following should be POST or PUT
 
 // POST request to add a new profile to the database
 // - Deny if profile already exists
@@ -189,8 +192,6 @@ app.get("/profiles/teams/:teamId", (req, res) => {
 // POST request to add a new activity to the database, w/ attached interest
 
 // POST request to add a new interest to the database
-
-
 
 // Start the server
 app.listen(port, () => {

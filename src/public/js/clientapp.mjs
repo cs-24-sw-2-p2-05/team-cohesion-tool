@@ -5,6 +5,74 @@
 'use strict'
 
 
+
+/* Fetch helper functions */
+
+// its a lot of the same haha, but nice with methods for each type of fetch
+
+function consoleLogJSONData(data) {
+    Object.keys(data).forEach(key => { console.log(key + ": " + data[key]); });
+}
+
+function fetchJson(url) {
+    console.log("fetchjson: " + url);
+    return fetch(url)
+    .then(response => {
+        if (response.ok) {
+            if (response.headers.get('Content-Type').includes('application/json')) {
+                return response.json();
+            } else {
+                throw new Error("Wrong content type, expected JSON");
+            }
+        } else {
+            throw new Error(response.statusText);
+        }
+    });
+}
+
+function parseJson(url) {
+    return fetchJson(url)
+    .then(data => {
+        console.log("Fetched: " + url + ": " + data);
+        //consoleLogJSONData(data);
+        return data;
+    })
+    .catch(error => { console.error("fetchProfile: " + profileNumber + ": " + error); });
+}
+
+function fetchProfile(profileNumber) {
+    return parseJson("/profiles/" + profileNumber);
+}
+
+function fetchTeam(teamNumber) {
+    return parseJson("/teams/" + teamNumber);
+}
+
+function fetchActivity(activityNumber) {
+    return parseJson("/activities/" + activityNumber);
+}
+
+function fetchInterest(interestNumber) {
+    return parseJson("/interests/" + interestNumber);
+}
+
+function fetchAllInterests() {
+    return parseJson("/interests");
+}
+
+function fetchAllTeams() {
+    return parseJson("/teams");
+}
+
+function fetchAllActivitiesFromInterest(interestNumber) {
+    return parseJson("/activities" + "/interests/" + interestNumber);
+}
+
+function fetchAllProfilesFromTeam(teamNumber) {
+    return parseJson("/profiles" + "/teams/" + teamNumber);
+}
+
+
 /* HTML elements show/hide function */
 
 /* function showElementByID(elementID) {
@@ -44,7 +112,7 @@ function enableElementByID(elementID) {
 // Returns a string with selection id name, from the navMenu button id
 function navMenuBtnToSelection(navBtnID) {
     let selectionID = navBtnID.replace("btn", "section");
-    //console.log("navMenuBtnToSelection: " + selectionID);
+    //console.log("navMenuBtnToSelection: " + navBtnID + " to " + selectionID);
     return selectionID;
 }
 
@@ -64,6 +132,7 @@ function showSelection(navBtnID) {
     enableElementByID(navMenuBtnToSelection(navBtnID));
 }
 
+// Hide selection
 function navButtonHandler(event) {
     let navBtnID = event.target.id;
     showSelection(navBtnID);
