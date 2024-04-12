@@ -122,7 +122,7 @@ function hideAllSelections() {
     menuBtns.forEach(element => {
         let navBtnID = element.id;
         disableElementByID(navMenuBtnToSelection(navBtnID));
-        //console.log("hideAllSelections: " + navMenuBtnToSelection(navBtnID)); 
+        console.log("hideAllSelections: " + navMenuBtnToSelection(navBtnID)); 
     });
 }
 
@@ -132,7 +132,7 @@ function showSelection(navBtnID) {
     enableElementByID(navMenuBtnToSelection(navBtnID));
 }
 
-// Hide selection
+// Event handler for nav buttons
 function navButtonHandler(event) {
     let navBtnID = event.target.id;
     showSelection(navBtnID);
@@ -142,10 +142,11 @@ function navButtonHandler(event) {
 /* HTML Event listeners */
 
 // Add eventlisteners to nav buttons
-function addNavButtonEventlisteners() {
+function addNavButtonEventlisteners(event) {
     let menuBtns = document.querySelectorAll("nav button"); // Get all nav buttons
     menuBtns.forEach(element => {
-        element.addEventListener("click", navButtonHandler);
+        console.log("addNavButtonEventlisteners: " + element.id);
+        element.addEventListener("click ", navButtonHandler);
     });
 }
 
