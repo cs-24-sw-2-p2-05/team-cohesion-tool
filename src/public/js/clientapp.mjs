@@ -76,17 +76,17 @@ function fetchAllProfilesFromTeam(teamNumber) {
 /* HTML elements show/hide function */
 
 /* function showElementByID(elementID) {
-    let element = document.getElementById(elementID);
+    const element = document.getElementById(elementID);
     element.style.visibility = "visible";
 }
 
 function hideElementByID(elementID) {
-    let element = document.getElementById(elementID);
+    const element = document.getElementById(elementID);
     element.style.visibility = "hidden";
 } */
 
 function disableElementByID(elementID) {
-    let element = document.getElementById(elementID);
+    const element = document.getElementById(elementID);
     if (element) {
         //console.log("disableElementByID: " + elementID);
         element.style.display = "none";
@@ -96,7 +96,7 @@ function disableElementByID(elementID) {
 }
 
 function enableElementByID(elementID) {
-    let element = document.getElementById(elementID);
+    const element = document.getElementById(elementID);
     if (element) {
         //console.log("enableElementByID: " + elementID);
         element.style.display = "block";
@@ -111,16 +111,16 @@ function enableElementByID(elementID) {
 // navMenu buttons mapping to selection
 // Returns a string with selection id name, from the navMenu button id
 function navMenuBtnToSelection(navBtnID) {
-    let selectionID = navBtnID.replace("btn", "section");
+    const selectionID = navBtnID.replace("btn", "section");
     //console.log("navMenuBtnToSelection: " + navBtnID + " to " + selectionID);
     return selectionID;
 }
 
 // Hide all selections
 function hideAllSelections() {
-    let menuBtns = document.querySelectorAll("nav button"); // Get all nav buttons
+    const menuBtns = document.querySelectorAll("nav button"); // Get all nav buttons
     menuBtns.forEach(element => {
-        let navBtnID = element.id;
+        const navBtnID = element.id;
         disableElementByID(navMenuBtnToSelection(navBtnID));
         console.log("hideAllSelections: " + navMenuBtnToSelection(navBtnID)); 
     });
@@ -134,21 +134,17 @@ function showSelection(navBtnID) {
 
 // Event handler for nav buttons
 function navButtonHandler(event) {
-    let navBtnID = event.target.id;
+    console.log("navButtonHandler: " + event.target.id);
+    const navBtnID = event.target.id;
     showSelection(navBtnID);
 }
 
 
 /* HTML Event listeners */
 
-// Add eventlisteners to nav buttons
-function addNavButtonEventlisteners(event) {
-    let menuBtns = document.querySelectorAll("nav button"); // Get all nav buttons
-    menuBtns.forEach(element => {
-        console.log("addNavButtonEventlisteners: " + element.id);
-        element.addEventListener("click ", navButtonHandler);
-    });
-}
+// Attach the event listener to each nav button
+const navButtons = document.querySelectorAll('nav button'); // Get all nav buttons
+navButtons.forEach(button => {
+    button.addEventListener('click', navButtonHandler);
+});
 
-// If DOM is fully loaded, add eventlisteners to nav buttons
-document.addEventListener("DOMContentLoaded", addNavButtonEventlisteners);
