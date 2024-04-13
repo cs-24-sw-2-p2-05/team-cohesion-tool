@@ -59,7 +59,7 @@ function hideAllSelections() {
     menuBtns.forEach(element => {
         const navBtnID = element.id;
         disableElementByID(navMenuBtnToSelection(navBtnID));
-        console.log("hideAllSelections: " + navMenuBtnToSelection(navBtnID)); 
+        //console.log("hideAllSelections: " + navMenuBtnToSelection(navBtnID)); 
     });
 }
 
