@@ -4,78 +4,13 @@
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
 'use strict'
 
+// Import export with ES6 modules
+import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './fetch.mjs';
 
+// HTML elements show/hide function
 
-/* Fetch helper functions */
-
-// its a lot of the same haha, but nice with methods for each type of fetch
-
-function consoleLogJSONData(data) {
-    Object.keys(data).forEach(key => { console.log(key + ": " + data[key]); });
-}
-
-function fetchJson(url) {
-    console.log("fetchjson: " + url);
-    return fetch(url)
-    .then(response => {
-        if (response.ok) {
-            if (response.headers.get('Content-Type').includes('application/json')) {
-                return response.json();
-            } else {
-                throw new Error("Wrong content type, expected JSON");
-            }
-        } else {
-            throw new Error(response.statusText);
-        }
-    });
-}
-
-function parseJson(url) {
-    return fetchJson(url)
-    .then(data => {
-        console.log("Fetched: " + url + ": " + data);
-        //consoleLogJSONData(data);
-        return data;
-    })
-    .catch(error => { console.error("fetchProfile: " + profileNumber + ": " + error); });
-}
-
-function fetchProfile(profileNumber) {
-    return parseJson("/profiles/" + profileNumber);
-}
-
-function fetchTeam(teamNumber) {
-    return parseJson("/teams/" + teamNumber);
-}
-
-function fetchActivity(activityNumber) {
-    return parseJson("/activities/" + activityNumber);
-}
-
-function fetchInterest(interestNumber) {
-    return parseJson("/interests/" + interestNumber);
-}
-
-function fetchAllInterests() {
-    return parseJson("/interests");
-}
-
-function fetchAllTeams() {
-    return parseJson("/teams");
-}
-
-function fetchAllActivitiesFromInterest(interestNumber) {
-    return parseJson("/activities" + "/interests/" + interestNumber);
-}
-
-function fetchAllProfilesFromTeam(teamNumber) {
-    return parseJson("/profiles" + "/teams/" + teamNumber);
-}
-
-
-/* HTML elements show/hide function */
-
-/* function showElementByID(elementID) {
+/* // Show element by ID, setting visibility to visible, hist it is not grayed out
+function showElementByID(elementID) {
     const element = document.getElementById(elementID);
     element.style.visibility = "visible";
 }
@@ -85,6 +20,7 @@ function hideElementByID(elementID) {
     element.style.visibility = "hidden";
 } */
 
+// Disable element by ID
 function disableElementByID(elementID) {
     const element = document.getElementById(elementID);
     if (element) {
@@ -95,6 +31,7 @@ function disableElementByID(elementID) {
     }
 }
 
+// Enable element by ID
 function enableElementByID(elementID) {
     const element = document.getElementById(elementID);
     if (element) {
@@ -106,7 +43,7 @@ function enableElementByID(elementID) {
 }
 
 
-/* HTML DOM functions */
+// HTML DOM functions
 
 // navMenu buttons mapping to selection
 // Returns a string with selection id name, from the navMenu button id
@@ -140,7 +77,7 @@ function navButtonHandler(event) {
 }
 
 
-/* HTML Event listeners */
+// HTML Event listeners
 
 // Attach the event listener to each nav button
 const navButtons = document.querySelectorAll('nav button'); // Get all nav buttons

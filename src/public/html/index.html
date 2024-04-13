@@ -14,33 +14,89 @@
 
     <!-- NAV MENU -->
     <nav class="nav">
-        <button id="page1_btn_id">page1</button>
-        <button id="page2_btn_id">page2</button>
-        <button id="page3_btn_id">page3</button>
-        <button id="page4_btn_id">page4</button>
+        <button id="profile_btn_id">Profile</button>
+        <button id="interests_btn_id">Interests</button>
+        <button id="availability_btn_id">Availability</button>
+        <button id="results_btn_id">Results</button>
         <button id="about_btn_id">About</button>
     </nav>
-    <!-- page1 -->
-    <section id="page1_section_id">
-        <h1>Page 1</h1>
+    <!-- Profile and team page -->
+    <section id="profile_section_id">
+        <h1>Profile info</h1>
         <p>Page 1 feature-content</p>
     </section>
 
-    <!-- page2 -->
-    <section id="page2_section_id">
-        <h1>Page 2</h1>
-        <p>Page 2 feature-content</p>
+    <!-- Interests page -->
+    <section id="interests_section_id">
+        <h1>Declaring of interests</h1>
+        <h2>Please choose <i>all</i> the social actvities you could be interested in</h2>
+
+        <form id="interests" action="#" method="post">
+            <p>Gaming</p>
+            <input type="checkbox" id="lol" value="lol">
+            <label for="lol"> League of Legends</label><br>
+            <input type="checkbox" id="wow" value="wow">
+            <label for="wow"> World of Warcraft</label><br>
+            <input type="checkbox" id="cs" value="cs">
+            <label for="cs"> GS: GO</label><br>
+            <input type="checkbox" id="justDance" value="justDance">
+            <label for="justDance"> Just Dance</label><br>
+            <p>Arts and Crafts</p>
+            <input type="checkbox" id="needlework" value="needlework">
+            <label for="needlework" title ="Such as knitting and crochet"> Needlework</label><br>
+            <input type="checkbox" id="visualArts" value="visualArts">
+            <label for="visualArts"  title="Such as drawing and painting"> Visual Arts</label><br>
+            <input type="checkbox" id="ceramics" value="ceramics">
+            <label for="ceramics"> Ceramics</label><br>
+            <input type="checkbox" id="cutAndPaste" value="cutAndPaste">
+            <label for="cutAndPaste" title="Such as collages or christmas decorations"> Cut and Paste</label><br>
+            <p>Sports</p>
+            <input type="checkbox" id="football" value="football">
+            <label for="football"> Football</label><br>
+            <input type="checkbox" id="basket" value="basket">
+            <label for="basket"> Basketball</label><br>
+            <input type="checkbox" id="bouldering" value="bouldering">
+            <label for="bouldering"> Bouldering</label><br>
+            <p>Outdoor Recreational</p>
+            <input type="checkbox" id="bonfire" value="bonfire">
+            <label for="bonfire"> Bonfire and Smores</label><br>
+            <input type="checkbox" id="walk" value="walk">
+            <label for="walk"> Taking a Walk</label><br>
+            <input type="checkbox" id="discGolf" value="discGolf">
+            <label for="discGolf"> Disc Golf</label><br>
+            <input type="checkbox" id="aerial" value="aerial">
+            <label for="aerial"> Aerial Adventure</label><br>
+            <input type="checkbox" id="cable" value="cable">
+            <label for="cable"> Cable Park</label><br>
+            <p>Miscellaneous</p>
+            <input type="checkbox" id="boardGames" value="boardGames">
+            <label for="boardGames"> Board Games</label><br>
+            <input type="checkbox" id="karaoke" value="karaoke">
+            <label for="karaoke"> Karaoke</label><br>
+            <input type="checkbox" id="escapeRoom" value="escapeRoom">
+            <label for="escapeRoom"> Escape Room</label><br>
+            <input type="checkbox" id="bowling" value="bowling">
+            <label for="bowling"> Bowling</label><br>
+            <input type="checkbox" id="gocart" value="gocart">
+            <label for="gocart"> Gocarts</label><br>
+            <input type="checkbox" id="paintball" value="paintball">
+            <label for="paintball"> Paintball</label><br>
+            <input type="checkbox" id="miniGolf" value="miniGolf">
+            <label for="miniGolf"> Mini Golf</label><br>
+            <br><br>
+            <input type="submit" value="Submit">  
+        </form>
     </section>
 
-    <!-- page3 -->
-    <section id="page3_section_id">
-        <h1>Page 3</h1>
+    <!-- Availability page -->
+    <section id="availability_section_id">
+        <h1>Availability</h1>
         <p>Page 3 feature-content</p>
     </section>
 
-    <!-- page4 -->
-    <section id="page4_section_id">
-        <h1>Page 4</h1>
+    <!-- Results page -->
+    <section id="results_section_id">
+        <h1>Results</h1>
         <p>Page 4 feature-content</p>
     </section>
 
@@ -51,7 +107,7 @@
     </section>
 
     <!-- Script linking -->
-    <script src="js/clientapp.mjs" async defer></script>
+    <script type="module" src="js/clientapp.mjs" async defer></script>
 
     <!-- FOOTER with info, mail and GitHub -->
     <footer>
