@@ -11,7 +11,7 @@ function consoleLogJSONData(data) {
 
 // Fetch JSON data from server
 function fetchJson(url) {
-    console.log("fetchjson: " + url);
+    //console.log("fetchjson: " + url);
     return fetch(url)
     .then(response => {
         if (response.ok) {
@@ -28,7 +28,7 @@ function fetchJson(url) {
 
 // Parse JSON data from server
 function parseJson(url) {
-    console.log("parseJson: " + url);
+    //console.log("parseJson: " + url);
     return fetchJson(url)
     .then(data => {
         console.log("Fetched: " + url + ": " + data);
