@@ -84,8 +84,3 @@ const navButtons = document.querySelectorAll('nav button'); // Get all nav butto
 navButtons.forEach(button => {
     button.addEventListener('click', navButtonHandler);
 });
-
-
-
-fetchAllActivitiesFromInterest(1);
-//fetchAllProfilesFromTeam(1);
