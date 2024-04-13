@@ -71,7 +71,7 @@ function showSelection(navBtnID) {
 
 // Event handler for nav buttons
 function navButtonHandler(event) {
-    console.log("navButtonHandler: " + event.target.id);
+    //console.log("navButtonHandler: " + event.target.id);
     const navBtnID = event.target.id;
     showSelection(navBtnID);
 }
@@ -85,3 +85,7 @@ navButtons.forEach(button => {
     button.addEventListener('click', navButtonHandler);
 });
 
+
+
+fetchAllActivitiesFromInterest(1);
+//fetchAllProfilesFromTeam(1);
