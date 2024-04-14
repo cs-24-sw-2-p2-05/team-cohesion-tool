@@ -26,8 +26,8 @@ function fetchJson(url) {
     });
 }
 
-// Parse JSON data from server
-function parseJson(url) {
+// Get and parse JSON data from server
+function getJson(url) {
     //console.log("parseJson: " + url);
     return fetchJson(url)
     .then(data => {
@@ -35,7 +35,7 @@ function parseJson(url) {
         consoleLogJSONData(data);
         return data;
     })
-    .catch(error => { console.error("fetchProfile: " + profileNumber + ": " + error); });
+    .catch(error => { console.error("fetch: " + url + profileNumber + ": " + error); });
 }
 
 // A lot of fetch helper functions to get data from the server
@@ -43,41 +43,41 @@ function parseJson(url) {
 // Fetch profile data from server
 function fetchProfile(profileNumber) {
     console.log("fetchProfile: " + profileNumber);
-    return parseJson("/profiles/" + profileNumber);
+    return getJson("/profiles/" + profileNumber);
 }
 
 // Fetch team data from server
 function fetchTeam(teamNumber) {
     console.log("fetchTeam: " + teamNumber);
-    return parseJson("/teams/" + teamNumber);
+    return getJson("/teams/" + teamNumber);
 }
 
 // Fetch activity data from server
 function fetchActivity(activityNumber) {
-    return parseJson("/activities/" + activityNumber);
+    return getJson("/activities/" + activityNumber);
 }
 
 // Fetch interest data from server
 function fetchInterest(interestNumber) {
-    return parseJson("/interests/" + interestNumber);
+    return getJson("/interests/" + interestNumber);
 }
 
 // Fetch all interests data from server
 function fetchAllInterests() {
-    return parseJson("/interests");
+    return getJson("/interests");
 }
 
 // Fetch all teams data from server
 function fetchAllTeams() {
-    return parseJson("/teams");
+    return getJson("/teams");
 }
 
 // Fetch all activities data in relation to an interest from server
 function fetchAllActivitiesFromInterest(interestNumber) {
-    return parseJson("/activities" + "/interests/" + interestNumber);
+    return getJson("/activities" + "/interests/" + interestNumber);
 }
 
 // Fetch all profiles data in relation to a team from server
 function fetchAllProfilesFromTeam(teamNumber) {
-    return parseJson("/profiles" + "/teams/" + teamNumber);
+    return getJson("/profiles" + "/teams/" + teamNumber);
 }
