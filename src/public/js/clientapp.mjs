@@ -7,6 +7,72 @@
 // Import export with ES6 modules
 import { fetchCalculatedData, fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
 
+// Initial update for DOM with data gatehred from server
+function initialInterestDOMUpdate() {
+    //console.log("initialDOMUpdate");
+
+    // Get submit button of interests form
+    const submitBtn = document.querySelector("#interests_form input[type='submit']");
+
+    // Get all interests and add to interest section form
+    fetchAllInterests().then(data => {
+        // Loop through all interests and create a div and header for each
+        for (const interest in data) {
+            // Create a heading element
+            const div = document.createElement("div");
+            const heading = document.createElement("h3");
+            div.id = interest + "_div_id";
+            heading.textContent = data[interest].name;
+            heading.id = interest + "_heading_id";
+
+            // Appending the heading to the form before the submit button
+            submitBtn.before(div);
+            div.appendChild(heading);
+            
+            //console.log(interest, data[interest]);
+            //console.log(heading.textContent);
+        }
+
+        // Loop though all interests and get assosiated activities, and add chekcbox for each activity to the form
+        for (const interest in data) {
+            // Get numerical interest id
+            const interestID = interest.split("interest_id")[1];
+            // Find heading to add checkbox under
+            const interestHeading = document.getElementById(interest + "_heading_id");
+            
+            // Get all activities for the interest and add related checkboxes to DOM
+            fetchAllActivitiesFromInterest(interestID).then(activities => {
+                for (const activity in activities) {
+                    // Create input checkbox and label elements for each activity
+                    const inputCheckbox = document.createElement("input");
+                    const label = document.createElement("label");
+                    const br = document.createElement("br");
+                    inputCheckbox.type = "checkbox";
+                    inputCheckbox.id = activity + "_id";
+                    inputCheckbox.name = activity + "_name";
+                    inputCheckbox.value = activity;
+                    label.for = activity + "_id";
+                    label.textContent = activities[activity].name;
+                    
+                    // Add to DOM
+                    interestHeading.after(br);
+                    interestHeading.after(label);
+                    interestHeading.after(inputCheckbox);
+                }
+            //console.log(activities);    
+            });
+        }
+    });
+
+    // add linebreaks between activities and submit button
+    const br = document.createElement("br");
+    submitBtn.after(br);
+    console.log("initialInterestDOMUpdate: Done");
+}
+
+initialInterestDOMUpdate();
+
+
 // HTML elements show/hide function
 
 /* // Show element by ID, setting visibility to visible, hist it is not grayed out
