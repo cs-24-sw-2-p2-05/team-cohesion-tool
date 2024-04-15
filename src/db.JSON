@@ -2,32 +2,32 @@
     "profiles": {
         "profile_id1": {
             "name": "Sille Smilefjæs",
-            "activities": ["activity_id1", "activity_id2", "activity_id3"],
+            "activity_ids": ["activity_id1", "activity_id2", "activity_id3"],
             "time_availability": ["1","2","3","4"]
         },
         "profile_id2": {
             "name": "Sebbie Søvnig",
-            "activities": ["activity_id5", "activity_id4", "activity_id2"],
+            "activity_ids": ["activity_id5", "activity_id4", "activity_id2"],
             "time_availability": ["2","3","4"]
         },
         "profile_id3": {
             "name": "Sofie The Coder",
-            "activities": ["activity_id1", "activity_id5", "activity_id3"],
+            "activity_ids": ["activity_id1", "activity_id5", "activity_id3"],
             "time_availability": ["3","4","5"]
         },
         "profile_id4": {
             "name": "Daaaan Dandan",
-            "activities": ["activity_id1", "activity_id3", "activity_id5"],
+            "activity_ids": ["activity_id1", "activity_id3", "activity_id5"],
             "time_availability": ["1","2","4","5"]
         },
         "profile_id5": {
             "name": "Tilede Symbolet",
-            "activities": ["activity_id2", "activity_id4", "activity_id5"],
+            "activity_ids": ["activity_id2", "activity_id4", "activity_id5"],
             "time_availability": ["1","2","3"]
         },
         "profile_id6": {
             "name": "Astrid Astronaut",
-            "activities": ["activity_id3", "activity_id4", "activity_id1"],
+            "activity_ids": ["activity_id3", "activity_id4", "activity_id1"],
             "time_availability": ["2","3","4"]
         }
     },
@@ -47,31 +47,31 @@
         "activity_id1": {
             "name": "Rollespil i den mørke skov",
             "description": "Du må ik' være med før du får lov",
-            "interests": ["interest_id1", "interest_id5"],
+            "interest_ids": ["interest_id1", "interest_id5"],
             "time_interval": "1"
         },
         "activity_id2": {
             "name": "pilates",
             "description": "Strech your body and mind, but not like in yoga",
-            "interests": ["interest_id2", "interest_id6"],
+            "interest_ids": ["interest_id2", "interest_id6"],
             "time_interval": "1"
         },
         "activity_id3": {
             "name": "Skydiving",
             "description": "Falling form a high place",
-            "interests": ["interest_id2", "interest_id3"],
+            "interest_ids": ["interest_id2", "interest_id3"],
             "time_interval": "1"
         },
         "activity_id4": {
             "name": "LAN-party",
             "description": "Bring your own computer",
-            "interests": ["interest_id4", "interest_id5"],
+            "interest_ids": ["interest_id4", "interest_id5"],
             "time_interval": "1"
         },
         "activity_id5": {
             "name": "Paddelboarding",
             "description": "Stand on a board and paddle for your life, or else the boad will mow you down",
-            "interests": ["interest_id6"],
+            "interest_ids": ["interest_id6"],
             "time_interval": "1"
         }
     },

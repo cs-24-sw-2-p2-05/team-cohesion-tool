@@ -11,14 +11,14 @@ const __dirname = import.meta.dirname;
 // Function to route the server, GET, POST, PUT, DELETE
 function routes() {
 
-    // GET routing
+    /* GET routing */
 
     // GET request to the root directory, which is the index.html file
     app.get('/', (req, res) => {
         res.sendFile('./public/html/index.html', { root: __dirname });
     });
 
-    /* GET routing for algorithm */
+    // GET routing for algorithm
     app.get('/teams/:team/calculate', (req, res) => {
         console.log(req.params.team);
     });
@@ -96,8 +96,9 @@ function routes() {
 
     // Get request for all activities related to an interest
     app.get("/activities/interests/:interestId", (req, res) => {
-        const interestId = "interest_id" + req.params.interestId;
-        const relatedActivities = [] //= database.activities.filter(activity => activity.interest_id === interestId);
+        const interestId = "interest_id" + req.params.interestId; // Get the interestId from the request
+        const allActivities = database.activities; // Get all activities from the database
+        const relatedActivities = {} //= database.activities.filter(activity => activity.interest_id === interestId);
 
         // Check if the interest exists
         if (!database.interests[interestId]) {
@@ -105,11 +106,12 @@ function routes() {
         }
 
         // Loop though activities in the databse and match with activities from the selected interest
-        for (const activityId in database.activities) {
-            const activity = database.activities[activityId]; // Get the specific activity, that we want to check if includes specific interest
+        for (const activityId in allActivities) {
+            const activity = allActivities[activityId];
 
-            if (activity.interests.includes(interestId)) {
-                relatedActivities.push(activity); // Append to selectedActivities, as in, that is the activities that are related to the interest
+            // Add the activity to relatedActivities object if related to interest
+            if (activity.interest_ids.includes(interestId)) {
+                relatedActivities[activityId] = activity;
             }
         }
 
@@ -124,27 +126,29 @@ function routes() {
     // Get request for all profiles in a team
     app.get("/profiles/teams/:teamId", (req, res) => {
         const teamId = "team_id" + req.params.teamId;
-        const relatedProfiles = [] //= database.profiles.filter(profile => profile.team_id === teamId);
+        const specificTeam = database.teams[teamId]; // Get the specific team, that we want to find all profiles for
+        const allProfiles = database.profiles; // Get all profiles from the database
+        const relatedProfiles = {} //= database.profiles.filter(profile => profile.team_id === teamId);
         
         // check if the team exists
-        if (!database.teams[teamId]) {
+        if (!specificTeam) {
             res.status(404).send(`No team with id: ${teamId} found`);
         }
-        const specificTeam = database.teams[teamId]; // Get the specific team, that we want to find all profiles for
         console.log(specificTeam);
 
         // Loop though profiles in the databse and match with profiles from the selected team
-        for (const profileId in database.profiles) {
-            const profile = database.profiles[profileId]; // Get the specific profile, that we want to check if is included in specific team
+        for (const profileId in allProfiles) {
+            const profile = allProfiles[profileId]; // Get the specific profile, that we want to check if is included in specific team
 
+            // Append to selectedProfiles, if profile is part of a team
             if (specificTeam.profile_ids.includes(profileId)) {
                 console.log(profile);
-                relatedProfiles.push(profile); // Append to selectedProfiles, as in, that is the profiles that are related to the team
+                relatedProfiles[profileId] = profile;
             }
         }
 
         // Send data if exists, else return a 404 status code
-        if (relatedProfiles != []) {
+        if (relatedProfiles) {
             res.json(relatedProfiles);
         } else {
             res.status(404).send(`No profiles related to the specified team: ${teamId} found`);
@@ -154,30 +158,53 @@ function routes() {
 
     /* POST routing */
 
-
-    // Following should be POST or PUT
-
     // POST request to add a new profile to the database
     // - Deny if profile already exists
+    app.post('/profiles/:profileid', (req, res) => {
+        console.log(req.body);
+    });
 
-    // POST request to add activity to profile
-    // -maybe cull old interested activities then
-
+    // POST request to update related activities to profile
+    // - cull old interested activities then
+    app.post('/profiles/:profileId/activities', (req, res) => {
+        console.log(req.body);
+    });
+    
     // POST request to add available time to profile
     // - maybe cull old times then
+    app.post('/profiles/:profileId/time_availability', (req, res) => {
+        console.log(req.body);
+    });
 
     // POST for profile changing team
     // - Remove profile from old team
+    app.post('/profiles/:profileId/teams/:teamId', (req, res) => {
+        console.log(req.body);
+    });
 
     // POST request to add a new team to the database, w/ attached profile
     // - Remove profile from old team
+    app.post('/teams/:teamId', (req, res) => {
+        console.log(req.body);
+    });
 
     // POST request to add timeframe to team
+    // - maybe cull old timeframes then
+    app.post('/teams/:teamId/timeframe', (req, res) => {
+        console.log(req.body);
+    });
 
     // POST to calculate team compatibility based on interests in activities and available time, in the specifiec period
+    // unessasary now
 
     // POST request to add a new activity to the database, w/ attached interest
+    app.post('/activities/:activityId', (req, res) => {
+        console.log(req.body);
+    });
 
     // POST request to add a new interest to the database
+    app.post('/interests/:interestId', (req, res) => {
+        console.log(req.body);
+    });
 
 }
