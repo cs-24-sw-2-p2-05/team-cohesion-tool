@@ -2,7 +2,7 @@
 // This file contains feching functions for the client-side logic of the Web-application
 
 // Import export with ES6 modules
-export { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam };
+export { fetchCalculatedData, fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam };
 
 // Log JSON data to console
 function consoleLogJSONData(data) {
@@ -48,6 +48,12 @@ function postJson(url, data) {
     }
 
     return fetch(url, fetchoptions);
+}
+
+
+// fetch helper function to get calculated data from server
+function fetchCalculatedData(teamNumber) {
+    return getJson("/teams/" + teamNumber + "/calculate");
 }
 
 

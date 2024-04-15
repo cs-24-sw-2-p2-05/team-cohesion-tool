@@ -18,6 +18,11 @@ function routes() {
         res.sendFile('./public/html/index.html', { root: __dirname });
     });
 
+    /* GET routing for algorithm */
+    app.get('/teams/:team/calculate', (req, res) => {
+        console.log(req.params.team);
+    });
+
     /* Database GET routing */
 
     // Following routing mainly using route parameters to get specific data from the database
