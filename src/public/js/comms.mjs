@@ -28,11 +28,11 @@ function getJson(url) {
     return fetch(url)
     .then(verifyJson)
     .then(data => {
-        console.log("Fetched: " + url + ": " + data);
+        console.log("Fetched: " + url + ": ", data);
         //consoleLogJSONData(data);
         return data;
     })
-    .catch(error => { console.error("fetch: " + url + profileNumber + ": " + error); });
+    .catch(error => { console.error("fetch: " + url + ": " + error); });
 }
 
 // POST a JSON object to the server, thus adding or updating data in the database
@@ -100,3 +100,27 @@ function fetchAllActivitiesFromInterest(interestNumber) {
 function fetchAllProfilesFromTeam(teamNumber) {
     return getJson("/profiles" + "/teams/" + teamNumber);
 }
+
+
+// fetch POST helper function to add or update data in the server
+
+// Fetch profile data from server
+/* function postProfile(profileNumber, data) {
+    console.log("fetchProfile: " + profileNumber);
+    return postJson("/profiles/" + profileNumber);
+}
+
+// Fetch team data from server
+function postTeam(team, data, profileNumber) {
+    console.log("fetchTeam: " + teamNumber);
+    return postJson("/teams/");
+}
+
+// Fetch activity data from server
+function postActivity(activityNumber, data) {
+    return postJson("/activities/" + activityNumber);
+}
+
+// Fetch interest data from server
+function postInterest(interestNumber, data) {
+    return postJson("/interests/" + interestNumber); */
