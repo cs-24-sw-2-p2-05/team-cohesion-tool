@@ -10,33 +10,46 @@ function consoleLogJSONData(data) {
 }
 
 // Fetch JSON data from server
-function fetchJson(url) {
-    //console.log("fetchjson: " + url);
-    return fetch(url)
-    .then(response => {
-        if (response.ok) {
-            if (response.headers.get('Content-Type').includes('application/json')) {
-                return response.json();
-            } else {
-                throw new Error("Wrong content type, expected JSON");
-            }
+function verifyJson(response) {
+    if (response.ok) {
+        if (response.headers.get('Content-Type').includes('application/json')) {
+            return response.json();
         } else {
-            throw new Error(response.statusText);
+            throw new Error("Wrong content type, expected JSON");
         }
-    });
+    } else {
+        throw new Error(response.statusText);
+    }
 }
 
-// Get and parse JSON data from server
+// GET and parse JSON data from server
 function getJson(url) {
     //console.log("parseJson: " + url);
-    return fetchJson(url)
+    return fetch(url)
+    .then(verifyJson)
     .then(data => {
         console.log("Fetched: " + url + ": " + data);
-        consoleLogJSONData(data);
+        //consoleLogJSONData(data);
         return data;
     })
     .catch(error => { console.error("fetch: " + url + profileNumber + ": " + error); });
 }
+
+// POST a JSON object to the server, thus adding or updating data in the database
+function postJson(url, data) {
+    //console.log("postJson: " + url);
+    const fetchoptions = {
+        method: 'POST',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+
+    return fetch(url, fetchoptions);
+}
+
 
 // A lot of fetch helper functions to get data from the server
 
