@@ -24,7 +24,7 @@ function routes() {
         console.log(req.params.team);
     });
 
-    /* Database GET routing */
+    // Database GET routing
 
     // Following routing mainly using route parameters to get specific data from the database
     // Routeing parametre like "/something/:parameter"

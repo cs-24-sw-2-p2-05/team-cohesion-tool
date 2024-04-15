@@ -29,7 +29,6 @@ function getJson(url) {
     .then(verifyJson)
     .then(data => {
         console.log("Fetched: " + url + ": ", data);
-        //consoleLogJSONData(data);
         return data;
     })
     .catch(error => { console.error("fetch: " + url + ": " + error); });
@@ -37,7 +36,6 @@ function getJson(url) {
 
 // POST a JSON object to the server, thus adding or updating data in the database
 function postJson(url, data) {
-    //console.log("postJson: " + url);
     const fetchoptions = {
         method: 'POST',
         cache: 'no-cache',

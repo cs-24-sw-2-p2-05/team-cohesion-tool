@@ -28,9 +28,6 @@ function initialInterestDOMUpdate() {
             // Appending the heading to the form before the submit button
             submitBtn.before(div);
             div.appendChild(heading);
-            
-            //console.log(interest, data[interest]);
-            //console.log(heading.textContent);
         }
 
         // Loop though all interests and get assosiated activities, and add chekcbox for each activity to the form
@@ -59,12 +56,11 @@ function initialInterestDOMUpdate() {
                     interestHeading.after(label);
                     interestHeading.after(inputCheckbox);
                 }
-            //console.log(activities);    
             });
         }
     });
 
-    // add linebreaks between activities and submit button
+    // Add linebreaks between activities and submit button
     const br = document.createElement("br");
     submitBtn.after(br);
     console.log("initialInterestDOMUpdate: Done");
@@ -73,7 +69,7 @@ function initialInterestDOMUpdate() {
 initialInterestDOMUpdate();
 
 
-// HTML elements show/hide function
+// HTML elements show/hide functions
 
 /* // Show element by ID, setting visibility to visible, hist it is not grayed out
 function showElementByID(elementID) {
@@ -90,7 +86,6 @@ function hideElementByID(elementID) {
 function disableElementByID(elementID) {
     const element = document.getElementById(elementID);
     if (element) {
-        //console.log("disableElementByID: " + elementID);
         element.style.display = "none";
     } else {
         console.error("disableElementByID: Element not found with ID: " + elementID);
@@ -101,7 +96,6 @@ function disableElementByID(elementID) {
 function enableElementByID(elementID) {
     const element = document.getElementById(elementID);
     if (element) {
-        //console.log("enableElementByID: " + elementID);
         element.style.display = "block";
     } else {
         console.error("enableElementByID: Element not found with ID: " + elementID);
@@ -115,7 +109,6 @@ function enableElementByID(elementID) {
 // Returns a string with selection id name, from the navMenu button id
 function navMenuBtnToSelection(navBtnID) {
     const selectionID = navBtnID.replace("btn", "section");
-    //console.log("navMenuBtnToSelection: " + navBtnID + " to " + selectionID);
     return selectionID;
 }
 
@@ -125,7 +118,6 @@ function hideAllSelections() {
     menuBtns.forEach(element => {
         const navBtnID = element.id;
         disableElementByID(navMenuBtnToSelection(navBtnID));
-        //console.log("hideAllSelections: " + navMenuBtnToSelection(navBtnID)); 
     });
 }
 
@@ -137,7 +129,6 @@ function showSelection(navBtnID) {
 
 // Event handler for nav buttons
 function navButtonHandler(event) {
-    //console.log("navButtonHandler: " + event.target.id);
     const navBtnID = event.target.id;
     showSelection(navBtnID);
 }
