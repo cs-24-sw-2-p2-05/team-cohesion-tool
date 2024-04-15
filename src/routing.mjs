@@ -1,3 +1,4 @@
+// Import export with ES6 modules
 // Import database. asserted as a json file
 import database from './db.json' with { type:"json"};
 // Importing server app
@@ -11,7 +12,7 @@ const __dirname = import.meta.dirname;
 // Function to route the server, GET, POST, PUT, DELETE
 function routes() {
 
-    /* GET routing */
+    // GET routing
 
     // GET request to the root directory, which is the index.html file
     app.get('/', (req, res) => {
@@ -156,7 +157,7 @@ function routes() {
     });
 
 
-    /* POST routing */
+    // POST routing
 
     // POST request to add a new profile to the database
     // - Deny if profile already exists
