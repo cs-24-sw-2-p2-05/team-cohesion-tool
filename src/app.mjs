@@ -1,12 +1,11 @@
 // INFO:
 // This file contains the main app logic for the server
 
-/* Import and exports */
+// Import and exports with ES6 modules
 
 //export {validateUsername};
 
-/* Constants */
-
+// Constants
 
 const ValidationError = "Validation Error"; // needs moving to routing part with other errors
 
@@ -14,7 +13,7 @@ const illigalChars = ["<", ">", "&", "\"", "'", "/", "\\", "(", ")", "{", "}", "
 const minUsernamePartLength = 4;
 const maxUsernamePartLength = 20;
 
-/* Sanitize functions */
+// Sanitize functions
 
 function sanitizeString(str) {
     for (let i = 0; i < illigalChars.length; i++) {
@@ -23,8 +22,7 @@ function sanitizeString(str) {
     return str;
 }
 
-
-/* Valudation functions */
+// Valudation functions
 
 function validateUsername(userName) {
     let name = sanitizeString(userName);
@@ -34,17 +32,11 @@ function validateUsername(userName) {
     throw new Error(ValidationError);
 }
 
-
-/* Database access functions */
-
-/* let testDBFile = fs.readFileSync("testDB.json");
-let testDB = JSON.parse(testDBFile); */
+// Database access functions 
 
 
-/* Record forms functions */
+// Record forms functions
 
 
-
-
-/* Conversion functions */
+// Conversion functions
 

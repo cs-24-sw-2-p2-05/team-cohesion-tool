@@ -1,3 +1,103 @@
-[
-    "profiles":
-]
+{
+    "profiles": {
+        "profile_id1": {
+            "name": "Sille Smilefjæs",
+            "activity_ids": ["activity_id1", "activity_id2", "activity_id3"],
+            "time_availability": ["1","2","3","4"]
+        },
+        "profile_id2": {
+            "name": "Sebbie Søvnig",
+            "activity_ids": ["activity_id5", "activity_id4", "activity_id2"],
+            "time_availability": ["2","3","4"]
+        },
+        "profile_id3": {
+            "name": "Sofie The Coder",
+            "activity_ids": ["activity_id1", "activity_id5", "activity_id3"],
+            "time_availability": ["3","4","5"]
+        },
+        "profile_id4": {
+            "name": "Daaaan Dandan",
+            "activity_ids": ["activity_id1", "activity_id3", "activity_id5"],
+            "time_availability": ["1","2","4","5"]
+        },
+        "profile_id5": {
+            "name": "Tilede Symbolet",
+            "activity_ids": ["activity_id2", "activity_id4", "activity_id5"],
+            "time_availability": ["1","2","3"]
+        },
+        "profile_id6": {
+            "name": "Astrid Astronaut",
+            "activity_ids": ["activity_id3", "activity_id4", "activity_id1"],
+            "time_availability": ["2","3","4"]
+        }
+    },
+    "teams": {
+        "team_id1": {
+            "name": "Bakkeskolen",
+            "profile_ids": ["profile_id1", "profile_id2", "profile_id3", "profile_id4"],
+            "time_frame": ["1","2","3","4","5"]
+        },
+        "team_id2": {
+            "name": "Nordre Skole",
+            "profile_ids": ["profile_id5", "profile_id6"],
+            "time_frame": ["1","2","4"]
+        }
+    },
+    "activities": {
+        "activity_id1": {
+            "name": "Rollespil i den mørke skov",
+            "description": "Du må ik' være med før du får lov",
+            "main_interest_id": "interest_id1",
+            "all_interest_ids": ["interest_id1", "interest_id5"],
+            "time_interval": "1"
+        },
+        "activity_id2": {
+            "name": "pilates",
+            "description": "Strech your body and mind, but not like in yoga",
+            "main_interest_id": "interest_id2",
+            "all_interest_ids": ["interest_id2", "interest_id6"],
+            "time_interval": "1"
+        },
+        "activity_id3": {
+            "name": "Skydiving",
+            "description": "Falling form a high place",
+            "main_interest_id": "interest_id2",
+            "all_interest_ids": ["interest_id2", "interest_id3"],
+            "time_interval": "1"
+        },
+        "activity_id4": {
+            "name": "LAN-party",
+            "description": "Bring your own computer",
+            "main_interest_id": "interest_id4",
+            "all_interest_ids": ["interest_id4", "interest_id5"],
+            "time_interval": "1"
+        },
+        "activity_id5": {
+            "name": "Paddelboarding",
+            "description": "Stand on a board and paddle for your life, or else the boad will mow you down",
+            "main_interest_id": "interest_id6",
+            "all_interest_ids": ["interest_id6"],
+            "time_interval": "1"
+        }
+    },
+    "interests": {
+        "interest_id1": {
+            "name": "Roleplay"
+        },
+        "interest_id2": {
+            "name": "Serenity"
+        },
+        "interest_id3": {
+            "name": "Getting High"
+        },
+        "interest_id4": {
+            "name": "Gaming"
+        },
+        "interest_id5": {
+            "name": "Chastity"
+        },
+        "interest_id6": {
+            "name": "Sports"
+        }
+    }
+}
