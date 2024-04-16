@@ -2,7 +2,9 @@
 // This file contains feching functions for the client-side logic of the Web-application
 
 // Import export with ES6 modules
-export { fetchCalculatedData, fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam };
+export { fetchCalculatedData }
+export { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam };
+export { postProfile, postTeam, postActivity, postInterest };
 
 // Log JSON data to console
 function consoleLogJSONData(data) {
@@ -28,7 +30,7 @@ function getJson(url) {
     return fetch(url)
     .then(verifyJson)
     .then(data => {
-        console.log("Fetched: " + url + ": ", data);
+        console.log("FetchGet: " + url + ": ", data);
         return data;
     })
     .catch(error => { console.error("fetch: " + url + ": " + error); });
@@ -43,9 +45,11 @@ function postJson(url, data) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    }
-
-    return fetch(url, fetchoptions);
+    };
+    console.log("FetchPost: " + url + ": ", data);
+    return fetch(url, fetchoptions)
+    .then(verifyJson)
+    .catch(error => { console.error("fetch: " + url + ": " + error); });
 }
 
 
@@ -103,22 +107,23 @@ function fetchAllProfilesFromTeam(teamNumber) {
 // fetch POST helper function to add or update data in the server
 
 // Fetch profile data from server
-/* function postProfile(profileNumber, data) {
-    console.log("fetchProfile: " + profileNumber);
-    return postJson("/profiles/" + profileNumber);
+function postProfile(profileNumber, data) {
+    console.log("fetchProfile: " + profileNumber, data);
+    return postJson("/profiles/" + profileNumber, data);
 }
 
 // Fetch team data from server
-function postTeam(team, data, profileNumber) {
-    console.log("fetchTeam: " + teamNumber);
-    return postJson("/teams/");
+function postTeam(teamNumber, data, profileNumber) {
+    console.log("fetchTeam: " + teamNumber, profileNumber, data);
+    return postJson("/teams/" + teamNumber, data);
 }
 
 // Fetch activity data from server
 function postActivity(activityNumber, data) {
-    return postJson("/activities/" + activityNumber);
+    return postJson("/activities/" + activityNumber, data);
 }
 
 // Fetch interest data from server
 function postInterest(interestNumber, data) {
-    return postJson("/interests/" + interestNumber); */
+    return postJson("/interests/" + interestNumber, data);
+}

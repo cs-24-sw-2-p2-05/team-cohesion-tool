@@ -5,8 +5,9 @@
 'use strict'
 
 // Import export with ES6 modules
-import { fetchCalculatedData, fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, 
-    fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
+import { fetchCalculatedData } from './comms.mjs';
+import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
+import { postProfile } from './comms.mjs';
 
 
 function initialDOMUpdate() {
@@ -152,4 +153,17 @@ function navButtonHandler(event) {
 const navButtons = document.querySelectorAll('nav button'); // Get all nav buttons
 navButtons.forEach(button => {
     button.addEventListener('click', navButtonHandler);
+});
+
+const testBtn = document.getElementById("test_btn_id");
+testBtn.addEventListener("click", () => {
+    console.log("test_btn_id clicked");
+    const test_json = {
+        "profile_id1": {
+            "name": "Sille Smilefjæs",
+            "activity_ids": ["activity_id1", "activity_id2", "activity_id3"],
+            "time_availability": ["1","2","3","4"]
+        }
+    };
+    postProfile(1, test_json);
 });
