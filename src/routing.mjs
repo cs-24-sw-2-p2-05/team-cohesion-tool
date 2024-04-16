@@ -95,7 +95,7 @@ function routes() {
         }
     });
 
-    // Get request for all activities related to an interest
+    // Get request for all activities with spcific main interest
     app.get("/activities/interests/:interestId", (req, res) => {
         const interestId = "interest_id" + req.params.interestId; // Get the interestId from the request
         const allActivities = database.activities; // Get all activities from the database
@@ -110,8 +110,8 @@ function routes() {
         for (const activityId in allActivities) {
             const activity = allActivities[activityId];
 
-            // Add the activity to relatedActivities object if related to interest
-            if (activity.interest_ids.includes(interestId)) {
+            // Add the activity to relatedActivities object if main interest is spesific interest
+            if (activity.main_interest_id == interestId) {
                 relatedActivities[activityId] = activity;
             }
         }

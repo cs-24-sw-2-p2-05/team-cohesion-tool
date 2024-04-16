@@ -5,11 +5,13 @@
 'use strict'
 
 // Import export with ES6 modules
-import { fetchCalculatedData, fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
+import { fetchCalculatedData, fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, 
+    fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
 
 
 function initialDOMUpdate() {
     initialInterestDOMUpdate();
+    console.log("initialInterestDOMUpdate: Done");
 }
 
 function createCheckbox(activities, activity, interestHeading) {
@@ -34,8 +36,6 @@ function createCheckbox(activities, activity, interestHeading) {
 
 // Initial update for DOM with data gatehred from server
 function initialInterestDOMUpdate() {
-    //console.log("initialDOMUpdate");
-
     // Get submit button of interests form
     const submitBtn = document.querySelector("#interests_form input[type='submit']");
 
@@ -55,7 +55,8 @@ function initialInterestDOMUpdate() {
             div.appendChild(heading);
         }
 
-        // Loop though all interests and get assosiated activities, and add chekcbox for each activity to the form
+        // Loop though all interests and get assosiated activities with main interest set to spesific interest,
+        // and add chekcbox for each activity to the form
         for (const interest in data) {
             // Get numerical interest id
             const interestID = interest.split("interest_id")[1];
@@ -75,7 +76,6 @@ function initialInterestDOMUpdate() {
     // Add linebreaks between activities and submit button
     const br = document.createElement("br");
     submitBtn.after(br);
-    console.log("initialInterestDOMUpdate: Done");
 }
 
 initialDOMUpdate();

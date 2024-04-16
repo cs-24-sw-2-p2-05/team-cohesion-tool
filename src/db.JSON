@@ -47,31 +47,36 @@
         "activity_id1": {
             "name": "Rollespil i den mørke skov",
             "description": "Du må ik' være med før du får lov",
-            "interest_ids": ["interest_id1", "interest_id5"],
+            "main_interest_id": "interest_id1",
+            "all_interest_ids": ["interest_id1", "interest_id5"],
             "time_interval": "1"
         },
         "activity_id2": {
             "name": "pilates",
             "description": "Strech your body and mind, but not like in yoga",
-            "interest_ids": ["interest_id2", "interest_id6"],
+            "main_interest_id": "interest_id2",
+            "all_interest_ids": ["interest_id2", "interest_id6"],
             "time_interval": "1"
         },
         "activity_id3": {
             "name": "Skydiving",
             "description": "Falling form a high place",
-            "interest_ids": ["interest_id2", "interest_id3"],
+            "main_interest_id": "interest_id2",
+            "all_interest_ids": ["interest_id2", "interest_id3"],
             "time_interval": "1"
         },
         "activity_id4": {
             "name": "LAN-party",
             "description": "Bring your own computer",
-            "interest_ids": ["interest_id4", "interest_id5"],
+            "main_interest_id": "interest_id4",
+            "all_interest_ids": ["interest_id4", "interest_id5"],
             "time_interval": "1"
         },
         "activity_id5": {
             "name": "Paddelboarding",
             "description": "Stand on a board and paddle for your life, or else the boad will mow you down",
-            "interest_ids": ["interest_id6"],
+            "main_interest_id": "interest_id6",
+            "all_interest_ids": ["interest_id6"],
             "time_interval": "1"
         }
     },

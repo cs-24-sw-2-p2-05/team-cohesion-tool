@@ -89,7 +89,7 @@ function fetchAllTeams() {
     return getJson("/teams");
 }
 
-// Fetch all activities data in relation to an interest from server
+// Fetch all activities data in relation to an main interest from server
 function fetchAllActivitiesFromInterest(interestNumber) {
     return getJson("/activities" + "/interests/" + interestNumber);
 }
