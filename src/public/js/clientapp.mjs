@@ -7,6 +7,31 @@
 // Import export with ES6 modules
 import { fetchCalculatedData, fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
 
+
+function initialDOMUpdate() {
+    initialInterestDOMUpdate();
+}
+
+function createCheckbox(activities, activity, interestHeading) {
+    // Create input checkbox and label elements for each activity
+    const inputCheckbox = document.createElement("input");
+    const label = document.createElement("label");
+    const br = document.createElement("br");
+
+    // Set attributes for checkbox and label
+    inputCheckbox.type = "checkbox";
+    inputCheckbox.id = activity + "_id";
+    inputCheckbox.name = activity + "_name";
+    inputCheckbox.value = activity;
+    label.htmlFor = activity + "_id";
+    label.textContent = activities[activity].name;
+    
+    // Append checkbox and label after the interest heading
+    interestHeading.after(br);
+    interestHeading.after(label);
+    interestHeading.after(inputCheckbox);
+}
+
 // Initial update for DOM with data gatehred from server
 function initialInterestDOMUpdate() {
     //console.log("initialDOMUpdate");
@@ -41,20 +66,7 @@ function initialInterestDOMUpdate() {
             fetchAllActivitiesFromInterest(interestID).then(activities => {
                 for (const activity in activities) {
                     // Create input checkbox and label elements for each activity
-                    const inputCheckbox = document.createElement("input");
-                    const label = document.createElement("label");
-                    const br = document.createElement("br");
-                    inputCheckbox.type = "checkbox";
-                    inputCheckbox.id = activity + "_id";
-                    inputCheckbox.name = activity + "_name";
-                    inputCheckbox.value = activity;
-                    label.for = activity + "_id";
-                    label.textContent = activities[activity].name;
-                    
-                    // Add to DOM
-                    interestHeading.after(br);
-                    interestHeading.after(label);
-                    interestHeading.after(inputCheckbox);
+                    createCheckbox(activities, activity, interestHeading);
                 }
             });
         }
@@ -66,7 +78,7 @@ function initialInterestDOMUpdate() {
     console.log("initialInterestDOMUpdate: Done");
 }
 
-initialInterestDOMUpdate();
+initialDOMUpdate();
 
 
 // HTML elements show/hide functions
