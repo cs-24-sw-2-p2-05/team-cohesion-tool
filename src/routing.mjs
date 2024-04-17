@@ -5,6 +5,8 @@ import database from './db.json' with { type:"json"};
 import { app } from './main.mjs';
 // Import express routes
 export { routes };
+// Import object constructors
+import { Profile, Team, Activity, Interest } from './objects.mjs';
 
 // The __dirname  = current/root directory
 const __dirname = import.meta.dirname;
@@ -159,7 +161,7 @@ function routes() {
 
     // POST routing
 
-    // POST request to add a new profile to the database
+    // POST request to add a new profile or add to a profile to the database
     // - Deny if profile already exists
     app.post('/profiles/:profileid', (req, res) => {
         console.log(req.body);
@@ -196,7 +198,7 @@ function routes() {
     });
 
     // POST to calculate team compatibility based on interests in activities and available time, in the specifiec period
-    // unessasary now
+    // Unessasary now
 
     // POST request to add a new activity to the database, w/ attached interest
     app.post('/activities/:activityId', (req, res) => {
