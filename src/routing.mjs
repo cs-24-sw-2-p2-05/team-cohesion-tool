@@ -20,9 +20,11 @@ import { Profile, Team, Activity, Interest } from "./objects.mjs";
 const __dirname = import.meta.dirname;
 
 
+// Function to write the database to a file
+// TOFO: Add better error handling
 function databaseWriteToFile() {
-    // TODO: Write database to file, so that is it actually saved
-    fs.writeFile("./db.json", JSON.stringify(database), (err) => {
+    // Write the database to a file, with linebreaks
+    fs.writeFile("./db.json", JSON.stringify(database, null, 4), (err) => {
         if (err) {
             console.error(err);
             return;
