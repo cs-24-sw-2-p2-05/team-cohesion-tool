@@ -2,12 +2,12 @@
 // This file contains the main client-side logic for the Web-application
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
-'use strict'
+"use strict"
 
 // Import export with ES6 modules
-import { fetchCalculatedData } from './comms.mjs';
-import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
-import { postProfile, postTeam, postActivity, postInterest  } from './comms.mjs';
+import { fetchCalculatedData } from "./comms.mjs";
+import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from "./comms.mjs";
+import { postProfile, postTeam, postActivity, postInterest  } from "./comms.mjs";
 
 // DOM update when entering
 function initialDOMUpdate() {
@@ -151,9 +151,9 @@ function navButtonHandler(event) {
 // HTML Event listeners
 
 // Attach the event listener to each nav button
-const navButtons = document.querySelectorAll('nav button'); // Get all nav buttons
+const navButtons = document.querySelectorAll("nav button"); // Get all nav buttons
 navButtons.forEach(button => {
-    button.addEventListener('click', navButtonHandler);
+    button.addEventListener("click", navButtonHandler);
 });
 
 // Test buttons

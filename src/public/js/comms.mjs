@@ -2,7 +2,7 @@
 // This file contains feching functions for the client-side logic of the Web-application
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
-'use strict'
+"use strict"
 
 // Import export with ES6 modules
 export { fetchCalculatedData }
@@ -17,8 +17,8 @@ function consoleLogJSONData(data) {
 // Fetch JSON data from server
 function verifyJson(response) {
     if (response.ok) {
-        console.log(response.headers.get('Content-Type'))
-        if (response.headers.get('Content-Type').includes('application/json')) {
+        console.log(response.headers.get("Content-Type"))
+        if (response.headers.get("Content-Type").includes("application/json")) {
             return response.json();
         } else {
             throw new Error("Wrong content type, expected JSON");
@@ -42,10 +42,10 @@ function getJson(url) {
 // POST a JSON object to the server, thus adding or updating data in the database
 function postJson(url, data) {
     const fetchoptions = {
-        method: 'POST',
-        cache: 'no-cache',
+        method: "POST",
+        cache: "no-cache",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     };
