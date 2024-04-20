@@ -15,7 +15,6 @@ import { app } from "./main.mjs";
 export { routes };
 // Import object constructors
 import { Profile, Team, Activity, Interest } from "./objects.mjs";
-import e from "express";
 
 // The __dirname  = current/root directory
 const __dirname = import.meta.dirname;
