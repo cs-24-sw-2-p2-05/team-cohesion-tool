@@ -2,7 +2,7 @@
 // This file contains the main logic and routing for the server
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
-"use strict"
+"use strict";
 
 // Import and exports (ES6 style)
 import express from "express";
