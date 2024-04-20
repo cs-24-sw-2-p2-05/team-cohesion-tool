@@ -7,7 +7,7 @@
 // Import export with ES6 modules
 import { fetchCalculatedData } from './comms.mjs';
 import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
-import { postProfile } from './comms.mjs';
+import { postProfile, postTeam, postActivity, postInterest  } from './comms.mjs';
 
 
 function initialDOMUpdate() {
@@ -28,6 +28,7 @@ function createCheckbox(activities, activity, interestHeading) {
     inputCheckbox.value = activity;
     label.htmlFor = activity + "_id";
     label.textContent = activities[activity].name;
+    label.title = activities[activity].description;
     
     // Append checkbox and label after the interest heading
     interestHeading.after(br);
@@ -99,7 +100,7 @@ function hideElementByID(elementID) {
 function disableElementByID(elementID) {
     const element = document.getElementById(elementID);
     if (element) {
-        element.style.display = "none";
+        element.style.display = "none"; 
     } else {
         console.error("disableElementByID: Element not found with ID: " + elementID);
     }
@@ -155,15 +156,104 @@ navButtons.forEach(button => {
     button.addEventListener('click', navButtonHandler);
 });
 
-const testBtn = document.getElementById("test_btn_id");
-testBtn.addEventListener("click", () => {
-    console.log("test_btn_id clicked");
+// Test buttons
+
+const ProfileBtn = document.getElementById("test_profile_btn_id");
+ProfileBtn.addEventListener("click", () => {
+    console.log("Clicked: test_profile_btn_id");
     const test_json = {
-        "profile_id1": {
-            "name": "Sille Smilefjæs",
+        "profile_id999": {
+            "name": "Test Testesen",
             "activity_ids": ["activity_id1", "activity_id2", "activity_id3"],
-            "time_availability": ["1","2","3","4"]
+            "time_availability": ["f1t2","f2t3","f3t4","f4t5"]
         }
     };
-    postProfile(1, test_json);
+    postProfile(999, test_json);
+    // TODO: UPDATE DOM
+});
+
+/* const ProfileActivitiesBtn = document.getElementById("test_profile_activities_btn_id");
+ProfileActivitiesBtn.addEventListener("click", () => {
+    console.log("Clicked: test_profile_activities_btn_id");
+    const test_json = {
+        "profile_id999": {
+            "activity_ids": ["activity_id1", "activity_id3"],
+        }
+    };
+    postProfile(999, test_json);
+}); */
+
+/* const ProfileTimeBtn = document.getElementById("test_profile_time_availability_btn_id");
+ProfileTimeBtn.addEventListener("click", () => {
+    console.log("Clicked: test_profile_time_availability_btn_id");
+    const test_json = {
+        "profile_id999": {
+            "time_availability": ["f1t2","f2t3","f3t4","f4t5"]
+        }
+    };
+    postProfile(999, test_json);
+}); */
+
+const TeamBtn = document.getElementById("test_teams_btn_id");
+TeamBtn.addEventListener("click", () => {
+    console.log("Clicked: test_teams_btn_id");
+    const test_json = {
+        "team_id999": {
+            "name": "Bakkeskolen",
+            "profile_ids": ["profile_id999", "profile_id998", "profile_id997"],
+            "time_frame": ["1","2","3","4","5"]
+        },
+    };
+    postTeam(999, test_json);
+    // TODO: UPDATE DOM
+});
+
+/* const TeamAddProfileBtn = document.getElementById("test_team_profile_btn_id");
+TeamAddProfileBtn.addEventListener("click", () => {
+    console.log("Clicked: test_team_profile_btn_id");
+    const test_json = {
+        "team_id999": {
+            "profile_ids": ["profile_id999"],
+        },
+    };
+    postTeam(999, test_json);
+}); */
+
+/* const TeamTimeBtn = document.getElementById("test_teams_timeframe_btn_id");
+TeamTimeBtn.addEventListener("click", () => {
+    console.log("Clicked: test_teams_timeframe_btn_id");
+    const test_json = {
+        "team_id999": {
+            "time_frame": ["1","2","3","4","5"]
+        },
+    };
+    postTeam(999, test_json);
+}); */
+
+const ActivityBtn = document.getElementById("test_activities_btn_id");
+ActivityBtn.addEventListener("click", () => {
+    console.log("Clicked: test_activities_btn_id");
+    const test_json = {
+        "activity_id1": {
+            "name": "Star Wars Marathon",
+            "description": "Smelly Boys watching Star Wars all day long",
+            "main_interest_id": "interest_id999",
+            "all_interest_ids": ["interest_id999", "interest_id998"],
+            "time_interval": "1"
+        },
+    };
+    postActivity(999, test_json);
+    // TODO: UPDATE DOM
+});
+
+const InterestBtn = document.getElementById("test_interests_btn_id");
+InterestBtn.addEventListener("click", () => {
+    console.log("Clicked: test_interests_btn_id");
+    const test_json = {
+        "interest_id999": {
+            "name": "Filmwatchathons"
+        },
+    };
+    postInterest(999, test_json);
+    // TODO: UPDATE DOM
 });

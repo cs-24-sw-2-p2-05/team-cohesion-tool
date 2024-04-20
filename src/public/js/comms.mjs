@@ -14,6 +14,7 @@ function consoleLogJSONData(data) {
 // Fetch JSON data from server
 function verifyJson(response) {
     if (response.ok) {
+        console.log(response.headers.get('Content-Type'))
         if (response.headers.get('Content-Type').includes('application/json')) {
             return response.json();
         } else {
@@ -26,7 +27,6 @@ function verifyJson(response) {
 
 // GET and parse JSON data from server
 function getJson(url) {
-    //console.log("parseJson: " + url);
     return fetch(url)
     .then(verifyJson)
     .then(data => {
@@ -46,9 +46,18 @@ function postJson(url, data) {
         },
         body: JSON.stringify(data)
     };
-    console.log("FetchPost: " + url + ": ", data);
     return fetch(url, fetchoptions)
-    .then(verifyJson)
+    .then(response => { 
+        if (response.ok) { 
+            return response.ok; 
+        } else { 
+            throw new Error(response.statusText); 
+        } 
+    })
+    .then(data => {
+        console.log("FetchPost: " + url + ": ", data);
+        return data;
+    })
     .catch(error => { console.error("fetch: " + url + ": " + error); });
 }
 
@@ -106,24 +115,26 @@ function fetchAllProfilesFromTeam(teamNumber) {
 
 // fetch POST helper function to add or update data in the server
 
-// Fetch profile data from server
+// Fetch POST profile data to server
 function postProfile(profileNumber, data) {
     console.log("fetchProfile: " + profileNumber, data);
     return postJson("/profiles/" + profileNumber, data);
 }
 
-// Fetch team data from server
-function postTeam(teamNumber, data, profileNumber) {
-    console.log("fetchTeam: " + teamNumber, profileNumber, data);
+// Fetch POST team data to server
+function postTeam(teamNumber, data) {
+    console.log("fetchTeam: " + teamNumber, data);
     return postJson("/teams/" + teamNumber, data);
 }
 
-// Fetch activity data from server
+// Fetch POST activity data to server
 function postActivity(activityNumber, data) {
+    console.log("fetchActivity: " + activityNumber, data);
     return postJson("/activities/" + activityNumber, data);
 }
 
-// Fetch interest data from server
+// Fetch POST interest data to server
 function postInterest(interestNumber, data) {
+    console.log("fetchInterest: " + interestNumber, data);
     return postJson("/interests/" + interestNumber, data);
 }

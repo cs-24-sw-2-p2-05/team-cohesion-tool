@@ -11,6 +11,12 @@ import { Profile, Team, Activity, Interest } from './objects.mjs';
 // The __dirname  = current/root directory
 const __dirname = import.meta.dirname;
 
+
+function databaseWriteToFile() {
+    // TODO: Write database to file, so that is it actually saved
+}
+
+
 // Function to route the server, GET, POST, PUT, DELETE
 function routes() {
 
@@ -158,56 +164,109 @@ function routes() {
         }
     });
 
-
     // POST routing
 
     // POST request to add a new profile or add to a profile to the database
     // - Deny if profile already exists
-    app.post('/profiles/:profileid', (req, res) => {
+    app.post('/profiles/:profileId', (req, res) => {
+        const newProfile = req.body["profile_id" + req.params.profileId];
+
+        // Add profile, or replace if already exists
+        database.profiles["profile_id" + req.params.profileId] = newProfile;
+
+        // Save database to file
+        databaseWriteToFile();
+
         console.log(req.body);
+        console.log(database.profiles);
+
+        const response = {
+            message: "POST: Profile added/altered successfully",
+        }
+        res.status(200).json(response); // Send status code 200 back to client
     });
 
     // POST request to update related activities to profile
     // - cull old interested activities then
-    app.post('/profiles/:profileId/activities', (req, res) => {
+    /* app.post('/profiles/:profileId/activities', (req, res) => {
         console.log(req.body);
-    });
+        res.status(200); // Send status code 200 back to client
+    }); */
     
     // POST request to add available time to profile
     // - maybe cull old times then
-    app.post('/profiles/:profileId/time_availability', (req, res) => {
+    /* app.post('/profiles/:profileId/time_availability', (req, res) => {
         console.log(req.body);
-    });
+        res.status(200); // Send status code 200 back to client
+    }); */
 
     // POST for profile changing team
     // - Remove profile from old team
-    app.post('/profiles/:profileId/teams/:teamId', (req, res) => {
+    /* app.post('/profiles/:profileId/team/:teamId', (req, res) => {
         console.log(req.body);
-    });
+        res.status(200); // Send status code 200 back to client
+    }); */
 
     // POST request to add a new team to the database, w/ attached profile
     // - Remove profile from old team
     app.post('/teams/:teamId', (req, res) => {
+        const newTeam = req.body["team_id" + req.params.teamId];
+
+        // Add team, or replace if already exists
+        database.teams["team_id" + req.params.teamId] = newTeam;
+
+        // Save database to file
+        databaseWriteToFile();
+
         console.log(req.body);
+        console.log(database.teams);
+
+        const response = { message: "POST: Team added/altered successfully" }
+        res.status(200).json(response); // Send status code 200 back to client
     });
 
     // POST request to add timeframe to team
     // - maybe cull old timeframes then
-    app.post('/teams/:teamId/timeframe', (req, res) => {
+    /* app.post('/teams/:teamId/timeframe', (req, res) => {
         console.log(req.body);
-    });
+        res.status(200); // Send status code 200 back to client
+    }); */
 
     // POST to calculate team compatibility based on interests in activities and available time, in the specifiec period
     // Unessasary now
 
     // POST request to add a new activity to the database, w/ attached interest
     app.post('/activities/:activityId', (req, res) => {
+        const newActivity = req.body["activity_id" + req.params.activityId];
+
+        // Add activity, or replace if already exists
+        database.activities["activity_id" + req.params.activityId] = newActivity;
+
+        // Save database to file
+        databaseWriteToFile();
+
         console.log(req.body);
+        console.log(database.activities);
+
+        const response = { message: "POST: Activity added/altered successfully" }
+        res.status(200).json(response); // Send status code 200 back to client
     });
 
     // POST request to add a new interest to the database
     app.post('/interests/:interestId', (req, res) => {
+        const newInterest = req.body["interest_id" + req.params.interestId];
+
+        // Add interest, or replace if already exists
+        database.interests["interest_id" + req.params.interestId] = newInterest;
+
+        // Save database to file
+        databaseWriteToFile();
+
         console.log(req.body);
+        console.log(database.activities);
+
+        const response = { message: "POST: Activity added/altered successfully" }
+        res.status(200).json(response); // Send status code 200 back to client
     });
 
 }
