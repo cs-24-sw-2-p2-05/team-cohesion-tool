@@ -9,7 +9,7 @@ import { fetchCalculatedData } from './comms.mjs';
 import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
 import { postProfile, postTeam, postActivity, postInterest  } from './comms.mjs';
 
-
+// DOM update when entering
 function initialDOMUpdate() {
     initialInterestDOMUpdate();
     console.log("initialInterestDOMUpdate: Done");
