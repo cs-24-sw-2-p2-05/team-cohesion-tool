@@ -1,4 +1,6 @@
 // Import export with ES6 modules
+// Import module from node standard library
+import fs from 'fs';
 // Import database. asserted as a json file
 import database from './db.json' with { type:"json"};
 // Importing server app
@@ -7,6 +9,7 @@ import { app } from './main.mjs';
 export { routes };
 // Import object constructors
 import { Profile, Team, Activity, Interest } from './objects.mjs';
+import e from 'express';
 
 // The __dirname  = current/root directory
 const __dirname = import.meta.dirname;
@@ -14,6 +17,15 @@ const __dirname = import.meta.dirname;
 
 function databaseWriteToFile() {
     // TODO: Write database to file, so that is it actually saved
+    fs.writeFile("./db.json", JSON.stringify(database), (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        } else {
+            console.log("Database saved to file");
+            return;
+        }
+    });
 }
 
 
