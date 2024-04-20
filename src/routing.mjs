@@ -1,3 +1,9 @@
+// INFO:
+// This file contains the routing for the server
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
+'use strict'
+
 // Import export with ES6 modules
 // Import module from node standard library
 import fs from 'fs';
