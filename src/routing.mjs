@@ -29,6 +29,32 @@ function getInduvidualDataFromJSONFileWithResponse(type, id, res) {
     }
 }
 
+// Update the database with new data or delete, from POST request
+// Returns response (res)
+// TODO make work
+function postUpdateDatabase(type, id, req) {
+    const oldObject = null; // Get the old object from the database
+    const newObject = null; // Get the new object from the request body
+    const mergedObject = Object.assign({}, oldObject, newObject); // Merge the old object with the new object, new data overwiting old data
+
+    // Delete if client update is empty, indicating that the object should be deleted
+    // Else add or update the object
+    if (Object.keys(newObject).length === 0) {
+        delete database[type][type + id];
+    } else {
+        database[type][type + id] = mergedObject;
+    }
+
+    // Save database to file
+    databaseWriteToFile();
+
+    console.log(newObject + "\n\r");
+    console.log(database[type]);
+
+    // Return response
+    return { message: `POST: ${type} added/altered successfully` }
+}
+
 // Function to write the database to a file
 // TOFO: Add better error handling
 function databaseWriteToFile() {
