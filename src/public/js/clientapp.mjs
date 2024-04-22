@@ -85,17 +85,6 @@ initialDOMUpdate();
 
 // HTML elements show/hide functions
 
-/* // Show element by ID, setting visibility to visible, hist it is not grayed out
-function showElementByID(elementID) {
-    const element = document.getElementById(elementID);
-    element.style.visibility = "visible";
-}
-
-function hideElementByID(elementID) {
-    const element = document.getElementById(elementID);
-    element.style.visibility = "hidden";
-} */
-
 // Disable element by ID
 function disableElementByID(elementID) {
     const element = document.getElementById(elementID);
@@ -172,28 +161,6 @@ ProfileBtn.addEventListener("click", () => {
     // TODO: UPDATE DOM
 });
 
-/* const ProfileActivitiesBtn = document.getElementById("test_profile_activities_btn_id");
-ProfileActivitiesBtn.addEventListener("click", () => {
-    console.log("Clicked: test_profile_activities_btn_id");
-    const test_json = {
-        "profile_id999": {
-            "activity_ids": ["activity_id1", "activity_id3"],
-        }
-    };
-    postProfile(999, test_json);
-}); */
-
-/* const ProfileTimeBtn = document.getElementById("test_profile_time_availability_btn_id");
-ProfileTimeBtn.addEventListener("click", () => {
-    console.log("Clicked: test_profile_time_availability_btn_id");
-    const test_json = {
-        "profile_id999": {
-            "time_availability": ["f1t2","f2t3","f3t4","f4t5"]
-        }
-    };
-    postProfile(999, test_json);
-}); */
-
 const TeamBtn = document.getElementById("test_teams_btn_id");
 TeamBtn.addEventListener("click", () => {
     console.log("Clicked: test_teams_btn_id");
@@ -207,28 +174,6 @@ TeamBtn.addEventListener("click", () => {
     postTeam(999, test_json);
     // TODO: UPDATE DOM
 });
-
-/* const TeamAddProfileBtn = document.getElementById("test_team_profile_btn_id");
-TeamAddProfileBtn.addEventListener("click", () => {
-    console.log("Clicked: test_team_profile_btn_id");
-    const test_json = {
-        "team_id999": {
-            "profile_ids": ["profile_id999"],
-        },
-    };
-    postTeam(999, test_json);
-}); */
-
-/* const TeamTimeBtn = document.getElementById("test_teams_timeframe_btn_id");
-TeamTimeBtn.addEventListener("click", () => {
-    console.log("Clicked: test_teams_timeframe_btn_id");
-    const test_json = {
-        "team_id999": {
-            "time_frame": ["1","2","3","4","5"]
-        },
-    };
-    postTeam(999, test_json);
-}); */
 
 const ActivityBtn = document.getElementById("test_activities_btn_id");
 ActivityBtn.addEventListener("click", () => {
