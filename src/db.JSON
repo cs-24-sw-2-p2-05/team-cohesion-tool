@@ -45,59 +45,161 @@
     },
     "activities": {
         "activity_id1": {
-            "name": "Rollespil i den mørke skov",
-            "description": "Du må ik' være med før du får lov",
+            "name": "League of Legends",
+            "description": "Kinda like roleplaying in the dark forest",
             "main_interest_id": "interest_id1",
-            "all_interest_ids": ["interest_id1", "interest_id5"],
+            "all_interest_ids": ["interest_id1"],
             "time_interval": "1"
         },
         "activity_id2": {
-            "name": "pilates",
-            "description": "Strech your body and mind, but not like in yoga",
-            "main_interest_id": "interest_id2",
-            "all_interest_ids": ["interest_id2", "interest_id6"],
-            "time_interval": "1"
+            "name": "World of Warcraft",
+            "description": "Kinda like roleplaying for people who like to grind",
+            "main_interest_id": "interest_id1",
+            "all_interest_ids": ["interest_id1"],
+            "time_interval": "2"
         },
         "activity_id3": {
-            "name": "Skydiving",
-            "description": "Falling form a high place",
-            "main_interest_id": "interest_id2",
-            "all_interest_ids": ["interest_id2", "interest_id3"],
+            "name": "Counter Strike 2",
+            "description": "Shooty shooty bang bang",
+            "main_interest_id": "interest_id1",
+            "all_interest_ids": ["interest_id1"],
             "time_interval": "1"
         },
         "activity_id4": {
-            "name": "LAN-party",
-            "description": "Bring your own computer",
-            "main_interest_id": "interest_id4",
-            "all_interest_ids": ["interest_id4", "interest_id5"],
-            "time_interval": "1"
+            "name": "Needlework",
+            "description": "Such as knitting and crochet, sometimes tedious",
+            "main_interest_id": "interest_id2",
+            "all_interest_ids": ["interest_id2"],
+            "time_interval": "2"
         },
         "activity_id5": {
-            "name": "Paddelboarding",
-            "description": "Stand on a board and paddle for your life, or else the boad will mow you down",
-            "main_interest_id": "interest_id6",
-            "all_interest_ids": ["interest_id6"],
+            "name": "Visual Arts",
+            "description": "Such as drawing and painting stuff",
+            "main_interest_id": "interest_id2",
+            "all_interest_ids": ["interest_id2"],
+            "time_interval": "2"
+        },
+        "activity_id6": {
+            "name": "Ceramics",
+            "description": "If you like _______ you'll love ceramics",
+            "main_interest_id": "interest_id2",
+            "all_interest_ids": ["interest_id2"],
+            "time_interval": "2"
+        },
+        "activity_id7": {
+            "name": "Football",
+            "description": "Real football, not the american kind",
+            "main_interest_id": "interest_id3",
+            "all_interest_ids": ["interest_id3"],
+            "time_interval": "2"
+        },
+        "activity_id8": {
+            "name": "Basketball",
+            "description": "It going boing boing all over the place",
+            "main_interest_id": "interest_id3",
+            "all_interest_ids": ["interest_id3"],
             "time_interval": "1"
+        },
+        "activity_id9": {
+            "name": "Bouldering",
+            "description": "Activly breaking you fingers and toes",
+            "main_interest_id": "interest_id3",
+            "all_interest_ids": ["interest_id3"],
+            "time_interval": "2"
+        },
+        "activity_id10": {
+            "name": "Bonfire and Smores",
+            "description": "If you like the smell of smoke and burnt sugar, a cozy evening by the fire is for you",
+            "main_interest_id": "interest_id4",
+            "all_interest_ids": ["interest_id4"],
+            "time_interval": "3"
+        },
+        "activity_id11": {
+            "name": "Taking a Walk",
+            "description": "Walking around, withput a real purpose",
+            "main_interest_id": "interest_id4",
+            "all_interest_ids": ["interest_id4"],
+            "time_interval": "2"
+        },
+        "activity_id12": {
+            "name": "Disc Golf",
+            "description": "Throwing discs at baskets in the woods, like golf but with frisbees",
+            "main_interest_id": "interest_id4",
+            "all_interest_ids": ["interest_id4"],
+            "time_interval": "3"
+        },
+        "activity_id13": {
+            "name": "Cable Park",
+            "description": "Sliding around on water, like a wakeboarding but with an overhead cable",
+            "main_interest_id": "interest_id4",
+            "all_interest_ids": ["interest_id4"],
+            "time_interval": "2"
+        },
+        "activity_id14": {
+            "name": "Board Games",
+            "description": "Playing games on a board",
+            "main_interest_id": "interest_id5",
+            "all_interest_ids": ["interest_id5", "interest_id1"],
+            "time_interval": "3"
+        },
+        "activity_id15": {
+            "name": "Karaoke",
+            "description": "Sing your heart out, or just listen to others do it",
+            "main_interest_id": "interest_id5",
+            "all_interest_ids": ["interest_id5"],
+            "time_interval": "1"
+        },
+        "activity_id16": {
+            "name": "Escape Room",
+            "description": "Solve the riddles and puzzles, escape the room with your life",
+            "main_interest_id": "interest_id5",
+            "all_interest_ids": ["interest_id5", "interest_id1"],
+            "time_interval": "1"
+        },
+        "activity_id17": {
+            "name": "Bowling",
+            "description": "Roll a bowl a ball a penny a pitch",
+            "main_interest_id": "interest_id5",
+            "all_interest_ids": ["interest_id5"],
+            "time_interval": "2"
+        },
+        "activity_id18": {
+            "name": "Go-kart",
+            "description": "Don't break your neck now",
+            "main_interest_id": "interest_id5",
+            "all_interest_ids": ["interest_id5"],
+            "time_interval": "2"
+        },
+        "activity_id19": {
+            "name": "Paintball",
+            "description": "Pew pew pew",
+            "main_interest_id": "interest_id5",
+            "all_interest_ids": ["interest_id5"],
+            "time_interval": "1"
+        },
+        "activity_id20": {
+            "name": "Mini Golf",
+            "description": "Putt putt putt",
+            "main_interest_id": "interest_id5",
+            "all_interest_ids": ["interest_id5"],
+            "time_interval": "2"
         }
     },
     "interests": {
         "interest_id1": {
-            "name": "Roleplay"
-        },
-        "interest_id2": {
-            "name": "Serenity"
-        },
-        "interest_id3": {
-            "name": "Getting High"
-        },
-        "interest_id4": {
             "name": "Gaming"
         },
-        "interest_id5": {
-            "name": "Chastity"
+        "interest_id2": {
+            "name": "Arts and Crafts"
         },
-        "interest_id6": {
+        "interest_id3": {
             "name": "Sports"
+        },
+        "interest_id4": {
+            "name": "Outdoor Recreational"
+        },
+        "interest_id5": {
+            "name": "Miscellaneous"
         }
     }
 }

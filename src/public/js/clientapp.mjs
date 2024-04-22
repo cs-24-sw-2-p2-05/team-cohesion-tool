@@ -2,14 +2,20 @@
 // This file contains the main client-side logic for the Web-application
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
-'use strict'
+"use strict";
 
 // Import export with ES6 modules
-import { fetchCalculatedData } from './comms.mjs';
-import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from './comms.mjs';
-import { postProfile } from './comms.mjs';
+import { fetchCalculatedData } from "./comms.mjs";
+import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from "./comms.mjs";
+import { postProfile, postTeam, postActivity, postInterest  } from "./comms.mjs";
 
+// Variables
+let currentProfileObj = null;
+let currentProfileID = null;
+let currentTeamObj = null;
+let currentTeamID = null;
 
+// DOM update when entering
 function initialDOMUpdate() {
     initialInterestDOMUpdate();
     console.log("initialInterestDOMUpdate: Done");
@@ -28,6 +34,7 @@ function createCheckbox(activities, activity, interestHeading) {
     inputCheckbox.value = activity;
     label.htmlFor = activity + "_id";
     label.textContent = activities[activity].name;
+    label.title = activities[activity].description;
     
     // Append checkbox and label after the interest heading
     interestHeading.after(br);
@@ -84,22 +91,11 @@ initialDOMUpdate();
 
 // HTML elements show/hide functions
 
-/* // Show element by ID, setting visibility to visible, hist it is not grayed out
-function showElementByID(elementID) {
-    const element = document.getElementById(elementID);
-    element.style.visibility = "visible";
-}
-
-function hideElementByID(elementID) {
-    const element = document.getElementById(elementID);
-    element.style.visibility = "hidden";
-} */
-
 // Disable element by ID
 function disableElementByID(elementID) {
     const element = document.getElementById(elementID);
     if (element) {
-        element.style.display = "none";
+        element.style.display = "none"; 
     } else {
         console.error("disableElementByID: Element not found with ID: " + elementID);
     }
@@ -150,20 +146,65 @@ function navButtonHandler(event) {
 // HTML Event listeners
 
 // Attach the event listener to each nav button
-const navButtons = document.querySelectorAll('nav button'); // Get all nav buttons
+const navButtons = document.querySelectorAll("nav button"); // Get all nav buttons
 navButtons.forEach(button => {
-    button.addEventListener('click', navButtonHandler);
+    button.addEventListener("click", navButtonHandler);
 });
 
-const testBtn = document.getElementById("test_btn_id");
-testBtn.addEventListener("click", () => {
-    console.log("test_btn_id clicked");
+// Test buttons
+
+const ProfileBtn = document.getElementById("test_profile_btn_id");
+ProfileBtn.addEventListener("click", () => {
+    console.log("Clicked: test_profile_btn_id");
     const test_json = {
-        "profile_id1": {
-            "name": "Sille Smilefjæs",
+        "profile_id999": {
+            "name": "Test Testesen",
             "activity_ids": ["activity_id1", "activity_id2", "activity_id3"],
-            "time_availability": ["1","2","3","4"]
+            "time_availability": ["f1t2","f2t3","f3t4","f4t5"]
         }
     };
-    postProfile(1, test_json);
+    postProfile(999, test_json);
+    // TODO: UPDATE DOM
+});
+
+const TeamBtn = document.getElementById("test_teams_btn_id");
+TeamBtn.addEventListener("click", () => {
+    console.log("Clicked: test_teams_btn_id");
+    const test_json = {
+        "team_id999": {
+            "name": "Bakkeskolen",
+            "profile_ids": ["profile_id999", "profile_id998", "profile_id997"],
+            "time_frame": ["1","2","3","4","5"]
+        },
+    };
+    postTeam(999, test_json);
+    // TODO: UPDATE DOM
+});
+
+const ActivityBtn = document.getElementById("test_activities_btn_id");
+ActivityBtn.addEventListener("click", () => {
+    console.log("Clicked: test_activities_btn_id");
+    const test_json = {
+        "activity_id1": {
+            "name": "Star Wars Marathon",
+            "description": "Smelly Boys watching Star Wars all day long",
+            "main_interest_id": "interest_id999",
+            "all_interest_ids": ["interest_id999", "interest_id998"],
+            "time_interval": "1"
+        },
+    };
+    postActivity(999, test_json);
+    // TODO: UPDATE DOM
+});
+
+const InterestBtn = document.getElementById("test_interests_btn_id");
+InterestBtn.addEventListener("click", () => {
+    console.log("Clicked: test_interests_btn_id");
+    const test_json = {
+        "interest_id999": {
+            "name": "Filmwatchathons"
+        },
+    };
+    postInterest(999, test_json);
+    // TODO: UPDATE DOM
 });

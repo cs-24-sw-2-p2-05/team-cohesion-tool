@@ -1,6 +1,9 @@
 // INFO:
 // This file contains feching functions for the client-side logic of the Web-application
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
+"use strict";
+
 // Import export with ES6 modules
 export { fetchCalculatedData }
 export { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam };
@@ -14,7 +17,8 @@ function consoleLogJSONData(data) {
 // Fetch JSON data from server
 function verifyJson(response) {
     if (response.ok) {
-        if (response.headers.get('Content-Type').includes('application/json')) {
+        //console.log(response.headers.get("Content-Type"))
+        if (response.headers.get("Content-Type").includes("application/json")) {
             return response.json();
         } else {
             throw new Error("Wrong content type, expected JSON");
@@ -26,29 +30,39 @@ function verifyJson(response) {
 
 // GET and parse JSON data from server
 function getJson(url) {
-    //console.log("parseJson: " + url);
     return fetch(url)
     .then(verifyJson)
     .then(data => {
-        console.log("FetchGet: " + url + ": ", data);
+        //console.log("FetchGet: " + url + ": ", data);
+        console.log("FetchGet: " + url);
         return data;
     })
-    .catch(error => { console.error("fetch: " + url + ": " + error); });
+    .catch(error => { console.error("FetchGet: " + url + ": " + error); });
 }
 
 // POST a JSON object to the server, thus adding or updating data in the database
 function postJson(url, data) {
     const fetchoptions = {
-        method: 'POST',
-        cache: 'no-cache',
+        method: "POST",
+        cache: "no-cache",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     };
-    console.log("FetchPost: " + url + ": ", data);
     return fetch(url, fetchoptions)
-    .then(verifyJson)
+    .then(response => { 
+        if (response.ok) { 
+            return response.ok; 
+        } else { 
+            throw new Error(response.statusText); 
+        } 
+    })
+    .then(data => {
+        //console.log("FetchPost: " + url + ": ", data);
+        console.log("FetchPost: " + url);
+        return data;
+    })
     .catch(error => { console.error("fetch: " + url + ": " + error); });
 }
 
@@ -63,13 +77,13 @@ function fetchCalculatedData(teamNumber) {
 
 // Fetch profile data from server
 function fetchProfile(profileNumber) {
-    console.log("fetchProfile: " + profileNumber);
+    //console.log("fetchProfile: " + profileNumber);
     return getJson("/profiles/" + profileNumber);
 }
 
 // Fetch team data from server
 function fetchTeam(teamNumber) {
-    console.log("fetchTeam: " + teamNumber);
+    //console.log("fetchTeam: " + teamNumber);
     return getJson("/teams/" + teamNumber);
 }
 
@@ -106,24 +120,26 @@ function fetchAllProfilesFromTeam(teamNumber) {
 
 // fetch POST helper function to add or update data in the server
 
-// Fetch profile data from server
+// Fetch POST profile data to server
 function postProfile(profileNumber, data) {
     console.log("fetchProfile: " + profileNumber, data);
     return postJson("/profiles/" + profileNumber, data);
 }
 
-// Fetch team data from server
-function postTeam(teamNumber, data, profileNumber) {
-    console.log("fetchTeam: " + teamNumber, profileNumber, data);
+// Fetch POST team data to server
+function postTeam(teamNumber, data) {
+    console.log("fetchTeam: " + teamNumber, data);
     return postJson("/teams/" + teamNumber, data);
 }
 
-// Fetch activity data from server
+// Fetch POST activity data to server
 function postActivity(activityNumber, data) {
+    console.log("fetchActivity: " + activityNumber, data);
     return postJson("/activities/" + activityNumber, data);
 }
 
-// Fetch interest data from server
+// Fetch POST interest data to server
 function postInterest(interestNumber, data) {
+    console.log("fetchInterest: " + interestNumber, data);
     return postJson("/interests/" + interestNumber, data);
 }

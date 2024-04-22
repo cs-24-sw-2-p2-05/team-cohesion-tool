@@ -23,8 +23,57 @@
 
     <!-- Profile and team page -->
     <section id="profile_section_id">
-        <h1>Profile info</h1>
-        <p>Page 1 feature-content</p>
+        <h1>Profile and Team info</h1>
+            <p>Name: <span id="profile_name_span_id"></span></p>
+            <p>Profile id: <span id="profile_id_span_id"></span></p>
+            <p>Team name: <span id="team_name_span_id"></span></p>
+            <p>Team id: <span id="team_id_span_id"></span></p>
+        
+        <h2>Log in to profile</h2>
+            <p>Login with name or profile id:</p>
+            <form id="profile_login_name_form_id" action="#">
+                <label for="profile_login_name_id">Profile name:</label>
+                <input type="text" id="profile_login_name_id" name="name" required>
+                <input type="submit" value="Submit">
+            </form>
+            <form id="profile_login_id_form_id" action="#">
+                <label for="profile_login_id_id">Profile id:</label>
+                <input type="text" id="profile_login_id_id" name="profile_id" required>
+                <input type="submit" value="Submit">
+            </form>
+
+        <h2>New Profile?</h2>
+            <form id="profile_create_form_id" action="#">
+                <label for="profile_create_name_id">Name:</label>
+                <input type="text" id="profile_create_name_id" name="name" required>
+                <input type="submit" value="Submit">
+            </form>
+
+        <h2>Assign profile to team</h2>
+            <p>Assign with team name or id</p>
+            <form id="team_profile_assign_name_form_id" action="#">
+                <label for="team_profile_assign_name_id">Team name:</label>
+                <input type="text" id="team_profile_assign_name_id" name="name" required>
+                <input type="submit" value="Submit">
+            </form>
+            <form id="team_profile_assign_id_form_id" action="#">
+                <label for="team_profile_assign_id_id">Team id:</label>
+                <input type="text" id="team_profile_assign_id_id" name="team_id" required>
+                <input type="submit" value="Submit">
+            </form>
+        
+
+        <h2>New team</h2>
+            <p>Create a new team, (profile automatically assigned to team)</p>
+            <form id="team_create_form_id" action="#">
+                <label for="team_create_name_id">Team name:</label>
+                <input type="text" id="team_create_name_id" name="name" required><br>
+                <label for="team_create_timeframe_from_id">Team Timeframe: From:</label>
+                <input type="date" id="team_create_timeframe_from_id" name="timeframe_from" required>
+                <label for="team_create_timeframe_to_id">To:</label>
+                <input type="date" id="team_create_timeframe_to_id" name="timeframe_to" required>
+                <input type="submit" value="Submit">
+            </form>
     </section>
 
     <!-- Interests page -->
@@ -32,59 +81,7 @@
         <h1>Declaring of interests</h1>
         <h2>Please choose <i>all</i> the social actvities you could be interested in</h2>
 
-        <form id="interests_form" action="#" method="post">
-            <!-- <h3>Gaming</h3>
-            <input type="checkbox" id="lol" value="lol">
-            <label for="lol"> League of Legends</label><br>
-            <input type="checkbox" id="wow" value="wow">
-            <label for="wow"> World of Warcraft</label><br>
-            <input type="checkbox" id="cs" value="cs">
-            <label for="cs"> GS: GO</label><br>
-            <input type="checkbox" id="justDance" value="justDance">
-            <label for="justDance"> Just Dance</label><br>
-            <h3>Arts and Crafts</h3>
-            <input type="checkbox" id="needlework" value="needlework">
-            <label for="needlework" title ="Such as knitting and crochet"> Needlework</label><br>
-            <input type="checkbox" id="visualArts" value="visualArts">
-            <label for="visualArts"  title="Such as drawing and painting"> Visual Arts</label><br>
-            <input type="checkbox" id="ceramics" value="ceramics">
-            <label for="ceramics"> Ceramics</label><br>
-            <input type="checkbox" id="cutAndPaste" value="cutAndPaste">
-            <label for="cutAndPaste" title="Such as collages or christmas decorations"> Cut and Paste</label><br>
-            <h3>Sports</h3>
-            <input type="checkbox" id="football" value="football">
-            <label for="football"> Football</label><br>
-            <input type="checkbox" id="basket" value="basket">
-            <label for="basket"> Basketball</label><br>
-            <input type="checkbox" id="bouldering" value="bouldering">
-            <label for="bouldering"> Bouldering</label><br>
-            <h3>Outdoor Recreational</h3>
-            <input type="checkbox" id="bonfire" value="bonfire">
-            <label for="bonfire"> Bonfire and Smores</label><br>
-            <input type="checkbox" id="walk" value="walk">
-            <label for="walk"> Taking a Walk</label><br>
-            <input type="checkbox" id="discGolf" value="discGolf">
-            <label for="discGolf"> Disc Golf</label><br>
-            <input type="checkbox" id="aerial" value="aerial">
-            <label for="aerial"> Aerial Adventure</label><br>
-            <input type="checkbox" id="cable" value="cable">
-            <label for="cable"> Cable Park</label><br>
-            <h3>Miscellaneous</h3>
-            <input type="checkbox" id="boardGames" value="boardGames">
-            <label for="boardGames"> Board Games</label><br>
-            <input type="checkbox" id="karaoke" value="karaoke">
-            <label for="karaoke"> Karaoke</label><br>
-            <input type="checkbox" id="escapeRoom" value="escapeRoom">
-            <label for="escapeRoom"> Escape Room</label><br>
-            <input type="checkbox" id="bowling" value="bowling">
-            <label for="bowling"> Bowling</label><br>
-            <input type="checkbox" id="gocart" value="gocart">
-            <label for="gocart"> Gocarts</label><br>
-            <input type="checkbox" id="paintball" value="paintball">
-            <label for="paintball"> Paintball</label><br>
-            <input type="checkbox" id="miniGolf" value="miniGolf">
-            <label for="miniGolf"> Mini Golf</label><br>
-            <br> -->
+        <form id="interests_form" action="#">
             <input type="submit" value="Submit">  
         </form>
     </section>
@@ -105,7 +102,10 @@
     <section id="about_section_id">
         <h1>About this tool</h1>
         <p>This is a tool</p>
-        <button id="test_btn_id">Test</button>
+        <button id="test_profile_btn_id">test_profile_btn_id</button><br>
+        <button id="test_teams_btn_id">test_teams_btn_id</button><br>
+        <button id="test_activities_btn_id">test_activities_btn_id</button><br>
+        <button id="test_interests_btn_id">test_interests_btn_id</button><br>
     </section>
 
     <!-- Script linking -->
