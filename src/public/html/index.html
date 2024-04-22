@@ -23,8 +23,57 @@
 
     <!-- Profile and team page -->
     <section id="profile_section_id">
-        <h1>Profile info</h1>
-        <p>Page 1 feature-content</p>
+        <h1>Profile and Team info</h1>
+            <p>Name: <span id="profile_name_span_id"></span></p>
+            <p>Profile id: <span id="profile_id_span_id"></span></p>
+            <p>Team name: <span id="team_name_span_id"></span></p>
+            <p>Team id: <span id="team_id_span_id"></span></p>
+        
+        <h2>Log in to profile</h2>
+            <p>Login with name or profile id:</p>
+            <form id="profile_login_name_form_id" action="#">
+                <label for="profile_login_name_id">Profile name:</label>
+                <input type="text" id="profile_login_name_id" name="name" required>
+                <input type="submit" value="Submit">
+            </form>
+            <form id="profile_login_id_form_id" action="#">
+                <label for="profile_login_id_id">Profile id:</label>
+                <input type="text" id="profile_login_id_id" name="profile_id" required>
+                <input type="submit" value="Submit">
+            </form>
+
+        <h2>New Profile?</h2>
+            <form id="profile_create_form_id" action="#">
+                <label for="profile_create_name_id">Name:</label>
+                <input type="text" id="profile_create_name_id" name="name" required>
+                <input type="submit" value="Submit">
+            </form>
+
+        <h2>Assign profile to team</h2>
+            <p>Assign with team name or id</p>
+            <form id="team_profile_assign_name_form_id" action="#">
+                <label for="team_profile_assign_name_id">Team name:</label>
+                <input type="text" id="team_profile_assign_name_id" name="name" required>
+                <input type="submit" value="Submit">
+            </form>
+            <form id="team_profile_assign_id_form_id" action="#">
+                <label for="team_profile_assign_id_id">Team id:</label>
+                <input type="text" id="team_profile_assign_id_id" name="team_id" required>
+                <input type="submit" value="Submit">
+            </form>
+        
+
+        <h2>New team</h2>
+            <p>Create a new team, (profile automatically assigned to team)</p>
+            <form id="team_create_form_id" action="#">
+                <label for="team_create_name_id">Team name:</label>
+                <input type="text" id="team_create_name_id" name="name" required><br>
+                <label for="team_create_timeframe_from_id">Team Timeframe: From:</label>
+                <input type="date" id="team_create_timeframe_from_id" name="timeframe_from" required>
+                <label for="team_create_timeframe_to_id">To:</label>
+                <input type="date" id="team_create_timeframe_to_id" name="timeframe_to" required>
+                <input type="submit" value="Submit">
+            </form>
     </section>
 
     <!-- Interests page -->
@@ -32,7 +81,7 @@
         <h1>Declaring of interests</h1>
         <h2>Please choose <i>all</i> the social actvities you could be interested in</h2>
 
-        <form id="interests_form" action="#" method="post">
+        <form id="interests_form" action="#">
             <input type="submit" value="Submit">  
         </form>
     </section>
