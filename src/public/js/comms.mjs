@@ -17,7 +17,7 @@ function consoleLogJSONData(data) {
 // Fetch JSON data from server
 function verifyJson(response) {
     if (response.ok) {
-        console.log(response.headers.get("Content-Type"))
+        //console.log(response.headers.get("Content-Type"))
         if (response.headers.get("Content-Type").includes("application/json")) {
             return response.json();
         } else {
@@ -33,10 +33,11 @@ function getJson(url) {
     return fetch(url)
     .then(verifyJson)
     .then(data => {
-        console.log("FetchGet: " + url + ": ", data);
+        //console.log("FetchGet: " + url + ": ", data);
+        console.log("FetchGet: " + url);
         return data;
     })
-    .catch(error => { console.error("fetch: " + url + ": " + error); });
+    .catch(error => { console.error("FetchGet: " + url + ": " + error); });
 }
 
 // POST a JSON object to the server, thus adding or updating data in the database
@@ -58,7 +59,8 @@ function postJson(url, data) {
         } 
     })
     .then(data => {
-        console.log("FetchPost: " + url + ": ", data);
+        //console.log("FetchPost: " + url + ": ", data);
+        console.log("FetchPost: " + url);
         return data;
     })
     .catch(error => { console.error("fetch: " + url + ": " + error); });
@@ -75,13 +77,13 @@ function fetchCalculatedData(teamNumber) {
 
 // Fetch profile data from server
 function fetchProfile(profileNumber) {
-    console.log("fetchProfile: " + profileNumber);
+    //console.log("fetchProfile: " + profileNumber);
     return getJson("/profiles/" + profileNumber);
 }
 
 // Fetch team data from server
 function fetchTeam(teamNumber) {
-    console.log("fetchTeam: " + teamNumber);
+    //console.log("fetchTeam: " + teamNumber);
     return getJson("/teams/" + teamNumber);
 }
 
