@@ -100,7 +100,7 @@ button {
 }
 
 /* Enable Aboud section by default */
-#about_section_id {
+#login_section_id {
     display: block;
 }
 
