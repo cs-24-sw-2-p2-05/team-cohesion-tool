@@ -300,11 +300,7 @@ initialDOMUpdate();
 
 
 //Alt kode vedrørende available time
-/* let startDate = new Date();
-let endDate = new Date();
-endDate.setDate(endDate.getDate() + 10)
 
-createAvailableTimeForm (startDate, endDate); */
 
 // Function Called to create or update the available time form
 function createAvailableTimeForm (startDate, endDate){
@@ -315,7 +311,7 @@ function createAvailableTimeForm (startDate, endDate){
 
     for (let i = form.children.length - 1; i >= 0; i--) {
         if (form.children[i].tagName === "DIV") {
-            console.log(form.children[i]);
+            //console.log(form.children[i]);
             form.removeChild(form.children[i]);
         }
     }
@@ -353,14 +349,12 @@ function createCheckboxes(date) {
     
     heading.textContent = day + " - " + date.toLocaleDateString();
     container.appendChild(heading);
-
-    //ul.className = "checkbox_" + day.toLowerCase();                                                    //tilføjer et className til ul som hedder chackbox_ samt dagen man er på
+                                                //tilføjer et className til ul som hedder chackbox_ samt dagen man er på
 
     for (let i = 0; i < hours.length; i++) {                                                           //forloop det løber for de timer man har tilføjet til arrayet hours.
       checkboxContents(container, dateString, hours[i]);
     }
-
-    //container.appendChild(ul);                                                                         //tilføjer ul-delen til container elementet
+                                                                        //tilføjer ul-delen til container elementet
     fromSubmitBtn.before(container);                                                                   //tilføjer container-delen itl selve documentet i "body".
 }
 

@@ -116,13 +116,14 @@ input.time_chk_btn + label {
     font-size: 1.25em;
     font-weight: bold;
     padding: 0.5em;
-    /* margin-top: 1em; */
     margin-right: 0.5em;
+    margin-bottom: 0.5em;
     border-radius: 0.5em;
     border: none;
     border-radius: 0em;
     cursor: pointer;
     display: inline-flex;
+    justify-content: space-evenly
 }
 
 input.time_chk_btn:not(:checked) + label:hover {
