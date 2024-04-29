@@ -190,7 +190,7 @@ function updateInterestDOM() {
 }
 
 
-// HTML POST forms
+// HTML forms
 
 // POST interested activities form handler
 function postInterestsFormHandler(event) {
@@ -245,6 +245,26 @@ async function loginWithIdUpdateHandler(event) {
     //console.log("loginWithIdUpdateHandler: ", currentProfileId, currentProfileObj);
 }
 
+// POST (and update) Team timeframe form handler
+function teamTimeframeFromHandler(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const teamTimeframe = {
+        from: formData.get("timeframe_from"),
+        to: formData.get("timeframe_to")
+    };
+    console.log("teamTimeframeFromHandler: ", teamTimeframe);
+
+    currentTeamObj["time_frame"] = teamTimeframe;
+    const fullTeamObj = {
+        [currentTeamId]: currentTeamObj
+    };
+
+    postTeam(currentTeamId.split("team_id")[1], fullTeamObj);
+    //updateAvailableTimeForm(teamTimeframe.from, teamTimeframe.to);
+}
+
 
 
 // HTML Event listeners
@@ -258,6 +278,9 @@ navButtons.forEach(button => {
 // Attach the event listener to the login  with id from
 const loginFormId = document.getElementById("profile_login_id_form_id")
 loginFormId.addEventListener("submit", loginWithIdUpdateHandler);
+
+const teamTimeframeFrom = document.getElementById("team_timeframe_form_id");
+teamTimeframeFrom.addEventListener("submit", teamTimeframeFromHandler);
 
 // Attach the event listener to the interests form
 const interestsForm = document.getElementById("interests_form");
