@@ -56,10 +56,10 @@ function postUpdateDatabase(type, id, req) {
 }
 
 // Function to write the database to a file
-// TOFO: Add better error handling
+// TODO: Add better error handling
 function databaseWriteToFile() {
     // Write the database to a file, with linebreaks
-    fs.writeFile("./db.json", JSON.stringify(database, null, 4), (err) => {
+    fs.writeFile("./src/db.json", JSON.stringify(database, null, 4), (err) => {
         if (err) {
             console.error(err);
             return;
