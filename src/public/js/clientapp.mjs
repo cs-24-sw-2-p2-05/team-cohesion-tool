@@ -262,7 +262,7 @@ function teamTimeframeFromHandler(event) {
     };
 
     postTeam(currentTeamId.split("team_id")[1], fullTeamObj);
-    //updateAvailableTimeForm(teamTimeframe.from, teamTimeframe.to);
+    createAvailableTimeForm(teamTimeframe.from, teamTimeframe.to);
 }
 
 
@@ -300,18 +300,22 @@ initialDOMUpdate();
 
 
 //Alt kode vedrørende available time
-let startDate = new Date();
+/* let startDate = new Date();
 let endDate = new Date();
 endDate.setDate(endDate.getDate() + 10)
 
-createAvailableTimeForm (startDate, endDate);
+createAvailableTimeForm (startDate, endDate); */
 
+// Function Called to create or update the available time form
 function createAvailableTimeForm (startDate, endDate){
-for (let i = 0; i < countDays(startDate, endDate); i++) {                                           // Looper gennem alle dagene for at lave checkboxene for hver dag
-    createCheckboxes(startDate);
-    startDate.setDate(startDate.getDate() + 1)                                                        // Add 1 to today's date and set it to tomorrow
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
+    for (let i = 0; i < countDays(startDate, endDate); i++) {                                           // Looper gennem alle dagene for at lave checkboxene for hver dag
+        createCheckboxes(startDate);
+        startDate.setDate(startDate.getDate() + 1)                                                        // Add 1 to today's date and set it to tomorrow
 }}
 
+// Helper function to count days between two dates
 function countDays (startDate, endDate) {
   //startDate er et dato objekt (new Date()) og det samme er endDate
   let differenceInTime = endDate.getTime() - startDate.getTime();
@@ -322,6 +326,7 @@ function countDays (startDate, endDate) {
 
 }
 
+// functio nfor making the headers and checkboxes for the available time form, for a specific day
 // Function til at lave checkboxes for specifikke dage
 function createCheckboxes(date) {
   // Array for timer
@@ -349,6 +354,7 @@ function createCheckboxes(date) {
   fromSubmitBtn.before(container);                                                                   //tilføjer container-delen itl selve documentet i "body".
 }
 
+// Function to create induvidual checkboxes for the available time form
 function checkboxContents (ul, dateString, hour) {
   const li = document.createElement("li");                                                         //creater et li for hver hour der er i arrayet hours.
     const checkbox = document.createElement("input"); 
@@ -367,13 +373,11 @@ function checkboxContents (ul, dateString, hour) {
     ul.appendChild(li);                                                                              //tilføjer li-delen til ul-delen   
 }
 
-/* console.log("1",start_date);
-console.log("2",end_date);
-console.log("3",count_days(start_date, end_date)); */
 
-document.addEventListener("click", () => {
+
+/* document.addEventListener("click", () => {
     const element = event.target;
     if (element.type === "checkbox") {
         console.log(`Checkbox ${element.id} is clicked ${element.value}`);
     }
-});
+}); */
