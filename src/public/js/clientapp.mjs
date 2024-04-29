@@ -311,10 +311,20 @@ function createAvailableTimeForm (startDate, endDate){
     startDate = new Date(startDate);
     endDate = new Date(endDate);
     const numberOfDays = countDays(startDate, endDate);
+    const form = document.getElementById("time_picker_form_id");
+
+    for (let i = form.children.length - 1; i >= 0; i--) {
+        if (form.children[i].tagName === "DIV") {
+            console.log(form.children[i]);
+            form.removeChild(form.children[i]);
+        }
+    }
+
     for (let i = 0; i <= numberOfDays; i++) {                                        // Looper gennem alle dagene for at lave checkboxene for hver dag   
         createCheckboxes(startDate);
         startDate.setDate(startDate.getDate() + 1)                                                        // Add 1 to today's date and set it to tomorrow
-}}
+    }
+}
 
 // Helper function to count days between two dates
 function countDays (startDate, endDate) {
