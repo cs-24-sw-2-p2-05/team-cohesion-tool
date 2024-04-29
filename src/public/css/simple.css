@@ -17,6 +17,7 @@ nav {
     background-color: #009CD6;/* #EF5732; */
     padding: 0.5em;
 }
+
 nav button {
     background-color: #FABE29;
     color: white;
@@ -104,41 +105,37 @@ button {
     display: block;
 }
 
-
 /*CSS for available time siden*/
-ul {
-    padding: 0;
-    margin: 0;
-    clear: both;
-  }
+input.time_chk_btn {
+    display: none;
+}
 
-  li{
-    list-style-type: none;
-    list-style-position: outside;
-    padding: 10px;
-    float: left;
-    margin-bottom: 10px;
-  } 
- 
-  input[type="checkbox"]:not(:checked),
-  input[type="checkbox"]:checked {
-    position: absolute;
-    left: -9999%;
-  }
+input.time_chk_btn + label {
+    background-color: #fabf296e;
+    color: black;
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 0.5em;
+    /* margin-top: 1em; */
+    margin-right: 0.5em;
+    border-radius: 0.5em;
+    border: none;
+    border-radius: 0em;
+    cursor: pointer;
+    display: inline-flex;
+}
+
+input.time_chk_btn:not(:checked) + label:hover {
+    box-shadow: 0.1em 0.1em 0.1em #888888;
+}
+
+input.time_chk_btn + label:active,
+input.time_chk_btn:checked + label {
+    box-shadow: 0em 0em 0.1em inset;
+    background-color: #b00b1ec0;
+    color: white;
+}
 
 
-  input[type="checkbox"] + label {
-      display: inline-block;
-      padding: 10px;
-      cursor: pointer;
-      border: 1px solid black;
-      color: black;
-      background-color: white;
-      margin-bottom: 10px;
-  }
 
-  input[type="checkbox"]:checked + label {
-      border: 1px solid white;
-      color: white;
-      background-color: black;
-  } 
+
