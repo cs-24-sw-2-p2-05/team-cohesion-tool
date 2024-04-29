@@ -310,7 +310,8 @@ createAvailableTimeForm (startDate, endDate); */
 function createAvailableTimeForm (startDate, endDate){
     startDate = new Date(startDate);
     endDate = new Date(endDate);
-    for (let i = 0; i < countDays(startDate, endDate); i++) {                                           // Looper gennem alle dagene for at lave checkboxene for hver dag
+    const numberOfDays = countDays(startDate, endDate);
+    for (let i = 0; i <= numberOfDays; i++) {                                        // Looper gennem alle dagene for at lave checkboxene for hver dag   
         createCheckboxes(startDate);
         startDate.setDate(startDate.getDate() + 1)                                                        // Add 1 to today's date and set it to tomorrow
 }}
