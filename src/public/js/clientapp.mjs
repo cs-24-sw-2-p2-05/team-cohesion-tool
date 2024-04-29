@@ -17,34 +17,6 @@ let currentTeamId = null;
 let allTeamsObj = null;
 
 
-
-// Submit handlers
-
-// Login form handler
-async function loginWithIdUpdateHandler(event) {
-    event.preventDefault();
-    currentProfileId = event.target.profile_id.value;
-    currentProfileObj = await fetchProfile(currentProfileId.split("profile_id")[1]);
-    allTeamsObj = await fetchAllTeams();
-
-    
-    // Find team that the profile is a part of
-    for (const team in allTeamsObj) {
-        if (allTeamsObj[team].profile_ids.includes(currentProfileId)) {
-            currentTeamObj = allTeamsObj[team];
-            currentTeamId = team;
-            break;
-        }
-    }
-    
-    // Update the DOM with the profile data
-    updateProfileInfoDOM(); 
-    updateInterestDOM();
-
-    //console.log("loginWithIdUpdateHandler: ", currentProfileId, currentProfileObj);
-}
-
-
 // HTML elements show/hide functions
 
 // Disable element by ID
@@ -246,6 +218,31 @@ function postInterestsFormHandler(event) {
 
     // Post the updated profile object to the server
     postProfile(currentProfileId.split("profile_id")[1], fullProfileObj);
+}
+
+
+// Login form handler
+async function loginWithIdUpdateHandler(event) {
+    event.preventDefault();
+    currentProfileId = event.target.profile_id.value;
+    currentProfileObj = await fetchProfile(currentProfileId.split("profile_id")[1]);
+    allTeamsObj = await fetchAllTeams();
+
+    
+    // Find team that the profile is a part of
+    for (const team in allTeamsObj) {
+        if (allTeamsObj[team].profile_ids.includes(currentProfileId)) {
+            currentTeamObj = allTeamsObj[team];
+            currentTeamId = team;
+            break;
+        }
+    }
+    
+    // Update the DOM with the profile data
+    updateProfileInfoDOM(); 
+    updateInterestDOM();
+
+    //console.log("loginWithIdUpdateHandler: ", currentProfileId, currentProfileObj);
 }
 
 
