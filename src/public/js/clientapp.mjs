@@ -186,7 +186,7 @@ function updateInterestDOM() {
         }
     });
 
-    console.log("updateInterestDOM: checkboxes", checkboxes, "interestedActivities", interestedActivities);
+    //console.log("updateInterestDOM: checkboxes", checkboxes, "interestedActivities", interestedActivities);
 }
 
 
@@ -254,7 +254,7 @@ function teamTimeframeFromHandler(event) {
         from: formData.get("timeframe_from"),
         to: formData.get("timeframe_to")
     };
-    console.log("teamTimeframeFromHandler: ", teamTimeframe);
+    //console.log("teamTimeframeFromHandler: ", teamTimeframe);
 
     currentTeamObj["time_frame"] = teamTimeframe;
     const fullTeamObj = {
