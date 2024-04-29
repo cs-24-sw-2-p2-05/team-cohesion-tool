@@ -330,3 +330,83 @@ InterestBtn.addEventListener("click", () => {
 
 // Initial DOM update
 initialDOMUpdate();
+
+
+//Alt kode vedrørende available time
+let startDate = new Date();
+let endDate = new Date();
+endDate.setDate(endDate.getDate() + 10)
+
+createAvailableTimeForm (startDate, endDate);
+
+function createAvailableTimeForm (startDate, endDate){
+for (let i = 0; i < countDays(startDate, endDate); i++) {                                           // Looper gennem alle dagene for at lave checkboxene for hver dag
+    createCheckboxes(startDate);
+    startDate.setDate(startDate.getDate() + 1)                                                        // Add 1 to today's date and set it to tomorrow
+}}
+
+function countDays (startDate, endDate) {
+  //startDate er et dato objekt (new Date()) og det samme er endDate
+  let differenceInTime = endDate.getTime() - startDate.getTime();
+
+  let differenceInDays = Math.round(differenceInTime / (1000 * 3600 * 24));
+
+  return differenceInDays;
+
+}
+
+// Function til at lave checkboxes for specifikke dage
+function createCheckboxes(date) {
+  // Array for timer
+  const hours = ["8-9", "9-10", "10-11", "11-12", "12-13", "13-14", "14-15", "15-16", "16-17", "17-18", "18-19", "19-20", "20-21", "21-22", "22-23"];
+  let day = date.toLocaleString('en-GB', {weekday : "long"});
+  let dateString = date.toLocaleDateString('en-GB');
+
+  const fromSubmitBtn = document.querySelector("#time_picker_form_id input[type='submit']");
+  const container = document.createElement("div");
+  const heading = document.createElement("h2");                                                      //giver div className ift ugedagene så fx "Monday"
+  const ul = document.createElement("ul");                                                           //laver et ul i dokumentet
+  
+  container.className = day.toLowerCase();                                                           //Assuming class name is lowercase (få days til lower case letters)
+  
+  heading.textContent = day + " - " + date.toLocaleDateString();
+  container.appendChild(heading);
+
+  ul.className = "checkbox_" + day.toLowerCase();                                                    //tilføjer et className til ul som hedder chackbox_ samt dagen man er på
+
+  for (let i = 0; i < hours.length; i++) {                                                           //forloop det løber for de timer man har tilføjet til arrayet hours.
+    checkboxContents(ul, dateString, hours[i]);
+  }
+  
+  container.appendChild(ul);                                                                         //tilføjer ul-delen til container elementet
+  fromSubmitBtn.before(container);                                                                   //tilføjer container-delen itl selve documentet i "body".
+}
+
+function checkboxContents (ul, dateString, hour) {
+  const li = document.createElement("li");                                                         //creater et li for hver hour der er i arrayet hours.
+    const checkbox = document.createElement("input"); 
+    const label = document.createElement("label");                                                   //creater nyt på domuentet. Et label                                                                                             //tilføjer et input under "li".
+    
+    checkbox.type = "checkbox";                                                                      //tilføjer elementtypen "type" med værdien "checkbox" for alle tidspunkter.
+    checkbox.id = dateString + "_" + hour.replace("-", "_");                                     //slicer navnet på dagen over så det kun er første 3 man ser                                                                                          //tilføjer et "_" og bagefter tidspunktet der bruges.
+    checkbox.name = dateString + "_" + hour.replace("-", "_");                                   //samme som før
+    checkbox.value = dateString + "_" + hour.replace("-", "_");
+    
+    label.htmlFor = dateString + "_" + hour.replace("-", "_");                                   //efter label indsætter man html for værdien af label
+    label.textContent = hour;                                                                    //det tidspunkt der skal stå på knappen.
+    
+    li.appendChild(checkbox);                                                                        //tilføjer hele checkbox delen til li
+    li.appendChild(label);                                                                           //tilføjer bagefter labet til li-delen
+    ul.appendChild(li);                                                                              //tilføjer li-delen til ul-delen   
+}
+
+/* console.log("1",start_date);
+console.log("2",end_date);
+console.log("3",count_days(start_date, end_date)); */
+
+document.addEventListener("click", () => {
+    const element = event.target;
+    if (element.type === "checkbox") {
+        console.log(`Checkbox ${element.id} is clicked ${element.value}`);
+    }
+});

@@ -105,3 +105,40 @@ button {
 }
 
 
+/*CSS for available time siden*/
+ul {
+    padding: 0;
+    margin: 0;
+    clear: both;
+  }
+
+  li{
+    list-style-type: none;
+    list-style-position: outside;
+    padding: 10px;
+    float: left;
+    margin-bottom: 10px;
+  } 
+ 
+  input[type="checkbox"]:not(:checked),
+  input[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999%;
+  }
+
+
+  input[type="checkbox"] + label {
+      display: inline-block;
+      padding: 10px;
+      cursor: pointer;
+      border: 1px solid black;
+      color: black;
+      background-color: white;
+      margin-bottom: 10px;
+  }
+
+  input[type="checkbox"]:checked + label {
+      border: 1px solid white;
+      color: white;
+      background-color: black;
+  } 
