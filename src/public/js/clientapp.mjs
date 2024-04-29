@@ -265,71 +265,15 @@ interestsForm.addEventListener("submit", postInterestsFormHandler);
 
 
 
-
-
-
-
-// Test buttons
-
-const ProfileBtn = document.getElementById("test_profile_btn_id");
-ProfileBtn.addEventListener("click", () => {
-    console.log("Clicked: test_profile_btn_id");
-    const test_json = {
-        "profile_id999": {
-            "name": "Test Testesen",
-            "activity_ids": ["activity_id1", "activity_id2", "activity_id3"],
-            "time_availability": ["f1t2","f2t3","f3t4","f4t5"]
-        }
-    };
-    postProfile(999, test_json);
-    // TODO: UPDATE DOM
-});
-
-const TeamBtn = document.getElementById("test_teams_btn_id");
-TeamBtn.addEventListener("click", () => {
-    console.log("Clicked: test_teams_btn_id");
-    const test_json = {
-        "team_id999": {
-            "name": "Bakkeskolen",
-            "profile_ids": ["profile_id999", "profile_id998", "profile_id997"],
-            "time_frame": ["1","2","3","4","5"]
-        },
-    };
-    postTeam(999, test_json);
-    // TODO: UPDATE DOM
-});
-
-const ActivityBtn = document.getElementById("test_activities_btn_id");
-ActivityBtn.addEventListener("click", () => {
-    console.log("Clicked: test_activities_btn_id");
-    const test_json = {
-        "activity_id1": {
-            "name": "Star Wars Marathon",
-            "description": "Smelly Boys watching Star Wars all day long",
-            "main_interest_id": "interest_id999",
-            "all_interest_ids": ["interest_id999", "interest_id998"],
-            "time_interval": "1"
-        },
-    };
-    postActivity(999, test_json);
-    // TODO: UPDATE DOM
-});
-
-const InterestBtn = document.getElementById("test_interests_btn_id");
-InterestBtn.addEventListener("click", () => {
-    console.log("Clicked: test_interests_btn_id");
-    const test_json = {
-        "interest_id999": {
-            "name": "Filmwatchathons"
-        },
-    };
-    postInterest(999, test_json);
-    // TODO: UPDATE DOM
-});
-
-
-// Initial DOM update
+// Update/create DOM on page load
 initialDOMUpdate();
+
+
+
+
+
+
+
 
 
 //Alt kode vedrørende available time
