@@ -193,21 +193,24 @@ function updateInterestDOM() {
 // HTML forms
 
 // POST interested activities form handler
-function postInterestsFormHandler(event) {
+function postProfileFormHandler(event, key) {
     event.preventDefault();
     const form = event.target; // Get the form from the event target element (the interest form)
     const formData = new FormData(form); // Get all form data
-    const checkedActivities = [];
+    const checkedData = [];
 
-    // Loop through all checkboxes and add checked activity ids to array
+    console.log(event.target);
+    console.log(formData);
+    // Loop through all checkboxes and add checked data ids to array
     for (const checkbox of formData) {
         if (checkbox[1] === "on") {
-            checkedActivities.push(checkbox[0]);
+            checkedData.push(checkbox[0]);
+            console.log(checkbox);
         }
     }
 
-    // Update the current profile object with the checked activities
-    currentProfileObj["activity_ids"] = checkedActivities;
+    // Update the current profile object with the checked data
+    currentProfileObj[key] = checkedData;
     
     // combine object and id for a full profile object that is sendt to the server
     const fullProfileObj = {
@@ -284,8 +287,14 @@ teamTimeframeFrom.addEventListener("submit", teamTimeframeFromHandler);
 
 // Attach the event listener to the interests form
 const interestsForm = document.getElementById("interests_form");
-interestsForm.addEventListener("submit", postInterestsFormHandler);
+interestsForm.addEventListener("submit", (event) => {
+    postProfileFormHandler(event,"activity_ids"); 
+});
 
+const availableTimeForm = document.getElementById("time_picker_form_id");
+availableTimeForm.addEventListener("submit", (event) => {
+    postProfileFormHandler(event,"time_availability"); 
+});
 
 
 // Update/create DOM on page load
@@ -372,13 +381,45 @@ function checkboxContents (container, dateString, hour) {
     
     checkbox.type = "checkbox";
     checkbox.classList += "time_chk_btn";                                                                      //tilføjer elementtypen "type" med værdien "checkbox" for alle tidspunkter.
-    checkbox.id = dateString + "_" + hour.replace("-", "_");                                     //slicer navnet på dagen over så det kun er første 3 man ser                                                                                          //tilføjer et "_" og bagefter tidspunktet der bruges.
+    checkbox.id = dateString + "_" + hour.replace("-", "_") + "_id";                                     //slicer navnet på dagen over så det kun er første 3 man ser                                                                                          //tilføjer et "_" og bagefter tidspunktet der bruges.
     checkbox.name = dateString + "_" + hour.replace("-", "_");                                   //samme som før
-    checkbox.value = dateString + "_" + hour.replace("-", "_");
     
-    label.htmlFor = dateString + "_" + hour.replace("-", "_");                                   //efter label indsætter man html for værdien af label
+    label.htmlFor = dateString + "_" + hour.replace("-", "_") + "_id";                                   //efter label indsætter man html for værdien af label
     label.textContent = hour;                                                                    //det tidspunkt der skal stå på knappen.
     
     container.appendChild(checkbox);                                                                        //tilføjer hele checkbox delen til li
     container.appendChild(label);                                                                           //tilføjer bagefter labet til li-delen                                                                            //tilføjer li-delen til ul-delen   
 }
+
+let currentTimeObj = null;
+let currentTimeId = null;
+
+function updateAvailableTimeDOM () {
+    const availableTimes = null; 
+}
+
+
+function submitAvailableTimeFormHandler(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const checkedTime = [];
+
+    for(const checkbox of formData) {
+        if(checkbox.checked) {
+            checkedTime.push(checkbox.name);
+        }
+    }
+
+    currentTimeObj["time_availability"] = checkedTime;
+
+    const fullTimeObj = {
+        [currentProfileId]: currentProfObj
+    };
+
+    console.log(fullTimeObj);
+
+    // Post the updated profile object to the server
+    postProfile(currentProfileId.split("profile_id")[1], fullProfileObj);
+}
+
