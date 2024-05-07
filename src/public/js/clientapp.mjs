@@ -164,7 +164,7 @@ function updateProfileInfoDOM() {
     // Update the profile section with the profile data
     nameSpan.textContent = currentProfileObj["name"];
     idSpan.textContent = currentProfileUsername;
-    teamSpan.textContent = currentProfileObj["name"];
+    teamSpan.textContent = currentTeamObj["name"];
     teamIdSpan.textContent = currentTeamIdName;
     teamTimeSpan.textContent = currentTeamObj["time_frame"]["from"] + " - " + currentTeamObj["time_frame"]["to"];
 }
@@ -247,7 +247,10 @@ async function loginWithIdUpdateHandler(event) {
     // Update the DOM with the profile data
     updateProfileInfoDOM(); 
     updateInterestDOM();
+    updateAvailableTimeDOM();
 
+    // Chage navigation tab
+    showSelection("profile_and_team_section_id");
     //console.log("loginWithIdUpdateHandler: ", currentProfileId, currentProfileObj);
 }
 
@@ -285,6 +288,7 @@ navButtons.forEach(button => {
 const loginForm = document.getElementById("profile_login_username_form_id")
 loginForm.addEventListener("submit", loginWithIdUpdateHandler);
 
+// Attach the event listener to the team timeframe form
 const teamTimeframeFrom = document.getElementById("team_timeframe_form_id");
 teamTimeframeFrom.addEventListener("submit", teamTimeframeFromHandler);
 
@@ -298,6 +302,14 @@ const availableTimeForm = document.getElementById("time_picker_form_id");
 availableTimeForm.addEventListener("submit", (event) => {
     postProfileFormHandler(event,"time_availability"); 
 });
+
+// Attach the event listener to the assing profile to team form
+const assignProfileToTeamForm = document.getElementById("team_profile_assign_id_name_form_id");
+assignProfileToTeamForm.addEventListener("submit", (event) => {});
+
+// Attach the event listener to the create new team form
+const createNewTeamForm = document.getElementById("team_create_form_id");
+createNewTeamForm.addEventListener("submit", (event) => {});
 
 
 // Update/create DOM on page load
