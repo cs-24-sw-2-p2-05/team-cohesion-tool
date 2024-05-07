@@ -76,9 +76,9 @@ function fetchCalculatedData(teamNumber) {
 // A lot of fetch helper functions to get data from the server
 
 // Fetch profile data from server
-function fetchProfile(profileNumber) {
-    //console.log("fetchProfile: " + profileNumber);
-    return getJson("/profiles/" + profileNumber);
+function fetchProfile(profileUsername) {
+    //console.log("fetchProfile: " + profileUsername);
+    return getJson("/profiles/" + profileUsername);
 }
 
 // Fetch team data from server
@@ -121,9 +121,9 @@ function fetchAllProfilesFromTeam(teamNumber) {
 // fetch POST helper function to add or update data in the server
 
 // Fetch POST profile data to server
-function postProfile(profileNumber, data) {
-    console.log("fetchProfile: " + profileNumber, data);
-    return postJson("/profiles/" + profileNumber, data);
+function postProfile(profileUsername, data) {
+    console.log("fetchProfile: " + profileUsername, data);
+    return postJson("/profiles/" + profileUsername, data);
 }
 
 // Fetch POST team data to server

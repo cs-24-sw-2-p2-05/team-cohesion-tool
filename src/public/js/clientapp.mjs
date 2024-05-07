@@ -11,10 +11,12 @@ import { postProfile, postTeam, postActivity, postInterest  } from "./comms.mjs"
 
 // Variables
 let currentProfileObj = null;
-let currentProfileId = null;
+let currentProfileUsername = null;
 let currentTeamObj = null;
 let currentTeamId = null;
 let allTeamsObj = null;
+let currentTimeObj = null;
+let currentTimeId = null;
 
 
 // HTML elements show/hide functions
@@ -151,16 +153,17 @@ function initialInterestDOMUpdate() {
 
 // Function update the DOM with the profile data
 function updateProfileInfoDOM() {
+    console.log("updateProfileInfoDOM: ", currentProfileUsername, currentProfileObj, currentTeamObj);
     // Get the profile section
     const nameSpan = document.getElementById("profile_name_span_id");
-    const idSpan = document.getElementById("profile_id_span_id");
+    const idSpan = document.getElementById("profile_username_span_id");
     const teamSpan = document.getElementById("team_name_span_id");
     const teamIdSpan = document.getElementById("team_id_span_id");
     const teamTimeSpan = document.getElementById("team_time_span_id");
 
     // Update the profile section with the profile data
     nameSpan.textContent = currentProfileObj["name"];
-    idSpan.textContent = currentProfileId;
+    idSpan.textContent = currentProfileUsername;
     teamSpan.textContent = currentProfileObj["name"];
     teamIdSpan.textContent = currentTeamId;
     teamTimeSpan.textContent = currentTeamObj["time_frame"]["from"] + " - " + currentTeamObj["time_frame"]["to"];
@@ -214,27 +217,27 @@ function postProfileFormHandler(event, key) {
     
     // combine object and id for a full profile object that is sendt to the server
     const fullProfileObj = {
-        [currentProfileId]: currentProfileObj
+        [currentProfileUsername]: currentProfileObj
     };
     
     console.log(fullProfileObj);
 
     // Post the updated profile object to the server
-    postProfile(currentProfileId.split("profile_id")[1], fullProfileObj);
+    postProfile(currentProfileUsername, fullProfileObj);
 }
 
 
 // Login form handler
 async function loginWithIdUpdateHandler(event) {
     event.preventDefault();
-    currentProfileId = event.target.profile_id.value;
-    currentProfileObj = await fetchProfile(currentProfileId.split("profile_id")[1]);
+    currentProfileUsername = event.target.profile_username.value;
+    currentProfileObj = await fetchProfile(currentProfileUsername);
     allTeamsObj = await fetchAllTeams();
 
     
     // Find team that the profile is a part of
     for (const team in allTeamsObj) {
-        if (allTeamsObj[team].profile_ids.includes(currentProfileId)) {
+        if (allTeamsObj[team].profile_ids.includes(currentProfileUsername)) {
             currentTeamObj = allTeamsObj[team];
             currentTeamId = team;
             break;
@@ -279,8 +282,8 @@ navButtons.forEach(button => {
 });
 
 // Attach the event listener to the login  with id from
-const loginFormId = document.getElementById("profile_login_id_form_id")
-loginFormId.addEventListener("submit", loginWithIdUpdateHandler);
+const loginForm = document.getElementById("profile_login_username_form_id")
+loginForm.addEventListener("submit", loginWithIdUpdateHandler);
 
 const teamTimeframeFrom = document.getElementById("team_timeframe_form_id");
 teamTimeframeFrom.addEventListener("submit", teamTimeframeFromHandler);
@@ -385,8 +388,6 @@ function checkboxContents (container, dateString, hour) {
     container.appendChild(label);                                                                           //tilføjer bagefter labet til li-delen                                                                            //tilføjer li-delen til ul-delen   
 }
 
-let currentTimeObj = null;
-let currentTimeId = null;
 
 function updateAvailableTimeDOM () {
     const availableTimes = null; 
@@ -408,12 +409,12 @@ function submitAvailableTimeFormHandler(event) {
     currentTimeObj["time_availability"] = checkedTime;
 
     const fullTimeObj = {
-        [currentProfileId]: currentProfObj
+        [currentProfileUsername]: currentProfObj
     };
 
     console.log(fullTimeObj);
 
     // Post the updated profile object to the server
-    postProfile(currentProfileId.split("profile_id")[1], fullProfileObj);
+    postProfile(currentProfileUsername, fullProfileObj);
 }
 

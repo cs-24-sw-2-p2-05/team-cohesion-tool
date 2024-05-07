@@ -27,16 +27,10 @@
     <section id="login_section_id">
         <h1>Login or create a profile</h1>
         <h2>Log in to profile</h2>
-        <!-- <p>Login with name or profile id ("profile_id#"):</p>
-        <form id="profile_login_name_form_id" action="#">
-            <label for="profile_login_name_id">Profile name:</label>
-            <input type="text" id="profile_login_name_id" name="name" required>
-            <input type="submit" id="profile_login_name_form_submit_id" value="Login">
-        </form> -->
-        <form id="profile_login_id_form_id" action="#">
-            <label for="profile_login_id_id">Profile id:</label>
-            <input type="text" id="profile_login_id_id" name="profile_id" required>
-            <input type="submit" id="profile_login_id_form_submit_id" value="Login">
+        <form id="profile_login_username_form_id" action="#">
+            <label for="profile_login_id_id">Profile Username:</label>
+            <input type="text" id="profile_login_username_id" name="profile_username" required>
+            <input type="submit" id="profile_login_username_form_submit_id" value="Login">
         </form>
         <h2>New Profile?</h2>
         <form id="profile_create_form_id" action="#">
@@ -49,8 +43,8 @@
     <!-- Profilepage -->
     <section id="profile_section_id">
         <h1>Profile info</h1>
+            <p>Profile id: <span id="profile_username_span_id"></span></p>
             <p>Name: <span id="profile_name_span_id"></span></p>
-            <p>Profile id: <span id="profile_id_span_id"></span></p>
             <p>Team name: <span id="team_name_span_id"></span></p>
             <p>Team id: <span id="team_id_span_id"></span></p>
             <p>Team time span: <span id="team_time_span_id"></span></p>

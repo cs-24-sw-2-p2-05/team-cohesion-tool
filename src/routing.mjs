@@ -92,11 +92,9 @@ function routes() {
 
     // GET request to a specific profiles data
     // The profileId is passed as a parameter in the URL. ":profileId" is said parameter
-    app.get("/profiles/:profileId", (req, res) => {
-        const profileId = "profile_id" + req.params.profileId; // Get the profileId from the request
-
+    app.get("/profiles/:profileUsername", (req, res) => {
         // If the profile exists, else return a 404 status code with error
-        getInduvidualDataFromJSONFileWithResponse("profiles", profileId, res);
+        getInduvidualDataFromJSONFileWithResponse("profiles", req.params.profileUsername, res);
     });
 
     // GET request to a specific teams data
@@ -210,18 +208,18 @@ function routes() {
     // POST routing
 
     // POST request to add a new profile or add to a profile to the database
-    app.post("/profiles/:profileId", (req, res) => {
-        const oldProfile = database.profiles["profile_id" + req.params.profileId];
-        const newProfile = req.body["profile_id" + req.params.profileId];
+    app.post("/profiles/:profileUsername", (req, res) => {
+        const oldProfile = database.profiles[req.params.profileUsername];
+        const newProfile = req.body[req.params.profileUsername];
         // Merge old profile with new profile, by overwriting old values with new values
         const mergedProfile = Object.assign({}, oldProfile, newProfile); 
 
         // Delete if client update is empty, indicating that the profile should be deleted
         // Else add or update the profile
        if (Object.keys(newProfile).length === 0) {
-            delete database.profiles["profile_id" + req.params.profileId];
+            delete database.profiles[req.params.profileUsername];
         } else { 
-            database.profiles["profile_id" + req.params.profileId] = mergedProfile;
+            database.profiles[req.params.profileUsername] = mergedProfile;
         }
         
         // Save database to file
