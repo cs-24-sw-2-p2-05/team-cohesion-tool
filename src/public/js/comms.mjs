@@ -68,8 +68,8 @@ function postJson(url, data) {
 
 
 // fetch helper function to get calculated data from server
-function fetchCalculatedData(teamNumber) {
-    return getJson("/teams/" + teamNumber + "/calculate");
+function fetchCalculatedData(teamIDName) {
+    return getJson("/teams/" + teamIDName + "/calculate");
 }
 
 
@@ -82,9 +82,9 @@ function fetchProfile(profileUsername) {
 }
 
 // Fetch team data from server
-function fetchTeam(teamNumber) {
+function fetchTeam(teamIDName) {
     //console.log("fetchTeam: " + teamNumber);
-    return getJson("/teams/" + teamNumber);
+    return getJson("/teams/" + teamIDName);
 }
 
 // Fetch activity data from server
@@ -113,8 +113,8 @@ function fetchAllActivitiesFromInterest(interestNumber) {
 }
 
 // Fetch all profiles data in relation to a team from server
-function fetchAllProfilesFromTeam(teamNumber) {
-    return getJson("/profiles" + "/teams/" + teamNumber);
+function fetchAllProfilesFromTeam(teamIdName) {
+    return getJson("/profiles" + "/teams/" + teamIdName);
 }
 
 
@@ -127,9 +127,9 @@ function postProfile(profileUsername, data) {
 }
 
 // Fetch POST team data to server
-function postTeam(teamNumber, data) {
-    console.log("fetchTeam: " + teamNumber, data);
-    return postJson("/teams/" + teamNumber, data);
+function postTeam(teamIdName, data) {
+    console.log("fetchTeam: " + teamIdName, data);
+    return postJson("/teams/" + teamIdName, data);
 }
 
 // Fetch POST activity data to server

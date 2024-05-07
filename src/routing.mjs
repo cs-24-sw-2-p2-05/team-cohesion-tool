@@ -81,8 +81,8 @@ function routes() {
     });
 
     // GET routing for algorithm
-    app.get("/teams/:team/calculate", (req, res) => {
-        console.log(req.params.team);
+    app.get("/teams/:teamIdName/calculate", (req, res) => {
+        console.log("calculate request from team:", req.params.teamIdName);
     });
 
     // Database GET routing
@@ -91,7 +91,7 @@ function routes() {
     // Routeing parametre like "/something/:parameter"
 
     // GET request to a specific profiles data
-    // The profileId is passed as a parameter in the URL. ":profileId" is said parameter
+    // The profileId is passed as a parameter in the URL. ":profileUsername" is said parameter
     app.get("/profiles/:profileUsername", (req, res) => {
         // If the profile exists, else return a 404 status code with error
         getInduvidualDataFromJSONFileWithResponse("profiles", req.params.profileUsername, res);
@@ -99,11 +99,9 @@ function routes() {
 
     // GET request to a specific teams data
     // The teamId is passed as a parameter in the URL. ":teamId" is said parameter
-    app.get("/teams/:teamId", (req, res) => {
-        const teamId = "team_id" + req.params.teamId; // Get the teamId from the request
-
+    app.get("/teams/:teamIdName", (req, res) => {
         // If the team exists, else return a 404 status code with error
-        getInduvidualDataFromJSONFileWithResponse("teams", teamId, res);
+        getInduvidualDataFromJSONFileWithResponse("teams", req.params.teamIdName, res);
     });
 
     // GET request to a specific activitys data
@@ -174,15 +172,15 @@ function routes() {
     });
 
     // Get request for all profiles in a team
-    app.get("/profiles/teams/:teamId", (req, res) => {
-        const teamId = "team_id" + req.params.teamId;
-        const specificTeam = database.teams[teamId]; // Get the specific team, that we want to find all profiles for
+    app.get("/profiles/teams/:teamIdName", (req, res) => {
+        const teamIdName = req.params.teamIdName;
+        const specificTeam = database.teams[teamIdName]; // Get the specific team, that we want to find all profiles for
         const allProfiles = database.profiles; // Get all profiles from the database
         const relatedProfiles = {} //= database.profiles.filter(profile => profile.team_id === teamId);
         
         // check if the team exists
         if (!specificTeam) {
-            res.status(404).send(`No team with id: ${teamId} found`);
+            res.status(404).send(`No team with id: ${teamIdName} found`);
         }
         console.log(specificTeam);
 
@@ -201,7 +199,7 @@ function routes() {
         if (relatedProfiles) {
             res.json(relatedProfiles);
         } else {
-            res.status(404).send(`No profiles related to the specified team: ${teamId} found`);
+            res.status(404).send(`No profiles related to the specified team: ${teamIdName} found`);
         }
     });
 
@@ -236,18 +234,19 @@ function routes() {
 
     // POST request to add a new team to the database, w/ attached profile
     // - Remove profile from old team
-    app.post("/teams/:teamId", (req, res) => {
-        const oldTeam = database.teams["team_id" + req.params.teamId];
-        const newTeam = req.body["team_id" + req.params.teamId];
+    app.post("/teams/:teamIdName", (req, res) => {
+        const teamIdName = req.params.teamIdName;
+        const oldTeam = database.teams[teamIdName];
+        const newTeam = req.body[teamIdName];
         // Merge old team with new team, by overwriting old values with new values
         const mergedTeam = Object.assign({}, oldTeam, newTeam);
 
         // Delete if client update is empty, indicating that the team should be deleted
         // Else add or update the team
         if (Object.keys(newTeam).length === 0) {
-            delete database.teams["team_id" + req.params.teamId];
+            delete database.teams[teamIdName];
         } else {
-            database.teams["team_id" + req.params.teamId] = mergedTeam;
+            database.teams[teamIdName] = mergedTeam;
         }
 
         // Save database to file

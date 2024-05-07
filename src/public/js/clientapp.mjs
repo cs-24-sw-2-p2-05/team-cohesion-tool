@@ -13,7 +13,7 @@ import { postProfile, postTeam, postActivity, postInterest  } from "./comms.mjs"
 let currentProfileObj = null;
 let currentProfileUsername = null;
 let currentTeamObj = null;
-let currentTeamId = null;
+let currentTeamIdName = null;
 let allTeamsObj = null;
 let currentTimeObj = null;
 let currentTimeId = null;
@@ -158,14 +158,14 @@ function updateProfileInfoDOM() {
     const nameSpan = document.getElementById("profile_name_span_id");
     const idSpan = document.getElementById("profile_username_span_id");
     const teamSpan = document.getElementById("team_name_span_id");
-    const teamIdSpan = document.getElementById("team_id_span_id");
+    const teamIdSpan = document.getElementById("team_id_name_span_id");
     const teamTimeSpan = document.getElementById("team_time_span_id");
 
     // Update the profile section with the profile data
     nameSpan.textContent = currentProfileObj["name"];
     idSpan.textContent = currentProfileUsername;
     teamSpan.textContent = currentProfileObj["name"];
-    teamIdSpan.textContent = currentTeamId;
+    teamIdSpan.textContent = currentTeamIdName;
     teamTimeSpan.textContent = currentTeamObj["time_frame"]["from"] + " - " + currentTeamObj["time_frame"]["to"];
 }
 
@@ -230,7 +230,7 @@ function postProfileFormHandler(event, key) {
 // Login form handler
 async function loginWithIdUpdateHandler(event) {
     event.preventDefault();
-    currentProfileUsername = event.target.profile_username.value;
+    currentProfileUsername = event.target.username.value;
     currentProfileObj = await fetchProfile(currentProfileUsername);
     allTeamsObj = await fetchAllTeams();
 
@@ -239,7 +239,7 @@ async function loginWithIdUpdateHandler(event) {
     for (const team in allTeamsObj) {
         if (allTeamsObj[team].profile_ids.includes(currentProfileUsername)) {
             currentTeamObj = allTeamsObj[team];
-            currentTeamId = team;
+            currentTeamIdName = team;
             break;
         }
     }
@@ -264,10 +264,10 @@ function teamTimeframeFromHandler(event) {
 
     currentTeamObj["time_frame"] = teamTimeframe;
     const fullTeamObj = {
-        [currentTeamId]: currentTeamObj
+        [currentTeamIdName]: currentTeamObj
     };
 
-    postTeam(currentTeamId.split("team_id")[1], fullTeamObj);
+    postTeam(currentTeamIdName, fullTeamObj);
     createAvailableTimeForm(teamTimeframe.from, teamTimeframe.to);
 }
 
