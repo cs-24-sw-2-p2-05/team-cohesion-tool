@@ -438,6 +438,11 @@ createNewTeamForm.addEventListener("submit", createTeamFormHandler);
 const assignProfileToTeamForm = document.getElementById("team_profile_assign_id_name_form_id");
 assignProfileToTeamForm.addEventListener("submit", assignProfileToTeamFormHandler);
 
+// Attach the event listener to the plan-team-activities button
+const teamResutlsBtn = document.getElementById("team_results_btn_id");
+teamResutlsBtn.addEventListener("click", (event) => {
+    fetchCalculatedData(currentTeamIdName);
+});
 
 // Update/create DOM on page load
 initialDOMUpdate();
