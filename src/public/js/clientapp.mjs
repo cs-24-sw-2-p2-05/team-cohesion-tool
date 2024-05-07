@@ -152,8 +152,8 @@ function initialInterestDOMUpdate() {
 // HTML DOM update functions
 
 // Function update the DOM with the profile data
-function updateProfileInfoDOM() {
-    console.log("updateProfileInfoDOM: ", currentProfileUsername, currentProfileObj, currentTeamObj);
+function updateInfoDOM() {
+    //console.log("updateProfileInfoDOM: ", currentProfileUsername, currentProfileObj, currentTeamObj);
     // Get the profile section
     const nameSpan = document.getElementById("profile_name_span_id");
     const idSpan = document.getElementById("profile_username_span_id");
@@ -164,9 +164,12 @@ function updateProfileInfoDOM() {
     // Update the profile section with the profile data
     nameSpan.textContent = currentProfileObj["name"];
     idSpan.textContent = currentProfileUsername;
-    teamSpan.textContent = currentTeamObj["name"];
-    teamIdSpan.textContent = currentTeamIdName;
-    teamTimeSpan.textContent = currentTeamObj["time_frame"]["from"] + " - " + currentTeamObj["time_frame"]["to"];
+    // Only update if they have a team
+    if (currentTeamObj !== null) {
+        teamSpan.textContent = currentTeamObj["name"];
+        teamIdSpan.textContent = currentTeamIdName;
+        teamTimeSpan.textContent = currentTeamObj["time_frame"]["from"] + " - " + currentTeamObj["time_frame"]["to"];
+    }
 }
 
 // Function update the DOM with the interest data
@@ -202,13 +205,13 @@ function postProfileFormHandler(event, key) {
     const formData = new FormData(form); // Get all form data
     const checkedData = [];
 
-    console.log(event.target);
-    console.log(formData);
+    //console.log(event.target);
+    //console.log(formData);
     // Loop through all checkboxes and add checked data ids to array
     for (const checkbox of formData) {
         if (checkbox[1] === "on") {
             checkedData.push(checkbox[0]);
-            console.log(checkbox);
+            //console.log(checkbox);
         }
     }
 
@@ -220,7 +223,7 @@ function postProfileFormHandler(event, key) {
         [currentProfileUsername]: currentProfileObj
     };
     
-    console.log(fullProfileObj);
+    //console.log(fullProfileObj);
 
     // Post the updated profile object to the server
     postProfile(currentProfileUsername, fullProfileObj);
@@ -245,7 +248,7 @@ async function loginWithIdUpdateHandler(event) {
     }
     
     // Update the DOM with the profile data
-    updateProfileInfoDOM(); 
+    updateInfoDOM(); 
     updateInterestDOM();
     updateAvailableTimeDOM();
 
@@ -254,7 +257,126 @@ async function loginWithIdUpdateHandler(event) {
     //console.log("loginWithIdUpdateHandler: ", currentProfileId, currentProfileObj);
 }
 
-// POST (and update) Team timeframe form handler
+// Create and POST profile form handler
+function createProfileFormHandler(event) {
+    event.preventDefault();
+    // Get the form from the event target element (the profile form)
+    const form = event.target;
+    const formData = new FormData(form);
+
+    // Create a profile object from the form data
+    const profile = {
+        name: formData.get("name"),
+        activity_ids: [],
+        time_availability: []
+    };
+
+    // Combine object and id for a full profile object
+    const profileUsername = formData.get("username");
+    const fullProfileObj = {
+        [profileUsername]: profile
+    };
+
+    // Post the profile object to the server
+    postProfile(profileUsername, fullProfileObj);
+    
+    // Update global variables and the user DOM
+    currentProfileUsername = profileUsername;
+    currentProfileObj = profile;
+    updateInfoDOM();
+    updateInterestDOM();
+    updateAvailableTimeDOM();
+}
+
+// Create and POST team form handler
+function createTeamFormHandler(event) {
+    event.preventDefault();
+    // Get the form from the event target element (the team form)
+    const form = event.target;
+    const formData = new FormData(form);
+
+    // Create a team object from the form data
+    const NewTeamObj = {
+        name: formData.get("name"),
+        profile_ids: [currentProfileUsername],
+        time_frame: {
+            from: "",
+            to: ""
+        }
+    };
+
+    // Remove the profile id from the old team object
+    if (currentTeamObj !== null) {
+        const updateOldTeamObjProfileIds = currentTeamObj.profile_ids.filter(username => username !== currentProfileUsername);
+        const updateOldTeamObj = {   
+            [currentTeamIdName]: { profile_ids: updateOldTeamObjProfileIds }
+        };
+        //console.log("assignProfileToTeamFormHandler: ", updateOldTeamObj);
+        postTeam(currentTeamIdName, updateOldTeamObj);
+    }
+
+    // Combine object and id for a full team object
+    const teamIdName = formData.get("id_name");
+    const fullTeamObj = {
+        [teamIdName]: NewTeamObj
+    };
+    
+    // Post the team object to the server
+    postTeam(teamIdName, fullTeamObj);
+
+    // Update global variables and the relevant things in DOM
+    currentTeamObj = NewTeamObj;
+    currentTeamIdName = teamIdName;
+    updateInfoDOM();
+    updateAvailableTimeDOM();
+}
+
+// Assign profile to team and POST form handler
+async function assignProfileToTeamFormHandler(event) {
+    event.preventDefault();
+    // Get the form from the event target element (the assign profile to team form)
+    const form = event.target;
+    const formData = new FormData(form);
+
+    // Get the profile and team id names
+    const teamIdName = formData.get("id_name");
+
+    // Get the team object from the server
+    let serverTeamObj = await fetchTeam(teamIdName);
+
+    // Add the profile id to the new team object, and remove duplicates
+    serverTeamObj.profile_ids.push(currentProfileUsername);
+    const fullTeamObj = {
+        [teamIdName]: { profile_ids: [...new Set(serverTeamObj.profile_ids)] } // set removes duplicates
+    };
+
+    // Remove the profile id from the old team object
+    if (currentTeamObj !== null) {
+        const updateOldTeamObjProfileIds = currentTeamObj.profile_ids.filter(username => username !== currentProfileUsername);
+        
+        // Update the old team object with the new profile ids
+        let updateOldTeamObj = { [currentTeamIdName]: { profile_ids: updateOldTeamObjProfileIds } };
+
+        // If the old team is empty, delete the team
+        if (updateOldTeamObjProfileIds.length === 0) {
+            updateOldTeamObj = { [currentTeamIdName]: {} };
+        }
+        
+        //console.log("assignProfileToTeamFormHandler: ", updateOldTeamObj);
+        postTeam(currentTeamIdName, updateOldTeamObj);
+    }
+
+    // Post the updated team object to the server
+    postTeam(teamIdName, fullTeamObj);
+
+    // Update global variables and the relevant things in DOM
+    currentTeamObj = serverTeamObj;
+    currentTeamIdName = teamIdName;
+    updateInfoDOM();
+    updateAvailableTimeDOM();
+}
+
+// POST and update Team timeframe form handler
 function teamTimeframeFromHandler(event) {
     event.preventDefault();
     const form = event.target;
@@ -272,8 +394,9 @@ function teamTimeframeFromHandler(event) {
 
     postTeam(currentTeamIdName, fullTeamObj);
     createAvailableTimeForm(teamTimeframe.from, teamTimeframe.to);
+    updateInfoDOM();
+    updateAvailableTimeDOM();
 }
-
 
 
 // HTML Event listeners
@@ -303,13 +426,17 @@ availableTimeForm.addEventListener("submit", (event) => {
     postProfileFormHandler(event,"time_availability"); 
 });
 
-// Attach the event listener to the assing profile to team form
-const assignProfileToTeamForm = document.getElementById("team_profile_assign_id_name_form_id");
-assignProfileToTeamForm.addEventListener("submit", (event) => {});
+// Attach the event listener to the create new profile form
+const createNewProfileForm = document.getElementById("profile_create_form_id");
+createNewProfileForm.addEventListener("submit", createProfileFormHandler);
 
 // Attach the event listener to the create new team form
 const createNewTeamForm = document.getElementById("team_create_form_id");
-createNewTeamForm.addEventListener("submit", (event) => {});
+createNewTeamForm.addEventListener("submit", createTeamFormHandler);
+
+// Attach the event listener to the assing profile to team form
+const assignProfileToTeamForm = document.getElementById("team_profile_assign_id_name_form_id");
+assignProfileToTeamForm.addEventListener("submit", assignProfileToTeamFormHandler);
 
 
 // Update/create DOM on page load
@@ -367,7 +494,6 @@ function createCheckboxes(date) {
     const fromSubmitBtn = document.querySelector("#time_picker_form_id input[type='submit']");
     const container = document.createElement("div");
     const heading = document.createElement("h2");                                                      //giver div className ift ugedagene så fx "Monday"
-    //const ul = document.createElement("ul");                                                           //laver et ul i dokumentet
     
     //container.className = day.toLowerCase();                                                           //Assuming class name is lowercase (få days til lower case letters)
     
@@ -424,7 +550,7 @@ function submitAvailableTimeFormHandler(event) {
         [currentProfileUsername]: currentProfObj
     };
 
-    console.log(fullTimeObj);
+    //console.log(fullTimeObj);
 
     // Post the updated profile object to the server
     postProfile(currentProfileUsername, fullProfileObj);
