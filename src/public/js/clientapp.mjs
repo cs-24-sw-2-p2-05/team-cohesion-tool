@@ -395,6 +395,10 @@ async function assignProfileToTeamFormHandler(event) {
 // POST and update Team timeframe form handler
 function teamTimeframeFromHandler(event) {
     event.preventDefault();
+    // alert if no team to update timeframe for
+    if (currentTeamObj === null) {
+        alert("No team to update timeframe for");
+    }
     const form = event.target;
     const formData = new FormData(form);
     const teamTimeframe = {
