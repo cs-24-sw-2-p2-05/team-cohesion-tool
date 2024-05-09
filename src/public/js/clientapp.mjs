@@ -252,7 +252,7 @@ async function loginWithIdUpdateHandler(event) {
     updateInterestDOM();
     updateAvailableTimeDOM();
 
-    // Chage navigation tab
+    // Change navigation tab
     showSelection("profile_and_team_section_id");
     //console.log("loginWithIdUpdateHandler: ", currentProfileId, currentProfileObj);
 }
@@ -286,6 +286,9 @@ function createProfileFormHandler(event) {
     updateInfoDOM();
     updateInterestDOM();
     updateAvailableTimeDOM();
+
+    // Change navigation tab
+    showSelection("profile_and_team_section_id");
 }
 
 // Create and POST team form handler
