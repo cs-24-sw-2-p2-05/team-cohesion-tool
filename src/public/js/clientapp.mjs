@@ -165,10 +165,10 @@ function updateInfoDOM() {
     nameSpan.textContent = currentProfileObj["name"];
     idSpan.textContent = currentProfileUsername;
     // Only update if they have a team
-    if (currentTeamObj !== null) {
-        teamSpan.textContent = currentTeamObj["name"];
-        teamIdSpan.textContent = currentTeamIdName;
-        teamTimeSpan.textContent = currentTeamObj["time_frame"]["from"] + " - " + currentTeamObj["time_frame"]["to"];
+    if (currentTeamObj === null) {
+        teamSpan.textContent = "";
+        teamIdSpan.textContent = "";
+        teamTimeSpan.textContent = "" + " - " + "";
     }
 }
 
