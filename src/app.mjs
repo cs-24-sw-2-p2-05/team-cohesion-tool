@@ -35,6 +35,18 @@ function validateUsername(userName) {
     throw new Error(ValidationError);
 }
 
+
+//the function that suggests the top n activites the team can do
+function ActivitySuggester () {
+    time_intervals = TimeInterval();
+    consecutive_times = ConsecutiveTime();
+    list_consecutive_times = UniqueAndSort();
+    ranked_list = ActivityRanker();
+
+
+}
+
+
 // Database access functions 
 
 
