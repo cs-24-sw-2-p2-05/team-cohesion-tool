@@ -536,8 +536,28 @@ function checkboxContents (container, dateString, hour) {
 
 
 function updateAvailableTimeDOM () {
-    const availableTimes = null; 
+    //Get all last available times for the profile
+    const availableTimes = currentProfileObj["time_availability"]; 
+
+    //Select all checkboxes and uncheck them
+    const checkboxesTime = document.querySelectorAll("#time_picker_form_id[type = 'checkbox']");
+    for(let i = 0; i < checkboxesTime.length; i++) {
+        checkboxesTime[i].checked = false;
+    }
+    
+    /*checkboxesTime.forEach(checkbox => {
+        checkbox.checked = false;
+    });*/
+
+    availableTimes.forEach(time =>{
+        const checkboxTime = document.getElementById(time+"_id");
+        if (checkboxTime) {
+            checkboxTime.checked = true;
+        }
+    })
+
 }
+
 
 
 function submitAvailableTimeFormHandler(event) {
