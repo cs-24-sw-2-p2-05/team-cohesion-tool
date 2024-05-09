@@ -242,12 +242,15 @@ async function loginWithIdUpdateHandler(event) {
     allTeamsObj = await fetchAllTeams();
 
     
-    // Find team that the profile is a part of
+    // Find team that the profile is a part of, if no team, null
     for (const team in allTeamsObj) {
         if (allTeamsObj[team].profile_ids.includes(currentProfileUsername)) {
             currentTeamObj = allTeamsObj[team];
             currentTeamIdName = team;
             break;
+        } else {
+            currentTeamObj = null;
+            currentTeamIdName = null;
         }
     }
     
