@@ -250,6 +250,7 @@ async function loginWithIdUpdateHandler(event) {
     // Update the DOM with the profile data
     updateInfoDOM(); 
     updateInterestDOM();
+    createAvailableTimeForm();
     updateAvailableTimeDOM();
 
     // Change navigation tab
@@ -285,6 +286,7 @@ function createProfileFormHandler(event) {
     currentProfileObj = profile;
     updateInfoDOM();
     updateInterestDOM();
+    createAvailableTimeForm();
     updateAvailableTimeDOM();
 
     // Change navigation tab
@@ -331,6 +333,7 @@ function createTeamFormHandler(event) {
     currentTeamObj = NewTeamObj;
     currentTeamIdName = teamIdName;
     updateInfoDOM();
+    createAvailableTimeForm();
     updateAvailableTimeDOM();
 }
 
@@ -376,6 +379,7 @@ async function assignProfileToTeamFormHandler(event) {
     currentTeamObj = serverTeamObj;
     currentTeamIdName = teamIdName;
     updateInfoDOM();
+    createAvailableTimeForm();
     updateAvailableTimeDOM();
 }
 
@@ -396,8 +400,8 @@ function teamTimeframeFromHandler(event) {
     };
 
     postTeam(currentTeamIdName, fullTeamObj);
-    createAvailableTimeForm(teamTimeframe.from, teamTimeframe.to);
     updateInfoDOM();
+    createAvailableTimeForm();
     updateAvailableTimeDOM();
 }
 
@@ -462,9 +466,19 @@ initialDOMUpdate();
 
 
 // Function Called to create or update the available time form
-function createAvailableTimeForm (startDate, endDate){
-    startDate = new Date(startDate);
-    endDate = new Date(endDate);
+function createAvailableTimeForm() {
+    let startDate = new Date(0);
+    let endDate = new Date(0);
+
+    // check if team loaded and has a timeframe
+    if (currentTeamObj !== null 
+        && (currentTeamObj.time_frame.from !== "") 
+        && (currentTeamObj.time_frame.to !== "")) {
+
+        startDate = new Date(currentTeamObj.time_frame.from);
+        endDate = new Date(currentTeamObj.time_frame.to);
+    }
+    
     const numberOfDays = countDays(startDate, endDate);
     const form = document.getElementById("time_picker_form_id");
 
@@ -474,7 +488,6 @@ function createAvailableTimeForm (startDate, endDate){
             form.removeChild(form.children[i]);
         }
     }
-
     for (let i = 0; i <= numberOfDays; i++) {                                        // Looper gennem alle dagene for at lave checkboxene for hver dag   
         createCheckboxes(startDate);
         startDate.setDate(startDate.getDate() + 1)                                                        // Add 1 to today's date and set it to tomorrow
@@ -563,4 +576,3 @@ function submitAvailableTimeFormHandler(event) {
     // Post the updated profile object to the server
     postProfile(currentProfileUsername, fullProfileObj);
 }
-
