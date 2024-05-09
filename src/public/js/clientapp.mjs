@@ -284,6 +284,8 @@ function createProfileFormHandler(event) {
     // Update global variables and the user DOM
     currentProfileUsername = profileUsername;
     currentProfileObj = profile;
+    currentTeamIdName = null;
+    currentTeamObj = null;
     updateInfoDOM();
     updateInterestDOM();
     createAvailableTimeForm();
