@@ -15,8 +15,6 @@ let currentProfileUsername = null;
 let currentTeamObj = null;
 let currentTeamIdName = null;
 let allTeamsObj = null;
-let currentTimeObj = null;
-let currentTimeId = null;
 
 
 // HTML elements show/hide functions
@@ -81,8 +79,92 @@ function initialDOMUpdate() {
     console.log("initialInterestDOMUpdate: Done");
 }
 
+
+// Avaiable time section DOM and fetch functions
+
+// Function Called to create or update the available time form
+function generateAvailableTimeForm() {
+    let startDate = new Date(0);
+    let endDate = new Date(0);
+
+    // check if team loaded and has a timeframe
+    if (currentTeamObj !== null 
+        && (currentTeamObj.time_frame.from !== "") 
+        && (currentTeamObj.time_frame.to !== "")) {
+
+        startDate = new Date(currentTeamObj.time_frame.from);
+        endDate = new Date(currentTeamObj.time_frame.to);
+    }
+    
+    const numberOfDays = countDays(startDate, endDate);
+    const form = document.getElementById("time_picker_form_id");
+
+    for (let i = form.children.length - 1; i >= 0; i--) {
+        if (form.children[i].tagName === "DIV") {
+            //console.log(form.children[i]);
+            form.removeChild(form.children[i]);
+        }
+    }
+    for (let i = 0; i <= numberOfDays; i++) {                                        // Looper gennem alle dagene for at lave checkboxene for hver dag   
+        createCheckboxes(startDate);
+        startDate.setDate(startDate.getDate() + 1)                                                        // Add 1 to today's date and set it to tomorrow
+    }
+}
+
+// Helper function to count days between two dates
+function countDays (startDate, endDate) {
+    //startDate er et dato objekt (new Date()) og det samme er endDate
+    let differenceInTime = endDate.getTime() - startDate.getTime();
+
+    let differenceInDays = Math.round(differenceInTime / (1000 * 3600 * 24));
+
+    return differenceInDays;
+}
+
+// functio nfor making the headers and checkboxes for the available time form, for a specific day
+// Function til at lave checkboxes for specifikke dage
+function createCheckboxes(date) {
+    // Array for timer
+    const hours = ["8-9", "9-10", "10-11", "11-12", "12-13", "13-14", "14-15", "15-16", "16-17", "17-18", "18-19", "19-20", "20-21", "21-22", "22-23"];
+    let day = date.toLocaleString('en-GB', {weekday : "long"});
+    let dateString = date.toLocaleDateString('en-GB');
+
+    const fromSubmitBtn = document.querySelector("#time_picker_form_id input[type='submit']");
+    const container = document.createElement("div");
+    const heading = document.createElement("h2");
+    
+    heading.textContent = day + " - " + date.toLocaleDateString();
+    container.appendChild(heading);
+
+    for (let i = 0; i < hours.length; i++) {                                                           //forloop det løber for de timer man har tilføjet til arrayet hours.
+      checkboxContents(container, dateString, hours[i]);
+    }
+
+    fromSubmitBtn.before(container);                                                                   //tilføjer container-delen itl selve documentet i "body".
+}
+
+// Function to create induvidual checkboxes for the available time form
+function checkboxContents (container, dateString, hour) {
+    const checkbox = document.createElement("input"); 
+    const label = document.createElement("label");                                                       //creater nyt på domuentet. Et label                                                                                             //tilføjer et input under "li".
+    
+    checkbox.type = "checkbox";
+    checkbox.classList += "time_chk_btn";                                                                //tilføjer elementtypen "type" med værdien "checkbox" for alle tidspunkter.
+    checkbox.id = dateString + "_" + hour.replace("-", "_") + "_id";                                     //slicer navnet på dagen over så det kun er første 3 man ser                                                                                          //tilføjer et "_" og bagefter tidspunktet der bruges.
+    checkbox.name = dateString + "_" + hour.replace("-", "_");                                           //samme som før
+    
+    label.htmlFor = dateString + "_" + hour.replace("-", "_") + "_id";                                   //efter label indsætter man html for værdien af label
+    label.textContent = hour;                                                                    //det tidspunkt der skal stå på knappen.
+    
+    container.appendChild(checkbox);                                                                        //tilføjer hele checkbox delen til container
+    container.appendChild(label);                                                                           //tilføjer bagefter labet til container-delen                                                                            //tilføjer li-delen til ul-delen   
+}
+
+
+// Interest section DOM and fetch functions
+
 // Create checkbox for activity under interest heading
-function createCheckbox(activities, activity, interestHeading) {
+function createActivityCheckbox(activities, activity, interestHeading) {
     // Create input checkbox and label elements for each activity
     const inputCheckbox = document.createElement("input");
     const label = document.createElement("label");
@@ -137,7 +219,7 @@ function initialInterestDOMUpdate() {
             fetchAllActivitiesFromInterest(interestID).then(activities => {
                 for (const activity in activities) {
                     // Create input checkbox and label elements for each activity
-                    createCheckbox(activities, activity, interestHeading);
+                    createActivityCheckbox(activities, activity, interestHeading);
                 }
             });
         }
@@ -180,13 +262,13 @@ function updateInfoDOM() {
 function updateInterestDOM() {
     // Get all interested activities for the profile
     const interestedActivities = currentProfileObj["activity_ids"];
-
+    
     // Loop though all checkboxes and uncheck them
     const checkboxes = document.querySelectorAll("#interests_form input[type='checkbox']");
     checkboxes.forEach(checkbox => {
         checkbox.checked = false;
     });
-
+    
     // Loop through profiles interested activities and check the checkboxes
     interestedActivities.forEach(activity => {
         const checkbox = document.getElementById(activity+"_id");
@@ -199,43 +281,30 @@ function updateInterestDOM() {
     //console.log("updateInterestDOM: checkboxes", checkboxes, "interestedActivities", interestedActivities);
 }
 
+// Function update the DOM with the available time data
+function updateAvailableTimeDOM () {
+    //Get all last available times for the profile
+    const availableTimes = currentProfileObj["time_availability"]; 
 
-// HTML forms
+    //Select all checkboxes and uncheck them
+    const checkboxesTime = document.querySelectorAll("#time_picker_form_id[type = 'checkbox']");
+    checkboxesTime.forEach(checkbox => {
+        checkbox.checked = false;
+    });
 
-// POST interested activities form handler
-function postProfileFormHandler(event, key) {
-    event.preventDefault();
-    const form = event.target; // Get the form from the event target element (the interest form)
-    const formData = new FormData(form); // Get all form data
-    const checkedData = [];
-
-    //console.log(event.target);
-    //console.log(formData);
-    // Loop through all checkboxes and add checked data ids to array
-    for (const checkbox of formData) {
-        if (checkbox[1] === "on") {
-            checkedData.push(checkbox[0]);
-            //console.log(checkbox);
+    availableTimes.forEach(time =>{
+        const checkboxTime = document.getElementById(time+"_id");
+        if (checkboxTime) {
+            checkboxTime.checked = true;
         }
-    }
-
-    // Update the current profile object with the checked data
-    currentProfileObj[key] = checkedData;
-    
-    // combine object and id for a full profile object that is sendt to the server
-    const fullProfileObj = {
-        [currentProfileUsername]: currentProfileObj
-    };
-    
-    //console.log(fullProfileObj);
-
-    // Post the updated profile object to the server
-    postProfile(currentProfileUsername, fullProfileObj);
+    })
 }
 
 
+// HTML form event handlers
+
 // Login form handler
-async function loginWithIdUpdateHandler(event) {
+async function loginEventHandler(event) {
     event.preventDefault();
     currentProfileUsername = event.target.username.value;
     currentProfileObj = await fetchProfile(currentProfileUsername);
@@ -257,7 +326,7 @@ async function loginWithIdUpdateHandler(event) {
     // Update the DOM with the profile data
     updateInfoDOM(); 
     updateInterestDOM();
-    createAvailableTimeForm();
+    generateAvailableTimeForm();
     updateAvailableTimeDOM();
 
     // Change navigation tab
@@ -266,7 +335,7 @@ async function loginWithIdUpdateHandler(event) {
 }
 
 // Create and POST profile form handler
-function createProfileFormHandler(event) {
+function createProfileFormEventHandler(event) {
     event.preventDefault();
     // Get the form from the event target element (the profile form)
     const form = event.target;
@@ -295,7 +364,7 @@ function createProfileFormHandler(event) {
     currentTeamObj = null;
     updateInfoDOM();
     updateInterestDOM();
-    createAvailableTimeForm();
+    generateAvailableTimeForm();
     updateAvailableTimeDOM();
 
     // Change navigation tab
@@ -303,7 +372,7 @@ function createProfileFormHandler(event) {
 }
 
 // Create and POST team form handler
-function createTeamFormHandler(event) {
+function createTeamFormEventHandler(event) {
     event.preventDefault();
     // Get the form from the event target element (the team form)
     const form = event.target;
@@ -342,12 +411,12 @@ function createTeamFormHandler(event) {
     currentTeamObj = NewTeamObj;
     currentTeamIdName = teamIdName;
     updateInfoDOM();
-    createAvailableTimeForm();
+    generateAvailableTimeForm();
     updateAvailableTimeDOM();
 }
 
 // Assign profile to team and POST form handler
-async function assignProfileToTeamFormHandler(event) {
+async function assignProfileToTeamFormEventHandler(event) {
     event.preventDefault();
     // Get the form from the event target element (the assign profile to team form)
     const form = event.target;
@@ -388,12 +457,12 @@ async function assignProfileToTeamFormHandler(event) {
     currentTeamObj = serverTeamObj;
     currentTeamIdName = teamIdName;
     updateInfoDOM();
-    createAvailableTimeForm();
+    generateAvailableTimeForm();
     updateAvailableTimeDOM();
 }
 
 // POST and update Team timeframe form handler
-function teamTimeframeFromHandler(event) {
+function teamTimeframeFromEventHandler(event) {
     event.preventDefault();
     // alert if no team to update timeframe for
     if (currentTeamObj === null) {
@@ -414,8 +483,45 @@ function teamTimeframeFromHandler(event) {
 
     postTeam(currentTeamIdName, fullTeamObj);
     updateInfoDOM();
-    createAvailableTimeForm();
+    generateAvailableTimeForm();
     updateAvailableTimeDOM();
+}
+
+// POST interested activities form handler
+function postProfileFormEventHandler(event, key) {
+    event.preventDefault();
+    const form = event.target; // Get the form from the event target element (the interest form)
+    const formData = new FormData(form); // Get all form data
+    const checkedData = [];
+
+    //console.log(event.target);
+    //console.log(formData);
+    // Loop through all checkboxes and add checked data ids to array
+    for (const checkbox of formData) {
+        if (checkbox[1] === "on") {
+            checkedData.push(checkbox[0]);
+            //console.log(checkbox);
+        }
+    }
+
+    // Update the current profile object with the checked data
+    currentProfileObj[key] = checkedData;
+    
+    // combine object and id for a full profile object that is sendt to the server
+    const fullProfileObj = {
+        [currentProfileUsername]: currentProfileObj
+    };
+    
+    //console.log(fullProfileObj);
+
+    // Post the updated profile object to the server
+    postProfile(currentProfileUsername, fullProfileObj);
+}
+
+// Function to update the team activity results
+function teamActivityResults() {
+    fetchCalculatedData(currentTeamIdName);
+    console.log("teamActivityResults: ", currentTeamIdName);
 }
 
 
@@ -429,42 +535,41 @@ navButtons.forEach(button => {
 
 // Attach the event listener to the login  with id from
 const loginForm = document.getElementById("profile_login_username_form_id")
-loginForm.addEventListener("submit", loginWithIdUpdateHandler);
+loginForm.addEventListener("submit", loginEventHandler);
+
+// Attach the event listener to the create new profile form
+const createNewProfileForm = document.getElementById("profile_create_form_id");
+createNewProfileForm.addEventListener("submit", createProfileFormEventHandler);
+
+// Attach the event listener to the create new team form
+const createNewTeamForm = document.getElementById("team_create_form_id");
+createNewTeamForm.addEventListener("submit", createTeamFormEventHandler);
+
+// Attach the event listener to the assing profile to team form
+const assignProfileToTeamForm = document.getElementById("team_profile_assign_id_name_form_id");
+assignProfileToTeamForm.addEventListener("submit", assignProfileToTeamFormEventHandler);
 
 // Attach the event listener to the team timeframe form
 const teamTimeframeFrom = document.getElementById("team_timeframe_form_id");
-teamTimeframeFrom.addEventListener("submit", teamTimeframeFromHandler);
+teamTimeframeFrom.addEventListener("submit", teamTimeframeFromEventHandler);
 
 // Attach the event listener to the interests form
 const interestsForm = document.getElementById("interests_form");
 interestsForm.addEventListener("submit", (event) => {
-    postProfileFormHandler(event,"activity_ids"); 
+    postProfileFormEventHandler(event,"activity_ids"); 
 });
 
 const availableTimeForm = document.getElementById("time_picker_form_id");
 availableTimeForm.addEventListener("submit", (event) => {
-    postProfileFormHandler(event,"time_availability"); 
+    postProfileFormEventHandler(event,"time_availability"); 
 });
-
-// Attach the event listener to the create new profile form
-const createNewProfileForm = document.getElementById("profile_create_form_id");
-createNewProfileForm.addEventListener("submit", createProfileFormHandler);
-
-// Attach the event listener to the create new team form
-const createNewTeamForm = document.getElementById("team_create_form_id");
-createNewTeamForm.addEventListener("submit", createTeamFormHandler);
-
-// Attach the event listener to the assing profile to team form
-const assignProfileToTeamForm = document.getElementById("team_profile_assign_id_name_form_id");
-assignProfileToTeamForm.addEventListener("submit", assignProfileToTeamFormHandler);
 
 // Attach the event listener to the plan-team-activities button
-const teamResutlsBtn = document.getElementById("team_results_btn_id");
-teamResutlsBtn.addEventListener("click", (event) => {
-    fetchCalculatedData(currentTeamIdName);
-});
+const teamActivityResutlsBtn = document.getElementById("team_results_btn_id");
+teamActivityResutlsBtn.addEventListener("click", teamActivityResults);
 
-// Update/create DOM on page load
+
+// Genereate elements for DOM on page load
 initialDOMUpdate();
 
 
@@ -474,114 +579,10 @@ initialDOMUpdate();
 
 
 
+/* let currentTimeObj = null;
+let currentTimeId = null; */
 
-//Alt kode vedrørende available time
-
-
-// Function Called to create or update the available time form
-function createAvailableTimeForm() {
-    let startDate = new Date(0);
-    let endDate = new Date(0);
-
-    // check if team loaded and has a timeframe
-    if (currentTeamObj !== null 
-        && (currentTeamObj.time_frame.from !== "") 
-        && (currentTeamObj.time_frame.to !== "")) {
-
-        startDate = new Date(currentTeamObj.time_frame.from);
-        endDate = new Date(currentTeamObj.time_frame.to);
-    }
-    
-    const numberOfDays = countDays(startDate, endDate);
-    const form = document.getElementById("time_picker_form_id");
-
-    for (let i = form.children.length - 1; i >= 0; i--) {
-        if (form.children[i].tagName === "DIV") {
-            //console.log(form.children[i]);
-            form.removeChild(form.children[i]);
-        }
-    }
-    for (let i = 0; i <= numberOfDays; i++) {                                        // Looper gennem alle dagene for at lave checkboxene for hver dag   
-        createCheckboxes(startDate);
-        startDate.setDate(startDate.getDate() + 1)                                                        // Add 1 to today's date and set it to tomorrow
-    }
-}
-
-// Helper function to count days between two dates
-function countDays (startDate, endDate) {
-    //startDate er et dato objekt (new Date()) og det samme er endDate
-    let differenceInTime = endDate.getTime() - startDate.getTime();
-
-    let differenceInDays = Math.round(differenceInTime / (1000 * 3600 * 24));
-
-    return differenceInDays;
-}
-
-// functio nfor making the headers and checkboxes for the available time form, for a specific day
-// Function til at lave checkboxes for specifikke dage
-function createCheckboxes(date) {
-    // Array for timer
-    const hours = ["8-9", "9-10", "10-11", "11-12", "12-13", "13-14", "14-15", "15-16", "16-17", "17-18", "18-19", "19-20", "20-21", "21-22", "22-23"];
-    let day = date.toLocaleString('en-GB', {weekday : "long"});
-    let dateString = date.toLocaleDateString('en-GB');
-
-    const fromSubmitBtn = document.querySelector("#time_picker_form_id input[type='submit']");
-    const container = document.createElement("div");
-    const heading = document.createElement("h2");                                                      //giver div className ift ugedagene så fx "Monday"
-    
-    //container.className = day.toLowerCase();                                                           //Assuming class name is lowercase (få days til lower case letters)
-    
-    heading.textContent = day + " - " + date.toLocaleDateString();
-    container.appendChild(heading);
-                                                //tilføjer et className til ul som hedder chackbox_ samt dagen man er på
-
-    for (let i = 0; i < hours.length; i++) {                                                           //forloop det løber for de timer man har tilføjet til arrayet hours.
-      checkboxContents(container, dateString, hours[i]);
-    }
-                                                                        //tilføjer ul-delen til container elementet
-    fromSubmitBtn.before(container);                                                                   //tilføjer container-delen itl selve documentet i "body".
-}
-
-// Function to create induvidual checkboxes for the available time form
-function checkboxContents (container, dateString, hour) {
-    //const li = document.createElement("li");                                                         //creater et li for hver hour der er i arrayet hours.
-    const checkbox = document.createElement("input"); 
-    const label = document.createElement("label");                                                   //creater nyt på domuentet. Et label                                                                                             //tilføjer et input under "li".
-    
-    checkbox.type = "checkbox";
-    checkbox.classList += "time_chk_btn";                                                                      //tilføjer elementtypen "type" med værdien "checkbox" for alle tidspunkter.
-    checkbox.id = dateString + "_" + hour.replace("-", "_") + "_id";                                     //slicer navnet på dagen over så det kun er første 3 man ser                                                                                          //tilføjer et "_" og bagefter tidspunktet der bruges.
-    checkbox.name = dateString + "_" + hour.replace("-", "_");                                   //samme som før
-    
-    label.htmlFor = dateString + "_" + hour.replace("-", "_") + "_id";                                   //efter label indsætter man html for værdien af label
-    label.textContent = hour;                                                                    //det tidspunkt der skal stå på knappen.
-    
-    container.appendChild(checkbox);                                                                        //tilføjer hele checkbox delen til li
-    container.appendChild(label);                                                                           //tilføjer bagefter labet til li-delen                                                                            //tilføjer li-delen til ul-delen   
-}
-
-
-function updateAvailableTimeDOM () {
-    //Get all last available times for the profile
-    const availableTimes = currentProfileObj["time_availability"]; 
-
-    //Select all checkboxes and uncheck them
-    const checkboxesTime = document.querySelectorAll("#time_picker_form_id[type = 'checkbox']");
-    checkboxesTime.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-
-    availableTimes.forEach(time =>{
-        const checkboxTime = document.getElementById(time+"_id");
-        if (checkboxTime) {
-            checkboxTime.checked = true;
-        }
-    })
-
-}
-
-
-function submitAvailableTimeFormHandler(event) {
+/* function submitAvailableTimeFormHandler(event) {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
@@ -603,4 +604,4 @@ function submitAvailableTimeFormHandler(event) {
 
     // Post the updated profile object to the server
     postProfile(currentProfileUsername, fullProfileObj);
-}
+} */
