@@ -55,7 +55,6 @@ function ActivitySuggester() {
     return ranked_list;
 }
 
-
 //import { fetchProfile, fetchTeam, fetchActivity, fetchInterest, fetchAllInterests, fetchAllTeams, fetchAllActivitiesFromInterest, fetchAllProfilesFromTeam } from "./comms.mjs";
 
 export {TimerInterval};
@@ -114,18 +113,3 @@ function TimerInterval(team, profiles) {
     return time_intervals;
 }
 
-/*
-  //accessing each profile in profiles of the team
-  teamInfoObj.profile_ids.forEach(functionProfiles(profiles_ids));
-
-  //then doing that function
-    function functionProfiles(profile){
-    let profileObj = fetchProfile(profile);
-    profileObj.time_availability.forEach(available_interval => {
-        time_intervals[available_interval].append(profile);
-    })
-    }
-*/
-
- 
- 
