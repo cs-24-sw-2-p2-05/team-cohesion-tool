@@ -19,6 +19,62 @@ import { Profile, Team, Activity, Interest } from "./objects.mjs";
 // The __dirname  = current/root directory
 const __dirname = import.meta.dirname;
 
+
+let time_intervals = {
+    '13/05/2024_8_9': [],
+    '13/05/2024_9_10': [],
+    '13/05/2024_10_11': [ 'profile_id2' ],
+    '13/05/2024_11_12': [ 'profile_id2' ],
+    '13/05/2024_12_13': [ 'profile_id2' ],
+    '13/05/2024_13_14': [],
+    '13/05/2024_14_15': [],
+    '13/05/2024_15_16': [],
+    '13/05/2024_16_17': [],
+    '13/05/2024_17_18': [],
+    '13/05/2024_18_19': [],
+    '13/05/2024_19_20': [],
+    '13/05/2024_20_21': [],
+    '13/05/2024_21_22': [ 'profile_id1', 'profile_id3', 'profile_id4' ],
+    '13/05/2024_22_23': [ 'profile_id1', 'profile_id3', 'profile_id4' ],
+    '14/05/2024_8_9': [ 'profile_id1', 'profile_id4' ],
+    '14/05/2024_9_10': [ 'profile_id1' ],
+    '14/05/2024_10_11': [],
+    '14/05/2024_11_12': [],
+    '14/05/2024_12_13': [],
+    '14/05/2024_13_14': [],
+    '14/05/2024_14_15': [],
+    '14/05/2024_15_16': [],
+    '14/05/2024_16_17': [],
+    '14/05/2024_17_18': [],
+    '14/05/2024_18_19': [],
+    '14/05/2024_19_20': [ 'profile_id2', 'profile_id4' ],
+    '14/05/2024_20_21': [],
+    '14/05/2024_21_22': [],
+    '14/05/2024_22_23': [],
+    '15/05/2024_8_9': [],
+    '15/05/2024_9_10': [],
+    '15/05/2024_10_11': [],
+    '15/05/2024_11_12': [],
+    '15/05/2024_12_13': [],
+    '15/05/2024_13_14': [],
+    '15/05/2024_14_15': [],
+    '15/05/2024_15_16': [],
+    '15/05/2024_16_17': [],
+    '15/05/2024_17_18': [ 'profile_id3', 'profile_id2', 'profile_id4' ],
+    '15/05/2024_18_19': [ 'profile_id2', 'profile_id3', 'profile_id4' ],
+    '15/05/2024_19_20': [],
+    '15/05/2024_20_21': [],
+    '15/05/2024_21_22': [ 'profile_id4' ],
+    '15/05/2024_22_23': [ 'profile_id3', 'profile_id4' ]
+  }
+  
+
+import { consecutiveTime } from ".//algorithm.mjs";
+consecutiveTime(time_intervals, database["teams"]["team_id1"]);
+
+
+
+
 // Get data from JSON file, and make a response to client
 function getInduvidualDataFromJSONFileWithResponse(type, id, res) {
     const data = database[type][id]; // Get the specific type of data, together with the key to get specific object in database (like a specific profile)
