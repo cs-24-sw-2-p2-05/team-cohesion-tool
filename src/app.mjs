@@ -43,3 +43,13 @@ function validateUsername(userName) {
 
 // Conversion functions
 
+
+
+function ActivitySuggester() {
+    let time_intervals = TimerInterval(team, profiles);
+    let consecutive_times = ConsecutiveTime(time_intervals, team);
+    let list_consecutive_times = UniqueAndSort(consecutive_times);
+    let ranked_list = ActivityRanker(list_consecutive_times, profiles, activities);
+
+    return ranked_list;
+}
