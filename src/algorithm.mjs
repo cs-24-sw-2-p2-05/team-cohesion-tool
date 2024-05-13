@@ -4,7 +4,7 @@ function consecutiveTime(time_intervals, team){
 
     let consecutive_times = {};      // Declaring and initialization of new dictionary
 
-    for (let key in time_intervals){  // Loop through all intervals in previously defined time
+    for (interval in time_intervals){  // Loop through all intervals in previously defined time
 
         // only look at intervals where there are enough participants available
         if (length(time_intervals[interval]) >= Math.ceil(length(team.profiles) / 2)) { 
@@ -16,7 +16,7 @@ function consecutiveTime(time_intervals, team){
 
             let next_hour = nextInterval(interval);
 
-            while (next_hour in time_intervals && time_intervals[next_hour].every(user => consecutive_times[interval].users.includes(user))){
+            while ((next_hour in time_intervals) && (time_intervals[next_hour].every(user => consecutive_times[interval].users.includes(user)))){
                 
                 let current_hour_array = interval.split('_');
                 let current_hour_date = current_hour_array[0];
@@ -35,7 +35,7 @@ function consecutiveTime(time_intervals, team){
 
             let prev_hour = prevInterval(interval);
 
-            while (prev_hour in time_intervals && time_intervals[prev_hour].every(user => consecutive_times[interval].users.includes(user))){
+            while ((prev_hour in time_intervals) && (time_intervals[prev_hour].every(user => consecutive_times[interval].users.includes(user)))){
 
                 let current_hour_array = interval.split('_');
                 let current_hour_date = current_hour_array[0];
