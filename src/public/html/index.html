@@ -13,10 +13,9 @@
     <header>Team Cohesion Planner Tool</header>
 
     <!-- NAV MENU -->
-    <nav class="nav">
+    <nav>
         <button id="login_btn_id">Login</button>
-        <button id="team_btn_id">Team</button>
-        <button id="profile_btn_id">Profile</button>
+        <button id="profile_and_team_btn_id">Profile/team</button>
         <button id="interests_btn_id">Interests</button>
         <button id="availability_btn_id">Availability</button>
         <button id="results_btn_id">Results</button>
@@ -27,61 +26,84 @@
     <section id="login_section_id">
         <h1>Login or create a profile</h1>
         <h2>Log in to profile</h2>
-        <!-- <p>Login with name or profile id ("profile_id#"):</p>
-        <form id="profile_login_name_form_id" action="#">
-            <label for="profile_login_name_id">Profile name:</label>
-            <input type="text" id="profile_login_name_id" name="name" required>
-            <input type="submit" id="profile_login_name_form_submit_id" value="Login">
-        </form> -->
-        <form id="profile_login_id_form_id" action="#">
-            <label for="profile_login_id_id">Profile id:</label>
-            <input type="text" id="profile_login_id_id" name="profile_id" required>
-            <input type="submit" id="profile_login_id_form_submit_id" value="Login">
+        <form id="profile_login_username_form_id" action="#">
+            <table>
+                <tr>
+                    <td><label for="profile_login_id_id">Profile Username:</label></td>
+                    <td><input type="text" id="profile_login_username_id" name="username" required></td>
+                </tr>
+            </table>
+            <input type="submit" id="profile_login_username_form_submit_id" value="Login">
         </form>
         <h2>New Profile?</h2>
         <form id="profile_create_form_id" action="#">
-            <label for="profile_create_name_id">Name:</label>
-            <input type="text" id="profile_create_name_id" name="name" required>
+            <table>
+                <tr>
+                    <td><label for="profile_create_username_id">New Profile Username:</label></td>
+                    <td><input type="text" id="profile_create_username_id" name="username" required></td>
+                </tr>
+                <tr>
+                    <td><label for="profile_create_name_id">New Profile Name:</label></td>
+                    <td><input type="text" id="profile_create_name_id" name="name" required></td>
+                </tr>
+            </table>
             <input type="submit" value="Submit">
         </form>
     </section>
 
-    <!-- Profilepage -->
-    <section id="profile_section_id">
-        <h1>Profile info</h1>
-            <p>Name: <span id="profile_name_span_id"></span></p>
-            <p>Profile id: <span id="profile_id_span_id"></span></p>
-            <p>Team name: <span id="team_name_span_id"></span></p>
-            <p>Team id: <span id="team_id_span_id"></span></p>
-            <p>Team time span: <span id="team_time_span_id"></span></p>
-    </section>
+    <!-- Profile and Team page -->
+    <section id="profile_and_team_section_id">
+        <h1>Profile and team info</h1>
+            <table>
+                <tr>
+                    <td><p style="font-weight: bold">Username:</p></td>
+                    <td><p><span id="profile_username_span_id"></span></p></td>
+                </tr>
+                <tr>
+                    <td><p style="font-weight: bold">Name:</p></td>
+                    <td><p><span id="profile_name_span_id"></span></p></td>
+                </tr>
+                <tr>
+                    <td><p style="font-weight: bold">Team ID-name:</p></td>
+                    <td><p><span id="team_id_name_span_id"></span></p></td>
+                </tr>
+                <tr>
+                    <td><p style="font-weight: bold">Team name:</p></td>
+                    <td><p><span id="team_name_span_id"></span></p></td>
+                </tr> 
+                <tr>
+                    <td><p style="font-weight: bold">Team time span:</p></td>
+                    <td><p><span id="team_time_span_id"></span></p></td>
+                </tr>   
+            </table>     
 
-    <!-- Team page -->
-    <section id="team_section_id">
-        <h1>Team</h1>
         <h2>Assign profile to team</h2>
-        <p>Assign with team name or id</p>
-        <form id="team_profile_assign_name_form_id" action="#">
-            <label for="team_profile_assign_name_id">Team name:</label>
-            <input type="text" id="team_profile_assign_name_id" name="name" required>
-            <input type="submit" value="Submit">
-        </form>
-        <form id="team_profile_assign_id_form_id" action="#">
-            <label for="team_profile_assign_id_id">Team id:</label>
-            <input type="text" id="team_profile_assign_id_id" name="team_id" required>
+        <p>Assign profile to to excisting team</p>
+        <form id="team_profile_assign_id_name_form_id">
+            <table>
+                <tr>
+                    <td><label for="team_profile_assign_id_name_id">Team ID-name:</label></td>
+                    <td><input type="text" id="team_profile_assign_id_name_id" name="id_name" required></td>
+                </tr>
+            </table>
+            
+            
             <input type="submit" value="Submit">
         </form>
         
-
-        <h2>New team</h2>
+        <h2>Create and assign profile to new team</h2>
         <p>Create a new team, (profile automatically assigned to team):</p>
-        <form id="team_create_form_id" action="#">
-            <label for="team_create_name_id">Team name:</label>
-            <input type="text" id="team_create_name_id" name="name" required><br>
-            <label for="team_create_timeframe_from_id">Team Timeframe: From:</label>
-            <input type="date" id="team_create_timeframe_from_id" name="timeframe_from" required>
-            <label for="team_create_timeframe_to_id">To:</label>
-            <input type="date" id="team_create_timeframe_to_id" name="timeframe_to" required>
+        <form id="team_create_form_id">
+            <table>
+                <tr>
+                    <td><label for="team_create_id_name_id">Team ID-name:</label></td>
+                    <td><input type="text" id="team_create_id_name_id" name="id_name" required></td>
+                </tr>
+                <tr>
+                    <td><label for="team_create_name_id">Team name:</label></td>
+                    <td><input type="text" id="team_create_name_id" name="name" required></td>
+                </tr>
+            </table>
             <input type="submit" value="Submit">
         </form>
     </section>
@@ -99,23 +121,45 @@
     <!-- Availability page -->
     <section id="availability_section_id">
         <h1>Availability</h1>
-        <p>Page 3 feature-content</p>
+        <form id = "time_picker_form_id" >
+            <input type="submit" value="submit">
+        </form>
     </section>
 
     <!-- Results page -->
     <section id="results_section_id">
+        <h1>Specify Team Planning Timeframe</h1>
+        <form id="team_timeframe_form_id">
+            <label for="team_timeframe_form_from_id">Team Timeframe: From:</label>
+            <input type="date" id="team_timeframe_form_from_id" name="timeframe_from" required>
+            <label for="team_create_timeframe_form_to_id">To:</label>
+            <input type="date" id="team_timeframe_form_to_id" name="timeframe_to" required>
+            <input type="submit" value="Submit">
+        </form>
+
         <h1>Results</h1>
-        <button id="results_btn_id">Calcualte activities and times for team</button>
+        <button id="team_results_btn_id">Calcualte activities and times for team</button>
     </section>
 
     <!-- ABOUT page --> 
     <section id="about_section_id">
         <h1>About this tool</h1>
-        <p>This is a tool</p>
-        <button id="test_profile_btn_id">test_profile_btn_id</button><br>
-        <button id="test_teams_btn_id">test_teams_btn_id</button><br>
-        <button id="test_activities_btn_id">test_activities_btn_id</button><br>
-        <button id="test_interests_btn_id">test_interests_btn_id</button><br>
+        <p>
+            This tool is developed by a team of 2nd semester Computer Science students located at
+            Aalborg University.<br>
+            The tool has been developed as a product for the 2nd semester project in spring 2024. <br>
+            <br>
+            The application is expected to act as a tool for improving team cohesion within a team of Computer Science
+            students at Aalborg University.<br>
+            <br>
+            This tool is created by:<br>
+            Astrid Helene Bak, Dandan Zhao, Sebastian Haahr Lorenzen,
+            Sille Dalberg Korsbakke, Sofie Finnes Øvrelid and Tilde Dalmar Eriksen.<br>
+            <br>
+            Computer Science Bachelor<br>
+            2nd Semester Spring 2024<br>
+            Aalborg University
+        </p>
     </section>
 
     <!-- Script linking -->
@@ -123,7 +167,7 @@
 
     <!-- FOOTER with info, mail and GitHub -->
     <footer>
-        <small>Team Cohesion Tool - Created by: cs-24-sw-2-05 - Contact: <a href="mailto:cs-24-sw-2-05@student.aau.dk">cs-24-sw-2-05@student.aau.dk</a> - Fall 24 project - <a href="https://github.com/cs-24-sw-2-p2-05/team-cohesion-tool">GitHub</a></small>
+        <small>Team Cohesion Tool - Created by: cs-24-sw-2-05 - Contact: <a href="mailto:cs-24-sw-2-05@student.aau.dk">cs-24-sw-2-05@student.aau.dk</a> - Spring 2024 project - <a href="https://github.com/cs-24-sw-2-p2-05/team-cohesion-tool">GitHub</a></small>
     </footer>
 </body>
 </html>

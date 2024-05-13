@@ -68,23 +68,23 @@ function postJson(url, data) {
 
 
 // fetch helper function to get calculated data from server
-function fetchCalculatedData(teamNumber) {
-    return getJson("/teams/" + teamNumber + "/calculate");
+function fetchCalculatedData(teamIDName) {
+    return getJson("/teams/" + teamIDName + "/calculate");
 }
 
 
 // A lot of fetch helper functions to get data from the server
 
 // Fetch profile data from server
-function fetchProfile(profileNumber) {
-    //console.log("fetchProfile: " + profileNumber);
-    return getJson("/profiles/" + profileNumber);
+function fetchProfile(profileUsername) {
+    //console.log("fetchProfile: " + profileUsername);
+    return getJson("/profiles/" + profileUsername);
 }
 
 // Fetch team data from server
-function fetchTeam(teamNumber) {
+function fetchTeam(teamIDName) {
     //console.log("fetchTeam: " + teamNumber);
-    return getJson("/teams/" + teamNumber);
+    return getJson("/teams/" + teamIDName);
 }
 
 // Fetch activity data from server
@@ -113,23 +113,23 @@ function fetchAllActivitiesFromInterest(interestNumber) {
 }
 
 // Fetch all profiles data in relation to a team from server
-function fetchAllProfilesFromTeam(teamNumber) {
-    return getJson("/profiles" + "/teams/" + teamNumber);
+function fetchAllProfilesFromTeam(teamIdName) {
+    return getJson("/profiles" + "/teams/" + teamIdName);
 }
 
 
 // fetch POST helper function to add or update data in the server
 
 // Fetch POST profile data to server
-function postProfile(profileNumber, data) {
-    console.log("fetchProfile: " + profileNumber, data);
-    return postJson("/profiles/" + profileNumber, data);
+function postProfile(profileUsername, data) {
+    console.log("fetchProfile: " + profileUsername, data);
+    return postJson("/profiles/" + profileUsername, data);
 }
 
 // Fetch POST team data to server
-function postTeam(teamNumber, data) {
-    console.log("fetchTeam: " + teamNumber, data);
-    return postJson("/teams/" + teamNumber, data);
+function postTeam(teamIdName, data) {
+    console.log("fetchTeam: " + teamIdName, data);
+    return postJson("/teams/" + teamIdName, data);
 }
 
 // Fetch POST activity data to server
