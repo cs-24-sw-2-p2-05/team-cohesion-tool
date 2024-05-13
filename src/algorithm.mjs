@@ -1,5 +1,79 @@
+// INFO:
+// This file contains the central algorithem for the web-app
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
+"use strict";
+
+// import and exports with ES6 modules
+// exporting functions for testing and for use in program
+export { activitySuggester, timerInterval, consecutiveTime, uniqueAndSort };
+
+// main logic for the algorithm
+function activitySuggester(team, profiles, activities) {
+    let time_intervals = timerInterval(team, profiles);
+    let consecutive_times = consecutiveTime(time_intervals, team);
+    let list_consecutive_times = uniqueAndSort(consecutive_times);
+    let ranked_list = activityRanker(list_consecutive_times, profiles, activities);
+
+    return ranked_list;
+}
 
 
+// TimerInterval function
+function timerInterval(team, profiles) {
+    //fetching all necessary information information
+    let teamInfoObj = team;//fetchTeam(team_id);
+
+    let time_intervals = {};
+
+    //getting and initializing dates
+    let startDate = new Date(teamInfoObj.time_frame["from"]);
+    let endDate = new Date(teamInfoObj.time_frame["to"]);
+
+ //   console.log(startDate);
+ //   console.log(endDate);
+
+    let date = new Date(startDate);
+    
+    //iterating through dates and hours to initialize each element in the dictionary
+    //dd/mm/yyyy_h1_h2
+    while(date <= endDate){
+        for(let hour = 9; hour <= 23; hour++){
+            let hour_interval = hour-1 + "_" + hour;
+
+ //           console.log(date + hour_interval);
+
+            time_intervals[date.toLocaleDateString("en-GB") + "_" + hour_interval] = [];
+        }
+        let newDate = date.setDate(date.getDate() + 1);
+        date = new Date(newDate);
+    }
+    console.log(time_intervals);
+
+    //looking through each profile in team
+    teamInfoObj.profile_ids.forEach(profile => {
+
+        console.log(profile);
+
+        let profileObj = profiles[profile];//fetchProfile(profile);
+
+        console.log(profileObj);
+
+        profileObj.time_availability.forEach(available_interval => {
+            
+            console.log(available_interval);
+
+            time_intervals[available_interval].push(profile);
+        })
+     })
+
+     console.log(time_intervals);
+
+    return time_intervals;
+}
+
+
+// consecutiveTime function
 function consecutiveTime(time_intervals, team){    
 
     let consecutive_times = {};      // Declaring and initialization of new dictionary
@@ -57,9 +131,7 @@ function consecutiveTime(time_intervals, team){
     return consecutive_times;
 }
 
-
-
-// function that changes dd/mm/yyyy_h2_h3 to dd/mm/yyyy_h3_h4
+// helper function that changes dd/mm/yyyy_h2_h3 to dd/mm/yyyy_h3_h4
 function nextInterval(dateString){
     let dateArray = dateString.split('_');
     let date = new Date(dateArray[0]);
@@ -83,7 +155,7 @@ function nextInterval(dateString){
 
 }
 
-// function that changes dd/mm/yyyy_h2_h3 to dd/mm/yyyy_h1_h2
+// helper function that changes dd/mm/yyyy_h2_h3 to dd/mm/yyyy_h1_h2
 function prevInterval(dateString){
     let dateArray = dateString.split("_");
     let date = new Date(dateArray[0]);
@@ -105,3 +177,27 @@ function prevInterval(dateString){
 
     return newDateString;
 }
+
+
+// uniqueAndSort function
+function uniqueAndSort(consecutive_times){
+    
+    
+    
+    
+    
+    /* let list_consecutive_times = [];
+    for (let interval in consecutive_times){
+        list_consecutive_times.push(consecutive_times[interval]);
+    }
+    list_consecutive_times.sort((a, b) => {
+        return a.users.length - b.users.length;
+    });
+    return list_consecutive_times; */
+}
+
+// activityRanker function
+function activityRanker(list_consecutive_times, profiles, activities){
+
+}
+
