@@ -19,6 +19,11 @@ import { Profile, Team, Activity, Interest } from "./objects.mjs";
 // The __dirname  = current/root directory
 const __dirname = import.meta.dirname;
 
+
+import { TimerInterval } from "./app.mjs";
+TimerInterval(database["teams"]["team_id1"], database["profiles"]);
+
+
 // Get data from JSON file, and make a response to client
 function getInduvidualDataFromJSONFileWithResponse(type, id, res) {
     const data = database[type][id]; // Get the specific type of data, together with the key to get specific object in database (like a specific profile)
@@ -83,6 +88,9 @@ function routes() {
     // GET routing for algorithm
     app.get("/teams/:teamIdName/calculate", (req, res) => {
         console.log("calculate request from team:", req.params.teamIdName);
+
+        
+
     });
 
     // Database GET routing
