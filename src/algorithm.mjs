@@ -31,8 +31,8 @@ function timerInterval(team, profiles) {
     let startDate = new Date(teamInfoObj.time_frame["from"]);
     let endDate = new Date(teamInfoObj.time_frame["to"]);
 
- //   console.log(startDate);
- //   console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
 
     let date = new Date(startDate);
     
@@ -42,7 +42,7 @@ function timerInterval(team, profiles) {
         for(let hour = 9; hour <= 23; hour++){
             let hour_interval = hour-1 + "_" + hour;
 
- //           console.log(date + hour_interval);
+            //console.log(date + hour_interval);
 
             time_intervals[date.toLocaleDateString("en-GB") + "_" + hour_interval] = [];
         }
@@ -65,17 +65,17 @@ function timerInterval(team, profiles) {
             console.log(available_interval);
 
             time_intervals[available_interval].push(profile);
-        })
-     })
+        });
+    });
 
-     console.log(time_intervals);
+    console.log(time_intervals);
 
     return time_intervals;
 }
 
 
 // consecutiveTime function
-function consecutiveTime(time_intervals, team){    
+function consecutiveTime(time_intervals, team) {    
 
     let consecutive_times = {};      // Declaring and initialization of new dictionary
 
@@ -95,7 +95,9 @@ function consecutiveTime(time_intervals, team){
 
             let next_hour = nextInterval(interval);
 
-            while ((next_hour in time_intervals) && (time_intervals[next_hour].length > 0) && (time_intervals[next_hour].every(user => consecutive_times[interval].users.includes(user)))){
+            while ((next_hour in time_intervals) 
+                    && (time_intervals[next_hour].length > 0) 
+                    && (time_intervals[next_hour].every(user => consecutive_times[interval].users.includes(user)))){
                 
                 let current_hour_array = interval.split('_');
                 let current_hour_date = current_hour_array[0];
@@ -103,18 +105,20 @@ function consecutiveTime(time_intervals, team){
                 let next_hour_array = next_hour.split('_');
                 let next_hour_date = next_hour_array[0];
 
-                if (current_hour_date != next_hour_date){
+                if (current_hour_date != next_hour_date) {
                     break;
                 }
 
-                    consecutive_times[interval].interval_list.push(next_hour);
+                consecutive_times[interval].interval_list.push(next_hour);
 
                 next_hour = nextInterval(next_hour);
             }
 
             let prev_hour = prevInterval(interval);
 
-            while ((prev_hour in time_intervals) && (time_intervals[prev_hour].length > 0) && (time_intervals[prev_hour].every(user => consecutive_times[interval].users.includes(user)))){
+            while ((prev_hour in time_intervals) 
+                    && (time_intervals[prev_hour].length > 0) 
+                    && (time_intervals[prev_hour].every(user => consecutive_times[interval].users.includes(user)))) {
 
                 let current_hour_array = interval.split('_');
                 let current_hour_date = current_hour_array[0];
@@ -122,7 +126,7 @@ function consecutiveTime(time_intervals, team){
                 let prev_hour_array = prev_hour.split('_');
                 let prev_hour_date = prev_hour_array[0];
 
-                if(current_hour_date != prev_hour_date){
+                if(current_hour_date != prev_hour_date) {
                     break;
                 }
 
@@ -139,21 +143,17 @@ function consecutiveTime(time_intervals, team){
     return consecutive_times;
 }
 
-// helper function that changes dd/mm/yyyy_h2_h3 to dd/mm/yyyy_h3_h4
-function nextInterval(dateString){
-    let dateArray = dateString.split('_');
-    //TODO: make to ISO standard, in the future
-    //but now, we just reaarange
-    let [day, month, year] = dateArray[0].split("/");
-    let formattedDate = `${year}-${month}-${day}`;
-    let date = new Date(formattedDate);
+// helper function that changes yyyy-mm-dd_h2_h3 to yyyy-mm-dd_h3_h4
+function nextInterval(dateString) {
+    let dateArray = dateString.split('_');;
+    let date = new Date(dateArray[0]);
     let startHour = parseInt(dateArray[1]);
     let endHour = parseInt(dateArray[2]);
 
     let newStartHour = (startHour + 1);
     let newEndHour = (endHour + 1);
 
-    if (newEndHour > 23){
+    if (newEndHour > 23) {
         
         date.setDate(date.getDate() + 1);
 
@@ -161,39 +161,30 @@ function nextInterval(dateString){
         newEndHour = 9;
     }
 
-    let newDateString = date.toLocaleDateString('en-GB') + '_' + newStartHour + '_' + newEndHour;
+    let newDateString = date.toISOString().substring(0, 10) + '_' + newStartHour + '_' + newEndHour;
 
     return newDateString;
 
 }
 
-// helper function that changes dd/mm/yyyy_h2_h3 to dd/mm/yyyy_h1_h2
-function prevInterval(dateString){
+// helper function that changes yyyy-mm-dd_h2_h3 to yyyy-mm-dd_h1_h2
+function prevInterval(dateString) {
     let dateArray = dateString.split("_");
-    //TODO: make to ISO standard, in the future
-    //but now, we just reaarange
-    let [day, month, year] = dateArray[0].split("/");
-    let formattedDate = `${year}-${month}-${day}`;
-    let date = new Date(formattedDate);
-
-    console.log(dateArray[0]);
-    console.log(date);
+    let date = new Date(dateArray[0]);
     let startHour = parseInt(dateArray[1]);
     let endHour = parseInt(dateArray[2]);
 
     let newStartHour = (startHour - 1);
-    let newEndHour =(endHour - 1);
+    let newEndHour = (endHour - 1);
 
-    if (newStartHour < 8){
-
+    if (newStartHour < 8) { 
         date.setDate(date.getDate() - 1);
         
-
         newStartHour = 22;
         newEndHour = 23;
     }
 
-    let newDateString = date.toLocaleDateString('en-GB') + '_' + newStartHour + '_' + newEndHour;
+    let newDateString = date.toISOString().substring(0, 10) + '_' + newStartHour + '_' + newEndHour;
     console.log(newDateString);
 
     return newDateString;
@@ -201,7 +192,7 @@ function prevInterval(dateString){
 
 
 // uniqueAndSort function
-function uniqueAndSort(consecutive_times){
+function uniqueAndSort(consecutive_times) {
     
     
     
@@ -218,7 +209,7 @@ function uniqueAndSort(consecutive_times){
 }
 
 // activityRanker function
-function activityRanker(list_consecutive_times, profiles, activities){
+function activityRanker(list_consecutive_times, profiles, activities) {
 
 }
 
