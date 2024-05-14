@@ -591,6 +591,10 @@ function resultSide(){
     container.append(heading);
 
     var result = document.createElement("P");
+    result.id = "activity_todo";
+
+    var result_info = document.createElement("P");
+    result_info.id = "activity_info_todo";
 
     let act = Object.keys(arraytest[0].activity_scores[0]); //dette er saadan man finder id paa aktiviteten der skal anbefales.
     let newString = act.toString();
@@ -601,12 +605,15 @@ function resultSide(){
     fetch.then(fetchedObject => {
         let nameString = fetchedObject.name.toString(); // Convert the name attribute to a string
         let timeString = fetchedObject.time_interval.toString();
-        result.innerHTML = "You should do this activity: " + nameString + "<br>"                   //+result from ActivitySuggester;
-                    + "Activity time: " + timeString + " hours" + "<br>"                               //+time from JSON file
-                    + "Possible participants: " + users + "<br>"                       //+result from ActivitySuggester;
-                    + "Possible time to do the activity within: " + getFirstHour(arraytest) + " to " + getLastHour(arraytest) + " on " + getDate(arraytest) + "<br>";    //+result from ActivitySuggester;
-    
+        
+        result.innerHTML = nameString + "<br>"                   //+result from ActivitySuggester;
+        
+        result_info.innerHTML = "Activity time: " + timeString + " hours" + "<br><br>"                               //+time from JSON file
+        + "Possible participants: " + users + "<br><br>"                       //+result from ActivitySuggester;
+        + "Possible time to do the activity within: " + getFirstHour(arraytest) + " to " + getLastHour(arraytest) + " on " + newGetDate(arraytest) + "<br><br>";    //+result from ActivitySuggester;
+        
         container.append(result);
+        container.append(result_info);
     });
 
 }
@@ -633,23 +640,24 @@ function getLastHour(arraytest) {
     return lastHour.toString();
 }
 
-function getDate(arraytest){
+function newGetDate(arraytest){
     let date = arraytest[0].time_intervals[0];
 
     let dateSplit = date.split('_')[0];
-    
+
+    // Split the date into year, month, and day
     let year = dateSplit.split('-')[0];
-    console.log(year);
-
     let month = dateSplit.split('-')[1];
-    console.log(month);
-
     let day = dateSplit.split('-')[2];
-    console.log(day);
 
-    return day + "-" + month + "-" + year;
+    // Initialize dateSplit as a Date object
+    let newDateSplit = new Date(year, month - 1, day); // Month in Date object is 0-indexed, so subtract 1 from the month
+
+    // Format the date as "dd MonthName yyyy"
+    let localDate = newDateSplit.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
+    return localDate;
 }
-
     
 
     

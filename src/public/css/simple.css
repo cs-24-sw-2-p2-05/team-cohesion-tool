@@ -137,6 +137,15 @@ input.time_chk_btn:checked + label {
     color: white;
 }
 
+#activity_todo {
+    color: black;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+}
 
+#activity_info_todo {
+    font-weight: bold;
+}
 
 
