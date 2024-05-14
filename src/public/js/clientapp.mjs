@@ -610,7 +610,7 @@ function resultSide(){
         
         result_info.innerHTML = "Activity time: " + timeString + " hours" + "<br><br>"                               //+time from JSON file
         + "Possible participants: " + users + "<br><br>"                       //+result from ActivitySuggester;
-        + "Possible time to do the activity within: " + getFirstHour(arraytest) + " to " + getLastHour(arraytest) + " on " + newGetDate(arraytest) + "<br><br>";    //+result from ActivitySuggester;
+        + "Possible time to do the activity within:    " + "The hours  " + getFirstHour(arraytest) + " - " + getLastHour(arraytest) + " on " + newGetDate(arraytest) + "<br><br>";    //+result from ActivitySuggester;
         
         container.append(result);
         container.append(result_info);
