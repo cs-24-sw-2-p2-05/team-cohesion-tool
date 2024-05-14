@@ -188,26 +188,34 @@ function prevInterval(dateString) {
     return newDateString;
 }
 
+function arrayEquals(a, b) {
+    return a.every(item => b.includes(item)) && b.every(item => a.includes(item));
+}
 
-// uniqueAndSort function
 function uniqueAndSort(consecutive_times) {
-    
-    
-    
-    
-    
-    /* let list_consecutive_times = [];
-    for (let interval in consecutive_times){
-        list_consecutive_times.push(consecutive_times[interval]);
+    let list_consecutive_times = [];
+
+    // Create unique list from non-unique elements.
+    for (const interval of Object.values(consecutive_times)){
+        const elem_already_exists = list_consecutive_times.some(elem => {
+            return arrayEquals(interval.users, elem.users) && arrayEquals(interval.interval_list, elem.interval_list)
+        });
+        if (!elem_already_exists) {
+            list_consecutive_times.push(interval);
+        }
     }
+
+    // Sort list by participation amount, then by interval size.
     list_consecutive_times.sort((a, b) => {
-        return a.users.length - b.users.length;
+        const user_size = a.users.length - b.users.length;
+        const interval_size = a.interval_list.length - b.interval_list.length;
+        return (user_size == 0) ? interval_size : user_size;
     });
-    return list_consecutive_times; */
+
+    return list_consecutive_times;
 }
 
 // activityRanker function
 function activityRanker(list_consecutive_times, profiles, activities) {
 
 }
-
