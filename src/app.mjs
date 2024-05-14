@@ -4,7 +4,7 @@
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
 "use strict";
 
-// Import and exports with ES6 modules
+// import and exports with ES6 modules
 
 //export {validateUsername};
 
@@ -25,7 +25,7 @@ function sanitizeString(str) {
     return str;
 }
 
-// Valudation functions
+// Validation functions
 
 function validateUsername(userName) {
     let name = sanitizeString(userName);
@@ -33,23 +33,4 @@ function validateUsername(userName) {
         return name;
     }
     throw new Error(ValidationError);
-}
-
-// Database access functions 
-
-
-// Record forms functions
-
-
-// Conversion functions
-
-
-
-function ActivitySuggester() {
-    let time_intervals = TimerInterval(team, profiles);
-    let consecutive_times = ConsecutiveTime(time_intervals, team);
-    let list_consecutive_times = UniqueAndSort(consecutive_times);
-    let ranked_list = ActivityRanker(list_consecutive_times, profiles, activities);
-
-    return ranked_list;
 }
