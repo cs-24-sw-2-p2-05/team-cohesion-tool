@@ -643,37 +643,6 @@ function getDate(){
     return date.split('_')[0];
 }
 
-let arraytest = [{users: ["Lily", "Sebbl", "Nete", "Karo", "Mustafa"], time_intervals: ["2024-05-13_10_11", "2024-05-13_11_12", "2024-05-13_12_13", "2024-05-13_13_14"], activity_scores: [{"activity_id5": 7}, {"activity_id1" : 4}, {"activity_id3": 2}]}]
-
-let activity = arraytest[0].activity_scores[0];
-
-    //console.log(activity);
-
-    let act = Object.keys(arraytest[0].activity_scores[0]); //dette er saadan man finder id paa aktiviteten der skal anbefales.
-
-    //console.log(act); 
-
-    let newString = act.toString();
-
-    //console.log(newString);
-
-    let split = newString.split('activity_id')[1];
-
-    let fetch = fetchActivity(split); //fetch the activity from database
-
-   fetch.then(fetchedObject => {
-        let nameString = fetchedObject.name.toString(); // Convert the name attribute to a string
-        console.log(nameString); // Print the name as a string
-    });
-
-    //console.log(fetchActivity(split));
-    
-    //console.log(split);
-
-    //console.log(Object.values(arraytest[0].users)); // her findes participants
-
-    //console.log(Object.values(arraytest[0].time_intervals)); // her findes tidsintervaller
-
     
 
     
