@@ -120,16 +120,15 @@ input.time_chk_btn {
 }
 
 input.time_chk_btn + label {
-    background-color: #fabf296e;
-    color: black;
+    background-color: #158affa1;
+    color: white;
     font-size: 1.25em;
     font-weight: bold;
     padding: 0.5em;
     margin-right: 0.5em;
     margin-bottom: 0.5em;
     border-radius: 0.5em;
-    border: none;
-    border-radius: 0em;
+    border-color: #158affa1;
     cursor: pointer;
     display: inline-flex;
     justify-content: space-evenly
