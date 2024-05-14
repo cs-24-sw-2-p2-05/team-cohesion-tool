@@ -18,8 +18,6 @@ function activitySuggester(team, profiles, activities) {
     return ranked_list;
 }
 
-export { consecutiveTime };
-
 // TimerInterval function
 function timerInterval(team, profiles) {
     //fetching all necessary information information
@@ -44,7 +42,7 @@ function timerInterval(team, profiles) {
 
             //console.log(date + hour_interval);
 
-            time_intervals[date.toLocaleDateString("en-GB") + "_" + hour_interval] = [];
+            time_intervals[date.toISOString().substring(0, 10) + "_" + hour_interval] = [];
         }
         let newDate = date.setDate(date.getDate() + 1);
         date = new Date(newDate);
