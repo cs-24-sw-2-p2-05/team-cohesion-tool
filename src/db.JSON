@@ -1,24 +1,24 @@
-{
+{2024_21_22
     "profiles": {
         "profile_id1": {
             "name": "Sille Smilefjæs",
             "activity_ids": ["activity_id1", "activity_id2", "activity_id3"],
-            "time_availability": ["13/05/2024_21_22", "13/05/2024_22_23", "14/05/2024_8_9", "14/05/2024_9_10"]
+            "time_availability": ["2024-05-13_21_22", "2024-05-13_22_23", "2024-05-14_8_9", "2024-05-14_9_10"]
         },
         "profile_id2": {
             "name": "Sebbie Søvnig",
             "activity_ids": ["activity_id5", "activity_id4", "activity_id2"],
-            "time_availability": ["13/05/2024_10_11", "13/05/2024_11_12", "14/05/2024_19_20", "15/05/2024_18_19"]
+            "time_availability": ["2024-05-13_10_11", "2024-05-13_11_12", "2024-05-14_19_20", "2024-05-15_18_19"]
         },
         "profile_id3": {
             "name": "Sofie The Coder",
             "activity_ids": ["activity_id1", "activity_id5", "activity_id3"],
-            "time_availability": ["15/05/2024_17_18", "15/05/2024_18_19", "15/05/2024_22_23"]
+            "time_availability": ["2024-05-15_17_18", "2024-05-15_18_19", "2024-05-15_22_23"]
         },
         "profile_id4": {
             "name": "Daaaan Dandan",
             "activity_ids": ["activity_id1", "activity_id3", "activity_id5"],
-            "time_availability": ["14/05/2024_8_9", "14/05/2024_19_20", "15/05/2024_18_19", "15/05/2024_21_22","15/05/2024_22_23"]
+            "time_availability": ["2024-05-14_8_9", "2024-05-14_19_20", "2024-05-15_18_19", "2024-05-15_21_22","2024-05-15_22_23"]
         },
         "profile_id5": {
             "name": "Tilede Symbolet",

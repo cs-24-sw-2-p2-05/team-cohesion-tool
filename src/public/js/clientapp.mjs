@@ -126,8 +126,8 @@ function countDays (startDate, endDate) {
 function createCheckboxes(date) {
     // Array for timer
     const hours = ["8-9", "9-10", "10-11", "11-12", "12-13", "13-14", "14-15", "15-16", "16-17", "17-18", "18-19", "19-20", "20-21", "21-22", "22-23"];
-    let day = date.toLocaleString('en-GB', {weekday : "long"});
-    let dateString = date.toLocaleDateString('en-GB');
+    const day = date.toLocaleString('en-GB', {weekday : "long"});
+    const dateString = date.toISOString().substring(0, 10);
 
     const fromSubmitBtn = document.querySelector("#time_picker_form_id input[type='submit']");
     const container = document.createElement("div");

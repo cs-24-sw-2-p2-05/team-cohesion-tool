@@ -56,7 +56,7 @@ function timerInterval(team, profiles) {
 
         console.log(profile);
 
-        let profileObj = profiles[profile];//fetchProfile(profile);
+        let profileObj = profiles[profile];
 
         console.log(profileObj);
 
