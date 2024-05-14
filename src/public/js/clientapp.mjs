@@ -604,18 +604,14 @@ function resultSide(){
         result.innerHTML = "You should do this activity: " + nameString + "<br>"                   //+result from ActivitySuggester;
                     + "Activity time: " + timeString + " hours" + "<br>"                               //+time from JSON file
                     + "Possible participants: " + users + "<br>"                       //+result from ActivitySuggester;
-                    + "Possible time to do the activity within: " + getfirstHour() + " to " + getLastHour() + " on " + getDate() + "<br>";    //+result from ActivitySuggester;
+                    + "Possible time to do the activity within: " + getFirstHour(arraytest) + " to " + getLastHour(arraytest) + " on " + getDate(arraytest) + "<br>";    //+result from ActivitySuggester;
     
         container.append(result);
     });
 
 }
 
-
-function getfirstHour() {
-    let length = arraytest[0].time_intervals.length;
-    //console.log(length);
-
+function getFirstHour(arraytest) {
     let firstTime = arraytest[0].time_intervals[0];
     //console.log(firstTime);
 
@@ -625,7 +621,7 @@ function getfirstHour() {
     return firstHour.toString();
 }
 
-function getLastHour() {
+function getLastHour(arraytest) {
     let length = arraytest[0].time_intervals.length;
     
     let lastTime = arraytest[0].time_intervals[length-1];
@@ -637,10 +633,21 @@ function getLastHour() {
     return lastHour.toString();
 }
 
-function getDate(){
+function getDate(arraytest){
     let date = arraytest[0].time_intervals[0];
 
-    return date.split('_')[0];
+    let dateSplit = date.split('_')[0];
+    
+    let year = dateSplit.split('-')[0];
+    console.log(year);
+
+    let month = dateSplit.split('-')[1];
+    console.log(month);
+
+    let day = dateSplit.split('-')[2];
+    console.log(day);
+
+    return day + "-" + month + "-" + year;
 }
 
     
