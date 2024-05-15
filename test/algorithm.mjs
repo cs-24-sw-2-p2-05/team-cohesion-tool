@@ -1,9 +1,69 @@
 'use strict'
 
-import assert from 'node:assert/strict';
-import { describe, it } from 'node:test';
+import assert from 'node:assert/strict'; // https://nodejs.org/api/assert.html
+import { describe, it } from 'node:test'; // https://nodejs.org/api/test.html
 
-import { activitySuggester, timerInterval, consecutiveTime, uniqueAndSort } from '../src/algorithm.mjs';
+import { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, uniqueAndSort } from '../src/algorithm.mjs';
+
+describe('nextInterval', () => {
+    it('should iterate through a full day', () => {
+        const intervals = [
+            ["2024-05-13_8_9",   "2024-05-13_9_10" ],
+            ["2024-05-13_9_10",  "2024-05-13_10_11"],
+            ["2024-05-13_10_11", "2024-05-13_11_12"],
+            ["2024-05-13_11_12", "2024-05-13_12_13"],
+            ["2024-05-13_12_13", "2024-05-13_13_14"],
+            ["2024-05-13_13_14", "2024-05-13_14_15"],
+            ["2024-05-13_14_15", "2024-05-13_15_16"],
+            ["2024-05-13_15_16", "2024-05-13_16_17"],
+            ["2024-05-13_16_17", "2024-05-13_17_18"],
+            ["2024-05-13_17_18", "2024-05-13_18_19"],
+            ["2024-05-13_18_19", "2024-05-13_19_20"],
+            ["2024-05-13_19_20", "2024-05-13_20_21"],
+            ["2024-05-13_20_21", "2024-05-13_21_22"],
+            ["2024-05-13_21_22", "2024-05-13_22_23"],
+        ];
+
+        intervals.forEach(([before, after]) => {
+            assert.strictEqual(nextInterval(before), after);
+        });
+    });
+    it('should change cleanly to the next day', () => {
+        assert.strictEqual(nextInterval("2024-05-13_22_23"), "2024-05-14_8_9");
+        assert.strictEqual(nextInterval("2024-04-30_22_23"), "2024-05-01_8_9");
+        assert.strictEqual(nextInterval("2023-12-31_22_23"), "2024-01-01_8_9");
+    });
+});
+
+describe('prevInterval', () => {
+    it('should iterate through a full day', () => {
+        const intervals = [
+            ["2024-05-13_9_10",  "2024-05-13_8_9"  ],
+            ["2024-05-13_10_11", "2024-05-13_9_10" ],
+            ["2024-05-13_11_12", "2024-05-13_10_11"],
+            ["2024-05-13_12_13", "2024-05-13_11_12"],
+            ["2024-05-13_13_14", "2024-05-13_12_13"],
+            ["2024-05-13_14_15", "2024-05-13_13_14"],
+            ["2024-05-13_15_16", "2024-05-13_14_15"],
+            ["2024-05-13_16_17", "2024-05-13_15_16"],
+            ["2024-05-13_17_18", "2024-05-13_16_17"],
+            ["2024-05-13_18_19", "2024-05-13_17_18"],
+            ["2024-05-13_19_20", "2024-05-13_18_19"],
+            ["2024-05-13_20_21", "2024-05-13_19_20"],
+            ["2024-05-13_21_22", "2024-05-13_20_21"],
+            ["2024-05-13_22_23", "2024-05-13_21_22"],
+        ];
+
+        intervals.forEach(([after, before]) => {
+            assert.strictEqual(prevInterval(after), before);
+        });
+    });
+    it('should change cleanly to the previous day', () => {
+        assert.strictEqual(prevInterval("2024-05-14_8_9"), "2024-05-13_22_23");
+        assert.strictEqual(prevInterval("2024-05-01_8_9"), "2024-04-30_22_23");
+        assert.strictEqual(prevInterval("2024-01-01_8_9"), "2023-12-31_22_23");
+    });
+});
 
 describe('uniqueAndSort', () => {
     it('should deduplicate objects', () => {
@@ -26,7 +86,6 @@ describe('uniqueAndSort', () => {
 
         assert.deepStrictEqual(actual_result, expected_result);
     });
-    it('should sort missorted elements', { todo: true }, () => {});
 });
 
 
