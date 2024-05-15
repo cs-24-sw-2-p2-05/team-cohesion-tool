@@ -47,26 +47,26 @@ function timerInterval(team, profiles) {
         let newDate = date.setDate(date.getDate() + 1);
         date = new Date(newDate);
     }
-    console.log(time_intervals);
+    //console.log(time_intervals);
 
     //looking through each profile in team
     teamInfoObj.profile_ids.forEach(profile => {
 
-        console.log(profile);
+        //console.log(profile);
 
         let profileObj = profiles[profile];
 
-        console.log(profileObj);
+        //console.log(profileObj);
 
         profileObj.time_availability.forEach(available_interval => {
             
-            console.log(available_interval);
+            //console.log(available_interval);
 
             time_intervals[available_interval].push(profile);
         });
     });
 
-    console.log(time_intervals);
+    //console.log(time_intervals);
 
     return time_intervals;
 }
@@ -136,7 +136,7 @@ function consecutiveTime(time_intervals, team) {
         } 
     }
 
-    console.log(consecutive_times);
+    //console.log(consecutive_times);
 
     return consecutive_times;
 }
@@ -183,7 +183,7 @@ function prevInterval(dateString) {
     }
 
     let newDateString = date.toISOString().substring(0, 10) + '_' + newStartHour + '_' + newEndHour;
-    console.log(newDateString);
+    //console.log(newDateString);
 
     return newDateString;
 }
@@ -237,7 +237,7 @@ function activityRanker(list_consecutive_times, profiles, activities){
                     //console.log(list_consecutive_times[i] + activity_key);
 
                     if(profiles[user].activity_ids.includes(activity_key)){
-                       // console.log(activity_key);
+                        //console.log(activity_key);
 
                         if(Object.keys(scored_activities).includes(activity_key) == false){
                             scored_activities[activity_key] = 1;
@@ -299,7 +299,7 @@ function activityRanker(list_consecutive_times, profiles, activities){
         }}})
 
         list_consecutive_times[i].scored_activities = scored_activities;
-        console.log(list_consecutive_times[i]);
+        //console.log(list_consecutive_times[i]);
 
         }
 
@@ -308,7 +308,7 @@ function activityRanker(list_consecutive_times, profiles, activities){
         for (let i = 0; i < lengthOfList; i++){
             let convertDirtoArr = Object.entries(list_consecutive_times[i].scored_activities).map(([key, value]) => ({ [key]: value }));
 
-            console.log("unsorted", convertDirtoArr);
+            //console.log("unsorted", convertDirtoArr);
 
             let sortedArray = convertDirtoArr.sort((a, b) => {
             const valueA = Object.values(a)[0];
@@ -320,7 +320,7 @@ function activityRanker(list_consecutive_times, profiles, activities){
 
         list_consecutive_times[i].scored_activities = sortedArray;
            
-        console.log("sorted", sortedArray);
+        //console.log("sorted", sortedArray);
 
     }    
 

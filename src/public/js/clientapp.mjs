@@ -519,9 +519,11 @@ function postProfileFormEventHandler(event, key) {
 }
 
 // Function to update the team activity results
-function teamActivityResults() {
-    fetchCalculatedData(currentTeamIdName);
-    console.log("teamActivityResults: ", currentTeamIdName);
+async function teamActivityResults() {
+    const ranked_activiites = await fetchCalculatedData(currentTeamIdName);    
+    console.log("teamActivityResults for team: ", currentTeamIdName);
+    console.log("teamActivityResults: ", ranked_activiites);
+    resultSide(ranked_activiites);
 }
 
 
@@ -569,37 +571,39 @@ const teamActivityResutlsBtn = document.getElementById("team_results_btn_id");
 teamActivityResutlsBtn.addEventListener("click", teamActivityResults);
 
 
+
+
 // Genereate elements for DOM on page load
 initialDOMUpdate();
 
-//making sure the button only can be pressed once
+/* //making sure the button only can be pressed once
 const listenOnce = (el, evt, fn) =>
     el.addEventListener(evt, fn, { once: true });
 
 listenOnce(document.getElementById("team_results_btn_id"), 'click', resultSide);
-
+ */
 //document.getElementById("team_results_btn_id").addEventListener("click", resultSide);
 
 //resultatsiden
-function resultSide(){
-    let arraytest = [{users: ["Lily", "Sebbl", "Nete", "Karo", "Mustafa"], time_intervals: ["2024-05-13_10_11", "2024-05-13_11_12", "2024-05-13_12_13", "2024-05-13_13_14"], activity_scores: [{"activity_id5": 7}, {"activity_id1" : 4}, {"activity_id3": 2}]}]
-
+function resultSide(ranked_activiites){
+    // create elements for showing the results
     const container = document.getElementById("mah_results_id");
-
     const heading = document.createElement("h2");
+    const result = document.createElement("P");
+    const result_info = document.createElement("P");
+
+    // remove previous results
+    container.innerHTML = "";
+    
     heading.textContent = "Suggested activity for your team!";
     container.append(heading);
-
-    var result = document.createElement("P");
     result.id = "activity_todo";
-
-    var result_info = document.createElement("P");
     result_info.id = "activity_info_todo";
 
-    let act = Object.keys(arraytest[0].activity_scores[0]); //dette er saadan man finder id paa aktiviteten der skal anbefales.
+    let act = Object.keys(ranked_activiites[0].scored_activities[0]); //dette er saadan man finder id paa aktiviteten der skal anbefales.
     let newString = act.toString();
     let split = newString.split('activity_id')[1];
-    let users = Object.values(arraytest[0].users);
+    let users = Object.values(ranked_activiites[0].users);
     let fetch = fetchActivity(split); //fetch the activity from database
     
     fetch.then(fetchedObject => {
@@ -610,7 +614,7 @@ function resultSide(){
         
         result_info.innerHTML = "Activity duration: " + timeString + " hours" + "<br><br>"                               //+time from JSON file
         + "Team members available: " + users + "<br><br>"                       //+result from ActivitySuggester;
-        + "Available timespan for participants:    " + "The hours  " + getFirstHour(arraytest) + " - " + getLastHour(arraytest) + " on " + newGetDate(arraytest) + "<br><br>";    //+result from ActivitySuggester;
+        + "Available timespan for participants:    " + "The hours  " + getFirstHour(ranked_activiites) + " - " + getLastHour(ranked_activiites) + " on " + newGetDate(ranked_activiites) + "<br><br>";    //+result from ActivitySuggester;
         
         container.append(result);
         container.append(result_info);
@@ -619,7 +623,7 @@ function resultSide(){
 }
 
 function getFirstHour(arraytest) {
-    let firstTime = arraytest[0].time_intervals[0];
+    let firstTime = arraytest[0].interval_list[0];
     //console.log(firstTime);
 
     let firstHour = firstTime.split('_')[1];
@@ -629,9 +633,9 @@ function getFirstHour(arraytest) {
 }
 
 function getLastHour(arraytest) {
-    let length = arraytest[0].time_intervals.length;
+    let length = arraytest[0].interval_list.length;
     
-    let lastTime = arraytest[0].time_intervals[length-1];
+    let lastTime = arraytest[0].interval_list[length-1];
     //console.log(lastTime);
 
     let lastHour = lastTime.split('_')[2];
@@ -641,7 +645,7 @@ function getLastHour(arraytest) {
 }
 
 function newGetDate(arraytest){
-    let date = arraytest[0].time_intervals[0];
+    let date = arraytest[0].interval_list[0];
 
     let dateSplit = date.split('_')[0];
 
@@ -662,29 +666,31 @@ function newGetDate(arraytest){
 
     
 
-/* let currentTimeObj = null;
-let currentTimeId = null; */
+async function resultSideRefactored(ranked_activiites){
+    const best_rank = ranked_activiites[0];
 
-/* function submitAvailableTimeFormHandler(event) {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-    const checkedTime = [];
+    // create elements for showing the results
+    const container = document.getElementById("mah_results_id");
+    const heading = document.createElement("h2");
+    const result = document.createElement("P");
+    const result_info = document.createElement("P");
 
-    for(const checkbox of formData) {
-        if(checkbox.checked) {
-            checkedTime.push(checkbox.name);
-        }
-    }
+    // remove previous results
+    container.innerHTML = "";
 
-    currentTimeObj["time_availability"] = checkedTime;
+    // add new results
 
-    const fullTimeObj = {
-        [currentProfileUsername]: currentProfObj
-    };
+    // title
+    heading.textContent = "Suggested activity for your team!";
+    container.append(heading);
 
-    //console.log(fullTimeObj);
-
-    // Post the updated profile object to the server
-    postProfile(currentProfileUsername, fullProfileObj);
-} */
+    // fetch and create info about the best activity
+    const best_activity = await fetchActivity(best_rank.scored_activities[0].activity_id.split("activity_id")[1]);
+    result.innerHTML = best_activity.name + "<br>";
+    result_info.innerHTML = "Activity duration: " + best_activity.time_interval + " hours" + "<br>"
+    + "Team members available: " + best_rank.users + "<br>"
+    + "Available timespan for participants:    " + " In the hours  " + getFirstHour(ranked_activiites) + " - " + getLastHour(ranked_activiites) + " on " + newGetDate(ranked_activiites) + "<br>";
+    container.appendChild(heading)
+    container.appendChild(result);
+    container.appendChild(result_info);
+}

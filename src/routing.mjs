@@ -15,14 +15,12 @@ import { app } from "./main.mjs";
 export { routes };
 // Import object constructors
 import { Profile, Team, Activity, Interest } from "./objects.mjs";
+// import activitySuggester function (and other functions related to the algorithm)
+import { activitySuggester, timerInterval, consecutiveTime, uniqueAndSort } from "./algorithm.mjs";
+
 
 // The __dirname  = current/root directory
 const __dirname = import.meta.dirname;
-
-
-// Debugging, plz delete
-import { activitySuggester, timerInterval, consecutiveTime, uniqueAndSort } from "./algorithm.mjs";
-let arr1 = activitySuggester(database["teams"]["team_id1"], database["profiles"], database["activities"]);
 
 
 // Get data from JSON file, and make a response to client
@@ -89,9 +87,13 @@ function routes() {
     // GET routing for algorithm
     app.get("/teams/:teamIdName/calculate", (req, res) => {
         console.log("calculate request from team:", req.params.teamIdName);
-
+        const ranked_activiites = activitySuggester(database["teams"][req.params.teamIdName], database["profiles"], database["activities"]);
         
-
+        if (ranked_activiites.length !== 0) {
+            res.json(ranked_activiites);
+        } else {
+            res.status(404).send("No corrolating activities found and times found for team");
+        }
     });
 
     // Database GET routing
