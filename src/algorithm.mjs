@@ -45,8 +45,10 @@ function timerInterval(team, profiles) {
         });
     });
 
+    console.log(time_intervals);
     return time_intervals;
 }
+
 
 
 // consecutiveTime function
@@ -71,8 +73,7 @@ function consecutiveTime(time_intervals, team) {
             let next_hour = nextInterval(interval);
 
             while ((next_hour in time_intervals) 
-                    && (time_intervals[next_hour].length > 0) 
-                    && (time_intervals[next_hour].every(user => consecutive_times[interval].users.includes(user)))){
+                    && (consecutive_times[interval].users.every(user => time_intervals[next_hour].includes(user)))){
                 
                 let current_hour_array = interval.split('_');
                 let current_hour_date = current_hour_array[0];
@@ -91,9 +92,8 @@ function consecutiveTime(time_intervals, team) {
 
             let prev_hour = prevInterval(interval);
 
-            while ((prev_hour in time_intervals) 
-                    && (time_intervals[prev_hour].length > 0) 
-                    && (time_intervals[prev_hour].every(user => consecutive_times[interval].users.includes(user)))) {
+            while ((prev_hour in time_intervals)  
+                    && (consecutive_times[interval].users.every(user => time_intervals[prev_hour].includes(user)))) {
 
                 let current_hour_array = interval.split('_');
                 let current_hour_date = current_hour_array[0];
@@ -113,7 +113,7 @@ function consecutiveTime(time_intervals, team) {
         } 
     }
 
-    //console.log(consecutive_times);
+    console.log(consecutive_times);
 
     return consecutive_times;
 }
