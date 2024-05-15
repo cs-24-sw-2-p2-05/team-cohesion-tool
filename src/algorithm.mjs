@@ -18,55 +18,32 @@ function activitySuggester(team, profiles, activities) {
     return ranked_list;
 }
 
-// TimerInterval function
 function timerInterval(team, profiles) {
-    //fetching all necessary information information
-    let teamInfoObj = team;//fetchTeam(team_id);
-
     let time_intervals = {};
 
-    //getting and initializing dates
-    let startDate = new Date(teamInfoObj.time_frame["from"]);
-    let endDate = new Date(teamInfoObj.time_frame["to"]);
+    // Getting and initializing dates
+    const startDate = new Date(team.time_frame["from"]);
+    const endDate = new Date(team.time_frame["to"]);
 
-    //console.log(startDate);
-    //console.log(endDate);
-
+    // Iterating through dates and hours to initialize each array in the dictionary
     let date = new Date(startDate);
-    
-    //iterating through dates and hours to initialize each element in the dictionary
-    //dd/mm/yyyy_h1_h2
-    while(date <= endDate){
-        for(let hour = 9; hour <= 23; hour++){
-            let hour_interval = hour-1 + "_" + hour;
-
-            //console.log(date + hour_interval);
-
-            time_intervals[date.toISOString().substring(0, 10) + "_" + hour_interval] = [];
+    while(date <= endDate) {
+        for(let hour = 9; hour <= 23; hour++) {
+            time_intervals[date.toISOString().substring(0, 10) + "_" + (hour - 1) + "_" + hour] = [];
         }
         let newDate = date.setDate(date.getDate() + 1);
         date = new Date(newDate);
     }
-    //console.log(time_intervals);
 
-    //looking through each profile in team
-    teamInfoObj.profile_ids.forEach(profile => {
-
-        //console.log(profile);
-
-        let profileObj = profiles[profile];
-
-        //console.log(profileObj);
-
-        profileObj.time_availability.forEach(available_interval => {
-            
-            //console.log(available_interval);
-
-            time_intervals[available_interval].push(profile);
+    // Looking through each profile in team
+    team.profile_ids.forEach(profile_id => {
+        profiles[profile_id].time_availability.forEach(available_interval => {
+            // Ensure that the available interval is between our requested range.
+            if (available_interval in time_intervals) {
+                time_intervals[available_interval].push(profile_id);
+            };
         });
     });
-
-    //console.log(time_intervals);
 
     return time_intervals;
 }
