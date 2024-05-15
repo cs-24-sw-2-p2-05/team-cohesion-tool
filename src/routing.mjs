@@ -22,9 +22,7 @@ const __dirname = import.meta.dirname;
 
 // Debugging, plz delete
 import { activitySuggester, timerInterval, consecutiveTime, uniqueAndSort } from "./algorithm.mjs";
-let arr1 = timerInterval(database["teams"]["team_id1"], database["profiles"]);
-let arr2 = consecutiveTime(arr1, database["teams"]["team_id1"]);
-let arr3 = uniqueAndSort(arr2);
+let arr1 = activitySuggester(database["teams"]["team_id1"], database["profiles"], database["activities"]);
 
 
 // Get data from JSON file, and make a response to client
