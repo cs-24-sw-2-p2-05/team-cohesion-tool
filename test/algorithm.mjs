@@ -125,3 +125,79 @@ describe('timerInterval', () => {
       assert.deepStrictEqual(actual_result, expected_result);; 
     });
   });
+
+  /*
+  describe('consecutiveTime', () => {
+    it('should find times that connect', { todo: true }, () => {
+        // PREPARE
+        const time_intervals ={
+          '2024-05-13_8_9': [],
+          '2024-05-13_9_10': [],
+          '2024-05-13_10_11': [],
+          '2024-05-13_11_12': [],
+          '2024-05-13_12_13': [],
+          '2024-05-13_13_14': [],
+          '2024-05-13_14_15': [],
+          '2024-05-13_15_16': [],
+          '2024-05-13_16_17': [],
+          '2024-05-13_17_18': [],
+          '2024-05-13_18_19': [],
+          '2024-05-13_19_20': [],
+          '2024-05-13_20_21': [],
+          '2024-05-13_21_22': [ 'profile_id1' ],
+          '2024-05-13_22_23': [ 'profile_id1' ],
+          '2024-05-14_8_9': [ 'profile_id1', 'profile_id4' ],
+          '2024-05-14_9_10': [ 'profile_id1' ],
+          '2024-05-14_10_11': [],
+          '2024-05-14_11_12': [],
+          '2024-05-14_12_13': [],
+          '2024-05-14_13_14': [],
+          '2024-05-14_14_15': [],
+          '2024-05-14_15_16': [],
+          '2024-05-14_16_17': [],
+          '2024-05-14_17_18': [],
+          '2024-05-14_18_19': [],
+          '2024-05-14_19_20': [ 'profile_id4' ],
+          '2024-05-14_20_21': [],
+          '2024-05-14_21_22': [],
+          '2024-05-14_22_23': [],
+        };
+
+        const team = {
+          "name": "Bakkeskolen",
+          "profile_ids": ["profile_id1", "profile_id2", "profile_id3", "profile_id4"],
+          "time_frame": {"from" : "2024-05-13", "to" : "2024-05-15"}};
+
+        // DO
+        const actual_result = consecutiveTime(time_intervals, team);
+        const expected_result = {
+          '2024-05-14_8_9': {
+            users: [ 'profile_id1', 'profile_id4' ],
+            interval_list: [ '2024-05']
+          };
+
+        // CHECK
+        assert ...; 
+    });
+    ...
+});
+*/
+
+/*
+describe('activityRanker', () => {
+  it('should rank the activities', { todo: true }, () => {
+      // PREPARE
+      const list_consecutive_times = ...;
+      const profiles = ;
+      const activities = ;
+
+      // DO
+      const actual_result = tested_function(your_variable, ...);
+      const expected_result = ;
+
+      // CHECK
+      assert ...; 
+  });
+  ...
+});
+*/
