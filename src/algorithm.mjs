@@ -58,10 +58,6 @@ function consecutiveTime(time_intervals, team) {
 
     for (let interval in time_intervals){  // Loop through all intervals in previously defined time
 
-        /* if (team.profiles == undefined) {
-            console.log(time_intervals[interval].length, team.profile_ids.length);
-        } */
-
         // only look at intervals where there are enough participants available
         if (time_intervals[interval].length >= Math.ceil(team.profile_ids.length / 2)) { 
             
@@ -112,8 +108,6 @@ function consecutiveTime(time_intervals, team) {
             }
         } 
     }
-
-    console.log(consecutive_times);
 
     return consecutive_times;
 }
