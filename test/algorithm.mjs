@@ -33,6 +33,7 @@ describe('nextInterval', () => {
         assert.strictEqual(nextInterval("2024-04-30_22_23"), "2024-05-01_8_9");
         assert.strictEqual(nextInterval("2023-12-31_22_23"), "2024-01-01_8_9");
     });
+    it('should raise an error if malformed input is given', { todo: true }, () => {});
 });
 
 describe('prevInterval', () => {
@@ -46,6 +47,7 @@ describe('prevInterval', () => {
         assert.strictEqual(prevInterval("2024-05-01_8_9"), "2024-04-30_22_23");
         assert.strictEqual(prevInterval("2024-01-01_8_9"), "2023-12-31_22_23");
     });
+    it('should raise an error if malformed input is given', { todo: true }, () => {});
 });
 
 describe('uniqueAndSort', () => {
