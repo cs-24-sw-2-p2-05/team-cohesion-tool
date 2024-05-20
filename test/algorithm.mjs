@@ -71,6 +71,7 @@ describe('uniqueAndSort', () => {
 
         assert.deepStrictEqual(actual_result, expected_result);
     });
+    it('should sort unsorted input', { todo: true }, () => {});
 });
 
 
