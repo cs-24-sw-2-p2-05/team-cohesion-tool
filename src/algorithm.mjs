@@ -207,15 +207,12 @@ function activityRanker(list_consecutive_times, profiles, activities) {
                         if(Object.keys(scored_activities).includes(activity_key) == false) {
                             scored_activities[activity_key] = 1;
                         } else {
-                        scored_activities[activity_key] += 1;
-                        }
-                       
+                            scored_activities[activity_key] += 1;
+                        }  
                     }
-
                 }
-            
             }
-        })
+        });
 
         list_consecutive_times[i].scored_activities = scored_activities;
 
@@ -240,7 +237,6 @@ function activityRanker(list_consecutive_times, profiles, activities) {
                                 }
                             }
                         });
-
                      limit += 1;
                     }
                  limit += 1;
