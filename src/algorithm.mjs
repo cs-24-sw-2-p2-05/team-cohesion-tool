@@ -45,7 +45,6 @@ function timerInterval(team, profiles) {
         });
     });
 
-    console.log(time_intervals);
     return time_intervals;
 }
 
