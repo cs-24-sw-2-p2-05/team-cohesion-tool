@@ -6,7 +6,7 @@
 
 // import and exports with ES6 modules
 // exporting functions for testing and for use in program
-export { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, uniqueAndSort };
+export { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, arrayEquals, uniqueAndSort };
 
 // main logic for the algorithm
 function activitySuggester(team, profiles, activities) {

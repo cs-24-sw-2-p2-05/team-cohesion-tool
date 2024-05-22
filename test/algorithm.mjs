@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict'; // https://nodejs.org/api/assert.html
 import { describe, it } from 'node:test'; // https://nodejs.org/api/test.html
 
-import { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, uniqueAndSort } from '../src/algorithm.mjs';
+import { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, arrayEquals, uniqueAndSort } from '../src/algorithm.mjs';
 
 const FULL_DAY_OF_TIME_INTERVALS = [
     ["2024-05-13_8_9",   "2024-05-13_9_10" ],
@@ -193,6 +193,27 @@ describe('timerInterval', () => {
                 interval_list: ['2024-05-14_8_9', '2024-05-14_9_10'],
             },
         };
+
+        assert.deepStrictEqual(actual_result, expected_result);
+    });
+});
+
+describe('arrayEquals', () => {
+    it('equal arrays should return true', () => {
+        const array_one = ["string", 4.2, 100, true];
+        const array_two = [100, 4.2, true, "string"];
+
+        const actual_result = arrayEquals(array_one, array_two);
+        const expected_result = true;
+
+        assert.deepStrictEqual(actual_result, expected_result);
+    });
+    it('unequal arrays should return false', () => {
+        const array_one = ["string", 4.2, 100, true];
+        const array_two = [100, 4.2, true, "string", "oops!"];
+
+        const actual_result = arrayEquals(array_one, array_two);
+        const expected_result = false;
 
         assert.deepStrictEqual(actual_result, expected_result);
     });
