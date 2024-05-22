@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict'; // https://nodejs.org/api/assert.html
 import { describe, it } from 'node:test'; // https://nodejs.org/api/test.html
 
-import { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, arrayEquals, uniqueAndSort } from '../src/algorithm.mjs';
+import { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, arrayEquals, uniqueAndSort, activityRanker } from '../src/algorithm.mjs';
 
 const FULL_DAY_OF_TIME_INTERVALS = [
     ["2024-05-13_8_9",   "2024-05-13_9_10" ],
@@ -217,21 +217,116 @@ describe('uniqueAndSort', () => {
     it('should sort unsorted input', { todo: true }, () => {});
 });
 
-/*
+
 describe('activityRanker', () => {
-  it('should rank the activities', { todo: true }, () => {
+  it('should rank the activities', () => {
       // PREPARE
-      const list_consecutive_times = ...;
-      const profiles = ;
-      const activities = ;
+      const list_consecutive_times = [{
+        users: [ 'profile_id1', 'profile_id4' ],
+        interval_list: [ '14/05/2024_8_9', '14/05/2024_9_10', '14/05/2024_10_11' ]
+    }];
+
+      const profiles = {
+        "profile_id1": {
+            "name": "Sille Smilefjæs",
+            "activity_ids": [
+                "activity_id1",
+                "activity_id2",
+                "activity_id3"
+            ],
+            "time_availability": [
+                "2024-05-13_21_22",
+                "2024-05-13_22_23",
+                "2024-05-14_8_9",
+                "2024-05-14_9_10"
+            ]
+        },
+        "profile_id4": {
+            "name": "Daaaan Dandan",
+            "activity_ids": [
+                "activity_id1",
+                "activity_id3",
+                "activity_id5"
+            ],
+            "time_availability": [
+                "2024-05-14_8_9",
+                "2024-05-14_9_10",
+                "2024-05-14_18_19",
+                "2024-05-14_19_20",
+                "2024-05-14_20_21",
+                "2024-05-15_18_19",
+                "2024-05-15_21_22",
+                "2024-05-15_22_23"
+            ]
+        }
+      };
+
+      const activities = {
+        "activity_id1": {
+            "name": "League of Legends",
+            "description": "Kinda like roleplaying in the dark forest",
+            "main_interest_id": "interest_id1",
+            "all_interest_ids": [
+                "interest_id1"
+            ],
+            "time_interval": "1"
+        },
+        "activity_id2": {
+            "name": "World of Warcraft",
+            "description": "Kinda like roleplaying for people who like to grind",
+            "main_interest_id": "interest_id1",
+            "all_interest_ids": [
+                "interest_id1"
+            ],
+            "time_interval": "2"
+        },
+        "activity_id3": {
+            "name": "Counter Strike 2",
+            "description": "Shooty shooty bang bang",
+            "main_interest_id": "interest_id1",
+            "all_interest_ids": [
+                "interest_id1"
+            ],
+            "time_interval": "1"
+        },
+        "activity_id5": {
+            "name": "Visual Arts",
+            "description": "Such as drawing and painting stuff",
+            "main_interest_id": "interest_id2",
+            "all_interest_ids": [
+                "interest_id2"
+            ],
+            "time_interval": "2"
+        }
+      };
 
       // DO
-      const actual_result = tested_function(your_variable, ...);
-      const expected_result = ;
+      const actual_result = activityRanker(list_consecutive_times, profiles, activities);
+      const expected_result = [
+        {
+            users: [
+                "profile_id1",
+                "profile_id4"
+            ],
+            interval_list: [ '14/05/2024_8_9', '14/05/2024_9_10', '14/05/2024_10_11' ],
+            scored_activities: [ {
+                "activity_id1": 2
+            },
+            {
+                "activity_id3": 2
+
+            }, 
+            {
+                "activity_id2": 1.5
+
+            },
+            {
+                "activity_id5": 1
+            } ]
+        }];
 
       // CHECK
-      assert ...; 
+      assert.deepStrictEqual(actual_result, expected_result);
   });
-  ...
 });
-*/
+

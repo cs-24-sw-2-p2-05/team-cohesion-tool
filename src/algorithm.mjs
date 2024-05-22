@@ -6,7 +6,7 @@
 
 // import and exports with ES6 modules
 // exporting functions for testing and for use in program
-export { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, arrayEquals, uniqueAndSort };
+export { activitySuggester, timerInterval, consecutiveTime, nextInterval, prevInterval, arrayEquals, uniqueAndSort, activityRanker };
 
 // main logic for the algorithm
 function activitySuggester(team, profiles, activities) {
@@ -45,6 +45,7 @@ function timerInterval(team, profiles) {
         });
     });
 
+    console.log("time_interval:",time_intervals);
     return time_intervals;
 }
 
@@ -108,6 +109,7 @@ function consecutiveTime(time_intervals, team) {
         } 
     }
 
+    console.log("consec:", consecutive_times);
     return consecutive_times;
 }
 
@@ -182,6 +184,7 @@ function uniqueAndSort(consecutive_times) {
         return (user_size == 0) ? interval_size : user_size;
     });
 
+    console.log("list_consec:", list_consecutive_times);
     return list_consecutive_times;
 }
 
@@ -264,5 +267,6 @@ function activityRanker(list_consecutive_times, profiles, activities) {
     }    
 
     console.log("Activity Ranker:",JSON.stringify(list_consecutive_times, null, 2));
+    console.log(JSON.stringify(list_consecutive_times));
     return list_consecutive_times;
 }
