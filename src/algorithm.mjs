@@ -153,7 +153,6 @@ function prevInterval(dateString) {
     }
 
     let newDateString = date.toISOString().substring(0, 10) + '_' + newStartHour + '_' + newEndHour;
-    //console.log(newDateString);
 
     return newDateString;
 }
@@ -260,6 +259,5 @@ function activityRanker(list_consecutive_times, profiles, activities) {
 
     }    
 
-    console.log("Activity Ranker:",JSON.stringify(list_consecutive_times, null, 2));
     return list_consecutive_times;
 }
