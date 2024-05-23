@@ -224,10 +224,6 @@ function initialInterestDOMUpdate() {
             });
         }
     });
-
-    // Add linebreaks between activities and submit button
-    const br = document.createElement("br");
-    submitBtn.after(br);
 }
 
 
