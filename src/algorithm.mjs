@@ -45,7 +45,6 @@ function timerInterval(team, profiles) {
         });
     });
 
-    console.log("time_interval:",time_intervals);
     return time_intervals;
 }
 
@@ -109,7 +108,6 @@ function consecutiveTime(time_intervals, team) {
         } 
     }
 
-    console.log("consec:", consecutive_times);
     return consecutive_times;
 }
 
@@ -184,7 +182,6 @@ function uniqueAndSort(consecutive_times) {
         return (user_size == 0) ? interval_size : user_size;
     });
 
-    console.log("list_consec:", list_consecutive_times);
     return list_consecutive_times;
 }
 
@@ -222,7 +219,6 @@ function activityRanker(list_consecutive_times, profiles, activities) {
         // add 0.5 score for interest match
         list_consecutive_times[i].users.forEach(profile => {
             let user = profile;
-
             for(const key in scored_activities) {
                 let activity_key = key;
                 
@@ -240,15 +236,13 @@ function activityRanker(list_consecutive_times, profiles, activities) {
                                 }
                             }
                         });
-                     limit += 1;
                     }
-                 limit += 1;
+                limit += 1;
                 }
             }
         });
 
         list_consecutive_times[i].scored_activities = scored_activities;
-        
     }
 
     // convert dictionary and sort activities in each consecutive times
@@ -267,6 +261,5 @@ function activityRanker(list_consecutive_times, profiles, activities) {
     }    
 
     console.log("Activity Ranker:",JSON.stringify(list_consecutive_times, null, 2));
-    console.log(JSON.stringify(list_consecutive_times));
     return list_consecutive_times;
 }
