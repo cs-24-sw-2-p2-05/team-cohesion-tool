@@ -87,10 +87,10 @@ function routes() {
     // GET routing for algorithm
     app.get("/teams/:teamIdName/calculate", (req, res) => {
         console.log("calculate request from team:", req.params.teamIdName);
-        const ranked_activiites = activitySuggester(database["teams"][req.params.teamIdName], database["profiles"], database["activities"]);
+        const ranked_activities = activitySuggester(database["teams"][req.params.teamIdName], database["profiles"], database["activities"]);
         
-        if (ranked_activiites.length !== 0) {
-            res.json(ranked_activiites);
+        if (ranked_activities.length !== 0) {
+            res.json(ranked_activities);
         } else {
             res.status(404).send("No corrolating activities found and times found for team");
         }

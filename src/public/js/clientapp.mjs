@@ -516,10 +516,10 @@ function postProfileFormEventHandler(event, key) {
 
 // Function to update the team activity results
 async function teamActivityResults() {
-    const ranked_activiites = await fetchCalculatedData(currentTeamIdName);    
+    const ranked_activities = await fetchCalculatedData(currentTeamIdName);    
     console.log("teamActivityResults for team: ", currentTeamIdName);
-    console.log("teamActivityResults: ", ranked_activiites);
-    resultSide(ranked_activiites);
+    console.log("teamActivityResults: ", ranked_activities);
+    resultSide(ranked_activities);
 }
 
 
@@ -581,7 +581,7 @@ listenOnce(document.getElementById("team_results_btn_id"), 'click', resultSide);
 //document.getElementById("team_results_btn_id").addEventListener("click", resultSide);
 
 //resultatsiden
-function resultSide(ranked_activiites){
+function resultSide(ranked_activities){
     // create elements for showing the results
     const container = document.getElementById("mah_results_id");
     const heading = document.createElement("h2");
@@ -596,10 +596,10 @@ function resultSide(ranked_activiites){
     result.id = "activity_todo";
     result_info.id = "activity_info_todo";
 
-    let act = Object.keys(ranked_activiites[0].scored_activities[0]); //dette er saadan man finder id paa aktiviteten der skal anbefales.
+    let act = Object.keys(ranked_activities[0].scored_activities[0]); //dette er saadan man finder id paa aktiviteten der skal anbefales.
     let newString = act.toString();
     let split = newString.split('activity_id')[1];
-    let users = Object.values(ranked_activiites[0].users);
+    let users = Object.values(ranked_activities[0].users);
     let fetch = fetchActivity(split); //fetch the activity from database
     
     fetch.then(fetchedObject => {
@@ -610,7 +610,7 @@ function resultSide(ranked_activiites){
         
         result_info.innerHTML = "Activity duration: " + timeString + " hours" + "<br><br>"                               //+time from JSON file
         + "Team members available: " + users + "<br><br>"                       //+result from ActivitySuggester;
-        + "Available timespan for participants:    " + "The hours  " + getFirstHour(ranked_activiites) + " - " + getLastHour(ranked_activiites) + " on " + newGetDate(ranked_activiites) + "<br><br>";    //+result from ActivitySuggester;
+        + "Available timespan for participants:    " + "The hours  " + getFirstHour(ranked_activities) + " - " + getLastHour(ranked_activities) + " on " + newGetDate(ranked_activities) + "<br><br>";    //+result from ActivitySuggester;
         
         container.append(result);
         container.append(result_info);
@@ -662,8 +662,8 @@ function newGetDate(arraytest){
 
     
 
-async function resultSideRefactored(ranked_activiites){
-    const best_rank = ranked_activiites[0];
+async function resultSideRefactored(ranked_activities){
+    const best_rank = ranked_activities[0];
 
     // create elements for showing the results
     const container = document.getElementById("mah_results_id");
@@ -685,7 +685,7 @@ async function resultSideRefactored(ranked_activiites){
     result.innerHTML = best_activity.name + "<br>";
     result_info.innerHTML = "Activity duration: " + best_activity.time_interval + " hours" + "<br>"
     + "Team members available: " + best_rank.users + "<br>"
-    + "Available timespan for participants:    " + " In the hours  " + getFirstHour(ranked_activiites) + " - " + getLastHour(ranked_activiites) + " on " + newGetDate(ranked_activiites) + "<br>";
+    + "Available timespan for participants:    " + " In the hours  " + getFirstHour(ranked_activities) + " - " + getLastHour(ranked_activities) + " on " + newGetDate(ranked_activities) + "<br>";
     container.appendChild(heading)
     container.appendChild(result);
     container.appendChild(result_info);
